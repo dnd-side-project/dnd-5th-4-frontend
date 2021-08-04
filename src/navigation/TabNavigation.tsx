@@ -50,7 +50,7 @@ const MyTabs = ({ route }: { route: any }) => {
                             size={50}
                             color="black"
                             // color={focused ? 'black' : '#C9C9C9'}
-                            style={{ marginBottom: Platform.OS == 'android' ? 50 : 50 }}
+                            style={{ marginBottom: 50 }}
                         />
                     ),
                 }}
