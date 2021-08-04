@@ -10,6 +10,10 @@ module.exports = function (api) {
                     alias: {
                         Fonts: './assets/fonts',
                         Images: './assets/images',
+                        layout: './src/layout',
+                        components: './src/components',
+                        styles: './src/styles',
+                        pages: './src/pages',
                     },
                 },
             ],
