@@ -1,25 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Login from './src/pages/Login';
-import RegisterGender from './src/pages/RegisterGender';
+import { NavigationContainer } from '@react-navigation/native';
+import MyStack from './src/navigation';
 
 export default function App() {
     return (
-        <View style={styles.container}>
-            {/*<Text>Hello world!</Text>*/}
-            {/* <Login /> */}
-            <RegisterGender />
+        <NavigationContainer>
             <StatusBar style="auto" />
-        </View>
+            <SafeAreaView style={{ flex: 1 }}>
+                <MyStack />
+            </SafeAreaView>
+        </NavigationContainer>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
