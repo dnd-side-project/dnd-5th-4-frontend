@@ -1,7 +1,7 @@
-import RegisterLayout from 'layout/Register';
 import React, { useState } from 'react';
 import theme from 'styles/theme';
 import { Text, StyleSheet, TouchableOpacity, Image, View } from 'react-native';
+import RegisterLayout from 'layout/Register';
 import { Box } from './styles';
 
 const topContents = () => {
