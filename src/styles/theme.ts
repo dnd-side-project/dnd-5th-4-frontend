@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+
 const theme = {
     mainColor: {
         activeButton: '#000000',
@@ -11,6 +13,13 @@ const theme = {
         green: '#2EE788',
         skyblue: '#48CFFA',
         deepblue: '#4068B0',
+    },
+    font: {
+        // expo google font
+        regular: { fontFamily: 'NotoSans-Regular', fontWeight: '' },
+        medium: { fontFamily: 'NotoSans-Medium', fontWeight: '' },
+        semiBold: { fontFamily: 'NotoSans-SemiBold', fontWeight: '' },
+        extraBold: { fontFamily: 'NotoSans-ExtraBold', fontWeight: Platform.select({ ios: '', android: '' }) },
     },
 };
 
