@@ -5,7 +5,7 @@ import { BottomContainer, Container, LogoImage, SocialBox, SocialImage, SocialTe
 import { useFonts } from 'expo-font';
 const Login = () => {
     let [fontsLoaded] = useFonts({
-        'Noto-Sans-CJK-KR': require('../../../assets/fonts/NotoSansCJKkr-Regular.otf'),
+        'Noto-Sans-CJK-KR': require('Fonts/NotoSansCJKkr-Regular.otf'),
     });
     if (!fontsLoaded) {
         return null;
@@ -13,8 +13,8 @@ const Login = () => {
     return (
         <Container>
             <TopContainer>
-                <LogoImage source={require('../../../assets/Image/Logo.png')} />
-                <Image source={require('../../../assets/Image/LogoText.png')} />
+                <LogoImage source={require('Images/Logo.png')} />
+                <Image source={require('Images/LogoText.png')} />
             </TopContainer>
             <BottomContainer>
                 <TouchableOpacity>
@@ -22,7 +22,7 @@ const Login = () => {
                         <SocialImage
                             widthSize={'23px'}
                             heightSize={'21px'}
-                            source={require('../../../assets/Image/KakaoLogo.png')}
+                            source={require('Images/KakaoLogo.png')}
                             resizeMode="contain"
                         />
                         <SocialText style={{ fontFamily: 'Noto-Sans-CJK-KR' }}>카카오 로그인</SocialText>
@@ -31,7 +31,7 @@ const Login = () => {
                 <TouchableOpacity>
                     <SocialBox background="#06BE34">
                         <SocialImage
-                            source={require('../../../assets/Image/NaverLogo.png')}
+                            source={require('Images/NaverLogo.png')}
                             resizeMode="contain"
                             widthSize={'20px'}
                             heightSize={'18px'}
@@ -44,7 +44,7 @@ const Login = () => {
                 <TouchableOpacity>
                     <SocialBox background="#1977F3">
                         <SocialImage
-                            source={require('../../../assets/Image/FaceBookLogo.png')}
+                            source={require('Images/FaceBookLogo.png')}
                             resizeMode="contain"
                             widthSize={'22px'}
                             heightSize={'22px'}
@@ -58,7 +58,7 @@ const Login = () => {
                     <SocialBox background="#fff">
                         <SocialImage
                             name={'google'}
-                            source={require('../../../assets/Image/GoogleLogo.png')}
+                            source={require('Images/GoogleLogo.png')}
                             resizeMode="contain"
                             widthSize={'38px'}
                             heightSize={'38px'}
