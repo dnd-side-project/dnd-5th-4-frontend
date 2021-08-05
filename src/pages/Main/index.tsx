@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import { Text, View } from 'react-native';
 import axios from 'axios';
-import Environment from '../../secret/Environment';
-import LocationDate from '../../components/LocationDate';
+import Environment from 'secret/Environment';
+import LocationDate from 'components/LocationDate';
 import { Container } from './stlyes';
+import Weather from 'components/Weather';
 
 const lat = 37.541; //위도
 const lon = 126.934086; //경도
@@ -17,7 +18,30 @@ const Main = () => {
     useEffect(() => {
         KakaoLocation(lat, lon);
         WeatherSearch(lat, lon);
+        CurrentWeatherSearch(lat, lon);
     }, []);
+    const CurrentWeatherSearch = (lat: number, lng: number) => {
+        let params = {
+            lat: lat,
+            lon: lng,
+            appid: Environment.Weather_API,
+            units: 'metric',
+            lang: 'kr',
+            cnt: 1,
+        };
+        axios
+            .get('https://api.openweathermap.org/data/2.5/find?', { params })
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log('날씨 정보를 받아오지 못했습니다');
+                    return;
+                }
+                setCurrentWeather(res?.data?.list[0]);
+            })
+            .catch((err) => {
+                console.log('err');
+            });
+    };
     const KakaoLocation = (lat: number, lng: number) => {
         axios
             .get(`https://dapi.kakao.com/v2/local/geo/coord2regioncode.json?x=${lng}8&y=${lat}`, {
@@ -37,11 +61,12 @@ const Main = () => {
                 console.log(err);
             });
     };
+
     const WeatherSearch = (lat: number, lng: number) => {
         let params = {
             lat: lat,
             lon: lng,
-            exclude: 'minutely,alerts',
+            exclude: 'minutely,alerts,current',
             appid: Environment.Weather_API,
             units: 'metric',
             lang: 'kr',
@@ -53,7 +78,6 @@ const Main = () => {
                     console.log('날씨 정보를 받아오지 못했습니다');
                     return;
                 }
-                setCurrentWeather(res.data?.current);
                 setHourlyWeather(res.data?.hourly.slice(0, 7));
                 setWeeklyWeather(res.data?.daily);
             })
@@ -64,6 +88,7 @@ const Main = () => {
     return (
         <Container>
             <LocationDate Location={Location} setLocation={setLocation} />
+            <Weather currentWeather={currentWeather} hourlyWeather={hourlyWeather} weeklyWeather={weeklyWeather} />
         </Container>
     );
 };
