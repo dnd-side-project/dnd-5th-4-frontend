@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import axios from 'axios';
 import Environment from '../../secret/Environment';
+import LocationDate from '../../components/LocationDate';
+import { Container } from './stlyes';
 
 const lat = 37.541; //위도
 const lon = 126.934086; //경도
@@ -28,7 +30,7 @@ const Main = () => {
                     console.log('지역명을 받아오지 못했습니다');
                     return;
                 }
-                const LocationName = res.data.documents[0].address_name.split(' ');
+                const LocationName = res.data?.documents[0].address_name.split(' ');
                 setLocation(LocationName);
             })
             .catch((err) => {
@@ -51,18 +53,18 @@ const Main = () => {
                     console.log('날씨 정보를 받아오지 못했습니다');
                     return;
                 }
-                setCurrentWeather(res.data.current);
-                setHourlyWeather(res.data.hourly.slice(0, 7));
-                setWeeklyWeather(res.data.daily);
+                setCurrentWeather(res.data?.current);
+                setHourlyWeather(res.data?.hourly.slice(0, 7));
+                setWeeklyWeather(res.data?.daily);
             })
             .catch((err) => {
                 console.log('err', err);
             });
     };
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Main</Text>
-        </View>
+        <Container>
+            <LocationDate Location={Location} setLocation={setLocation} />
+        </Container>
     );
 };
 
