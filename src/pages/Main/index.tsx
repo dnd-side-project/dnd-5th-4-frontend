@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import axios from 'axios';
 import Environment from '../../secret/Environment';
-import LocationDate from '../../components/LocationDate';
+import LocationDate from 'components/LocationDate';
 import { Container } from './stlyes';
 
 const lat = 37.541; //위도
