@@ -1,25 +1,47 @@
 import React, { useEffect, useState } from 'react';
-
-import { Text, View } from 'react-native';
 import axios from 'axios';
-import Environment from 'secret/Environment';
+import Environment from '../../secret/Environment';
 import LocationDate from 'components/LocationDate';
-import { Container } from './stlyes';
+import { Container, WeatherContainer } from './stlyes';
 import Weather from 'components/Weather';
-
-const lat = 37.541; //위도
-const lon = 126.934086; //경도
+import HourlyWeatherDetail from 'components/HourlyWeatherDetail';
+import { View } from 'react-native';
+import DailyWeatherDetail from '../../components/DailyWeatherDetail';
 
 const Main = () => {
     const [currentWeather, setCurrentWeather] = useState([]); // 현재날씨
     const [hourlyWeather, setHourlyWeather] = useState([]); // 시간대별 날씨
-    const [weeklyWeather, setWeeklyWeather] = useState([]); // 주간 날씨
+    const [dailyWeather, setDailyWeather] = useState([]); // 주간 날씨
     const [Location, setLocation] = useState([]);
+    const [weatherMoreShow, setWeatherMoreShow] = useState(false);
+    const [airPollution, setAirPollution] = useState('');
+    const lat = 37.541; //위도
+    const lon = 126.934086; //경도
     useEffect(() => {
         KakaoLocation(lat, lon);
         WeatherSearch(lat, lon);
         CurrentWeatherSearch(lat, lon);
-    }, []);
+        airPollutionSearch(lat, lon);
+    }, [lat, lon]);
+    const airPollutionSearch = (lat: number, lng: number) => {
+        let params = {
+            lat: lat,
+            lon: lng,
+            appid: Environment.Weather_API,
+        };
+        axios
+            .get('https://api.openweathermap.org/data/2.5/air_pollution?', { params })
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log('날씨 정보를 받아오지 못했습니다');
+                    return;
+                }
+                setAirPollution(res?.data?.list[0].main.aqi);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
     const CurrentWeatherSearch = (lat: number, lng: number) => {
         let params = {
             lat: lat,
@@ -79,7 +101,7 @@ const Main = () => {
                     return;
                 }
                 setHourlyWeather(res.data?.hourly.slice(0, 7));
-                setWeeklyWeather(res.data?.daily);
+                setDailyWeather(res.data?.daily);
             })
             .catch((err) => {
                 console.log('err', err);
@@ -88,7 +110,17 @@ const Main = () => {
     return (
         <Container>
             <LocationDate Location={Location} setLocation={setLocation} />
-            <Weather currentWeather={currentWeather} hourlyWeather={hourlyWeather} weeklyWeather={weeklyWeather} />
+            <WeatherContainer>
+                <Weather
+                    currentWeather={currentWeather}
+                    airPollution={airPollution}
+                    dailyWeather={dailyWeather}
+                    weatherMoreShow={weatherMoreShow}
+                    setWeatherMoreShow={setWeatherMoreShow}
+                />
+                {weatherMoreShow && <HourlyWeatherDetail />}
+                {weatherMoreShow && <DailyWeatherDetail />}
+            </WeatherContainer>
         </Container>
     );
 };

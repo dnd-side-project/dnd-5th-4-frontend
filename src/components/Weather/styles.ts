@@ -1,14 +1,14 @@
 import styled from 'styled-components/native';
 export const Container = styled.View`
-    background: #ffffff;
-    border: 1px solid #e7e7e7;
-    border-radius: 4px;
-    padding-horizontal: 14px;
-    padding-top: 16px;
+    border-bottom-width: 1px;
+    border-bottom-color: #e7e7e7;
+`;
+export const TopContainer = styled.View`
     padding-bottom: 12px;
+    padding-top: 16px;
     flex-direction: row;
+    padding-horizontal: 12px;
     justify-content: space-between;
-    margin-top: 8px;
 `;
 export const BoxContainer = styled.View`
     flex-direction: row;
@@ -20,7 +20,7 @@ export const WeatherImage = styled.Image`
     margin-right: 8px;
 `;
 export const Temperature = styled.Text`
-    margin-right: 9px;
+    margin-right: 8px;
 `;
 export const Description = styled.Text``;
 export const Division = styled.Text`
@@ -39,5 +39,30 @@ export const MaxTemperature = styled.Text`
 `;
 export const MinTemperature = styled(MaxTemperature)`
     color: #4068b0;
-    margin-right: 3px;
+    margin-right: 8px;
+`;
+export const DetailWeatherContainer = styled.View`
+    padding-horizontal: 37px;
+    padding-top: 8px;
+    padding-bottom: 20px;
+    flex-direction: row;
+    justify-content: space-between;
+`;
+export const Title = styled.Text`
+    font-size: 12px;
+    line-height: 17px;
+    letter-spacing: -0.3px;
+    color: #000000;
+    margin-bottom: 7px;
+`;
+export const Box = styled.View`
+    align-items: center;
+`;
+
+export const Information = styled.Text<{ color?: any; font?: any }>`
+    color: ${(props) => (!props.color ? '#000000' : props.color)};
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: -0.3px;
 `;
