@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { Animated } from 'react-native';
+import React from 'react';
 import { Text, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import {
@@ -90,7 +89,7 @@ const Weather: React.FC<WeatherProps> = ({
                     </Box>
                     <Box>
                         <Title>강수량</Title>
-                        <Information>{parseInt(rainfall)}mm</Information>
+                        <Information>{rainfall.toFixed(1)}mm</Information>
                     </Box>
                     <Box>
                         <Title>미세</Title>

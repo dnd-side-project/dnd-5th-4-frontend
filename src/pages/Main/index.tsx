@@ -5,7 +5,6 @@ import LocationDate from 'components/LocationDate';
 import { Container, WeatherContainer } from './stlyes';
 import Weather from 'components/Weather';
 import HourlyWeatherDetail from 'components/HourlyWeatherDetail';
-import { View } from 'react-native';
 import DailyWeatherDetail from '../../components/DailyWeatherDetail';
 
 const Main = () => {
@@ -13,7 +12,7 @@ const Main = () => {
     const [hourlyWeather, setHourlyWeather] = useState([]); // 시간대별 날씨
     const [dailyWeather, setDailyWeather] = useState([]); // 주간 날씨
     const [Location, setLocation] = useState([]);
-    const [weatherMoreShow, setWeatherMoreShow] = useState(false);
+    const [weatherMoreShow, setWeatherMoreShow] = useState(true);
     const [airPollution, setAirPollution] = useState('');
     const lat = 37.541; //위도
     const lon = 126.934086; //경도
@@ -101,7 +100,7 @@ const Main = () => {
                     return;
                 }
                 setHourlyWeather(res.data?.hourly.slice(0, 7));
-                setDailyWeather(res.data?.daily);
+                setDailyWeather(res.data?.daily.slice(0, 7));
             })
             .catch((err) => {
                 console.log('err', err);
@@ -118,8 +117,7 @@ const Main = () => {
                     weatherMoreShow={weatherMoreShow}
                     setWeatherMoreShow={setWeatherMoreShow}
                 />
-                {weatherMoreShow && <HourlyWeatherDetail />}
-                {weatherMoreShow && <DailyWeatherDetail />}
+                {weatherMoreShow && <HourlyWeatherDetail hourlyWeather={hourlyWeather} dailyWeather={dailyWeather} />}
             </WeatherContainer>
         </Container>
     );

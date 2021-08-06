@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { Text, View } from 'react-native';
+import { Title } from '../HourlyWeatherDetail/styles';
 
 const DailyWeatherDetail = () => {
     return (
         <View>
-            <Text>DailyWeatherDetail</Text>
+            <Title>주간 날씨</Title>
         </View>
     );
 };
