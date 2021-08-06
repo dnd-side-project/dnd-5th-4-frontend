@@ -60,6 +60,7 @@ const HourlyWeatherDetail: React.FC<HourlyWeatherDetailProps> = ({ hourlyWeather
             <View>
                 <Title>시간대별 날씨</Title>
                 <FlatList
+                    scrollEnabled={false}
                     columnWrapperStyle={{ justifyContent: 'space-between' }}
                     numColumns={numCloumns}
                     data={hourlyWeather}
@@ -70,6 +71,7 @@ const HourlyWeatherDetail: React.FC<HourlyWeatherDetailProps> = ({ hourlyWeather
             <View>
                 <Title>주간 날씨</Title>
                 <FlatList
+                    scrollEnabled={false}
                     columnWrapperStyle={{ justifyContent: 'space-between' }}
                     numColumns={7}
                     data={dailyWeather}
