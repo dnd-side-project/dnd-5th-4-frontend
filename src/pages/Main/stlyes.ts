@@ -9,4 +9,6 @@ export const WeatherContainer = styled.View`
     border: 1px solid #e7e7e7;
     border-radius: 4px;
     margin-top: 8px;
+    flex: 1;
+    margin-bottom: 30px;
 `;

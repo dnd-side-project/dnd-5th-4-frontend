@@ -2,6 +2,8 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
     padding-vertical: 24px;
     padding-horizontal: 20px;
+    flex: 1;
+    justify-content: space-around;
 `;
 export const Title = styled.Text`
     font-size: 14px;
