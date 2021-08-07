@@ -5,7 +5,6 @@ import LocationDate from 'components/LocationDate';
 import { Container, WeatherContainer } from './stlyes';
 import Weather from 'components/Weather';
 import HourlyWeatherDetail from 'components/HourlyWeatherDetail';
-import DailyWeatherDetail from '../../components/DailyWeatherDetail';
 
 const Main = () => {
     const [currentWeather, setCurrentWeather] = useState([]); // 현재날씨

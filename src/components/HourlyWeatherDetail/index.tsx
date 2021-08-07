@@ -28,7 +28,7 @@ const HourlyWeatherDetail: React.FC<HourlyWeatherDetailProps> = ({ hourlyWeather
         const kr_curr = new Date(utc + KR_TIME_DIFF);
         return (
             <View key={index} style={{ alignItems: 'center' }}>
-                <TimeTitle color={index === 0}>{index !== 0 ? kr_curr.getHours() + '시' : '지금'}</TimeTitle>
+                <TimeTitle color={index === 0}>{index !== 0 ? kr_curr.getUTCHours() + '시' : '지금'}</TimeTitle>
                 <WeatherIcon source={WeatherImages[item?.weather[0].icon]} resizeMode={'contain'} />
                 <PrecipitationPercent>{parseInt(String(item.pop * 100))}%</PrecipitationPercent>
                 <Temperature>{parseInt(item.temp)}°</Temperature>
@@ -42,7 +42,7 @@ const HourlyWeatherDetail: React.FC<HourlyWeatherDetailProps> = ({ hourlyWeather
         const kr_curr = new Date(utc + KR_TIME_DIFF);
         return (
             <View style={{ alignItems: 'center' }}>
-                <TimeTitle color={index === 0}>{index === 0 ? '오늘' : Day[kr_curr.getDay()]}</TimeTitle>
+                <TimeTitle color={index === 0}>{index === 0 ? '오늘' : Day[kr_curr.getUTCDay()]}</TimeTitle>
                 <MaxMinTemperature>{parseInt(item.temp.max)}°</MaxMinTemperature>
                 <Bar />
                 <MaxMinTemperature color={true}>{parseInt(item.temp.min)}°</MaxMinTemperature>
