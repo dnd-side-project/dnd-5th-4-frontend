@@ -12,11 +12,11 @@ import {
 import { Dimensions, View } from 'react-native';
 
 const windowHeight = Dimensions.get('window').height;
-type HourlyWeatherDetailProps = {
+type WeatherDetailProps = {
     hourlyWeather: any;
     dailyWeather: any;
 };
-const HourlyWeatherDetail: React.FC<HourlyWeatherDetailProps> = ({ hourlyWeather, dailyWeather }) => {
+const WeatherDetail: React.FC<WeatherDetailProps> = ({ hourlyWeather, dailyWeather }) => {
     const renderHourlyWeather = (item: any, index: number) => {
         const utc = item.dt * 1000;
         const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
@@ -86,4 +86,4 @@ const WeatherImages: { [index: string]: any } = {
     '11n': require('../../../assets/WeatherImage/02n.png'),
     '13n': require('../../../assets/WeatherImage/02n.png'),
 };
-export default HourlyWeatherDetail;
+export default WeatherDetail;

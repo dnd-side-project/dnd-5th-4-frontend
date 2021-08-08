@@ -4,8 +4,8 @@ import Environment from '../../secret/Environment';
 import LocationDate from 'components/LocationDate';
 import { Container, WeatherContainer } from './stlyes';
 import Weather from 'components/Weather';
-import HourlyWeatherDetail from 'components/HourlyWeatherDetail';
-import { Dimensions, View } from 'react-native';
+import WeatherDetail from 'components/WeatherDetail';
+import { Dimensions, ScrollView, View, Text } from 'react-native';
 
 const Main = () => {
     const [currentWeather, setCurrentWeather] = useState([]); // 현재날씨
@@ -109,7 +109,7 @@ const Main = () => {
     };
 
     return (
-        <Container>
+        <Container contentContainerStyle={{ flex: 1 }}>
             <LocationDate Location={Location} setLocation={setLocation} />
             <Weather
                 currentWeather={currentWeather}
@@ -119,8 +119,8 @@ const Main = () => {
                 setWeatherMoreShow={setWeatherMoreShow}
             />
 
-            <View style={{ height: windowHeight - 310 }}>
-                {weatherMoreShow && <HourlyWeatherDetail hourlyWeather={hourlyWeather} dailyWeather={dailyWeather} />}
+            <View style={{ flex: 1 }}>
+                {weatherMoreShow && <WeatherDetail hourlyWeather={hourlyWeather} dailyWeather={dailyWeather} />}
             </View>
         </Container>
     );
