@@ -2,6 +2,8 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
     border-bottom-width: 1px;
     border-bottom-color: #e7e7e7;
+    background-color: #fff;
+    margin-top: 8px;
 `;
 export const TopContainer = styled.View`
     padding-bottom: 12px;

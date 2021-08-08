@@ -4,7 +4,7 @@ export const Container = styled.View`
     padding-horizontal: 18px;
     flex: 1;
 `;
-export const WeatherContainer = styled.View`
+export const WeatherContainer = styled.ScrollView`
     background: #ffffff;
     border: 1px solid #e7e7e7;
     border-radius: 4px;

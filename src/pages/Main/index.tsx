@@ -5,6 +5,7 @@ import LocationDate from 'components/LocationDate';
 import { Container, WeatherContainer } from './stlyes';
 import Weather from 'components/Weather';
 import HourlyWeatherDetail from 'components/HourlyWeatherDetail';
+import { Dimensions, View } from 'react-native';
 
 const Main = () => {
     const [currentWeather, setCurrentWeather] = useState([]); // 현재날씨
@@ -13,6 +14,7 @@ const Main = () => {
     const [Location, setLocation] = useState([]);
     const [weatherMoreShow, setWeatherMoreShow] = useState(true);
     const [airPollution, setAirPollution] = useState('');
+    const windowHeight = Dimensions.get('window').height;
     const lat = 37.541; //위도
     const lon = 126.934086; //경도
     useEffect(() => {
@@ -105,19 +107,21 @@ const Main = () => {
                 console.log('err', err);
             });
     };
+
     return (
         <Container>
             <LocationDate Location={Location} setLocation={setLocation} />
-            <WeatherContainer>
-                <Weather
-                    currentWeather={currentWeather}
-                    airPollution={airPollution}
-                    dailyWeather={dailyWeather}
-                    weatherMoreShow={weatherMoreShow}
-                    setWeatherMoreShow={setWeatherMoreShow}
-                />
+            <Weather
+                currentWeather={currentWeather}
+                airPollution={airPollution}
+                dailyWeather={dailyWeather}
+                weatherMoreShow={weatherMoreShow}
+                setWeatherMoreShow={setWeatherMoreShow}
+            />
+
+            <View style={{ height: windowHeight - 310 }}>
                 {weatherMoreShow && <HourlyWeatherDetail hourlyWeather={hourlyWeather} dailyWeather={dailyWeather} />}
-            </WeatherContainer>
+            </View>
         </Container>
     );
 };
