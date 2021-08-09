@@ -1,0 +1,18 @@
+export const WeatherImages: { [index: string]: any } = {
+    '01d': require('WeatherImage/02n.png'),
+    '02d': require('WeatherImage/02n.png'),
+    '03d': require('WeatherImage/02n.png'),
+    '04d': require('WeatherImage/02n.png'),
+    '09d': require('WeatherImage/02n.png'),
+    '10d': require('WeatherImage/02n.png'),
+    '11d': require('WeatherImage/02n.png'),
+    '13d': require('WeatherImage/02n.png'),
+    '01n': require('WeatherImage/02n.png'),
+    '02n': require('WeatherImage/02n.png'),
+    '03n': require('WeatherImage/02n.png'),
+    '04n': require('WeatherImage/02n.png'),
+    '09n': require('WeatherImage/02n.png'),
+    '10n': require('WeatherImage/02n.png'),
+    '11n': require('WeatherImage/02n.png'),
+    '13n': require('WeatherImage/02n.png'),
+};

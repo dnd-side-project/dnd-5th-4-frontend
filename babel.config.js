@@ -9,11 +9,13 @@ module.exports = function (api) {
                     root: ['./src'],
                     alias: {
                         Fonts: './assets/fonts',
+                        WeatherImage: './assets/weatherImage',
                         Images: './assets/images',
                         layout: './src/layout',
                         components: './src/components',
                         styles: './src/styles',
                         pages: './src/pages',
+                        until: './src/untils',
                     },
                 },
             ],

@@ -10,6 +10,7 @@ import {
     Bar,
 } from './styles';
 import { Dimensions, View } from 'react-native';
+import { WeatherImages } from '../../untils/WeatherImages';
 
 const windowHeight = Dimensions.get('window').height;
 type WeatherDetailProps = {
@@ -67,23 +68,5 @@ const WeatherDetail: React.FC<WeatherDetailProps> = ({ hourlyWeather, dailyWeath
             </View>
         </Container>
     );
-};
-const WeatherImages: { [index: string]: any } = {
-    '01d': require('../../../assets/WeatherImage/02n.png'),
-    '02d': require('../../../assets/WeatherImage/02n.png'),
-    '03d': require('../../../assets/WeatherImage/02n.png'),
-    '04d': require('../../../assets/WeatherImage/02n.png'),
-    '09d': require('../../../assets/WeatherImage/02n.png'),
-    '10d': require('../../../assets/WeatherImage/02n.png'),
-    '11d': require('../../../assets/WeatherImage/02n.png'),
-    '13d': require('../../../assets/WeatherImage/02n.png'),
-    '01n': require('../../../assets/WeatherImage/02n.png'),
-    '02n': require('../../../assets/WeatherImage/02n.png'),
-    '03n': require('../../../assets/WeatherImage/02n.png'),
-    '04n': require('../../../assets/WeatherImage/02n.png'),
-    '09n': require('../../../assets/WeatherImage/02n.png'),
-    '10n': require('../../../assets/WeatherImage/02n.png'),
-    '11n': require('../../../assets/WeatherImage/02n.png'),
-    '13n': require('../../../assets/WeatherImage/02n.png'),
 };
 export default WeatherDetail;

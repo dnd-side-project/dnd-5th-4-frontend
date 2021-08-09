@@ -10,11 +10,14 @@ import {
     MinTemperature,
     Temperature,
     WeatherImage,
+    Description,
     Container,
     Title,
     Box,
     Information,
 } from './styles';
+import { WeatherImages } from '../../untils/WeatherImages';
+
 type WeatherProps = {
     currentWeather: any;
     dailyWeather: any;
@@ -22,24 +25,7 @@ type WeatherProps = {
     setWeatherMoreShow: any;
     airPollution: any;
 };
-const WeatherImages: { [index: string]: any } = {
-    '01d': require('../../../assets/WeatherImage/02n.png'),
-    '02d': require('../../../assets/WeatherImage/02n.png'),
-    '03d': require('../../../assets/WeatherImage/02n.png'),
-    '04d': require('../../../assets/WeatherImage/02n.png'),
-    '09d': require('../../../assets/WeatherImage/02n.png'),
-    '10d': require('../../../assets/WeatherImage/02n.png'),
-    '11d': require('../../../assets/WeatherImage/02n.png'),
-    '13d': require('../../../assets/WeatherImage/02n.png'),
-    '01n': require('../../../assets/WeatherImage/02n.png'),
-    '02n': require('../../../assets/WeatherImage/02n.png'),
-    '03n': require('../../../assets/WeatherImage/02n.png'),
-    '04n': require('../../../assets/WeatherImage/02n.png'),
-    '09n': require('../../../assets/WeatherImage/02n.png'),
-    '10n': require('../../../assets/WeatherImage/02n.png'),
-    '11n': require('../../../assets/WeatherImage/02n.png'),
-    '13n': require('../../../assets/WeatherImage/02n.png'),
-};
+
 const airPollutionArray = ['매우좋음', '좋음', '보통', '나쁨', '매우나쁨'];
 const Weather: React.FC<WeatherProps> = ({
     currentWeather,
@@ -52,17 +38,22 @@ const Weather: React.FC<WeatherProps> = ({
         return null;
     }
     let rainfall = currentWeather.rain === null ? 0 : currentWeather.rain['1h'];
+    const getWeatherColor = (currentWeather: number) => {
+        if (currentWeather >= 31) return '#FF4743';
+        else if (currentWeather >= 26) return '#FFD000';
+        else if (currentWeather >= 18) return '#2EE788';
+        else if (currentWeather > 10) return '#48CFFA';
+        else return '#48CFFA';
+    };
     return (
         <Container>
             <TopContainer>
                 <BoxContainer>
-                    <WeatherImage
-                        source={WeatherImages[currentWeather?.weather[0].icon]}
-                        resizeMode={'contain'}
-                        style={{ width: 38, height: 26 }}
-                    />
-                    <Temperature>{parseInt(currentWeather?.main.temp)}°</Temperature>
-                    <Text>{currentWeather?.weather[0].description}</Text>
+                    <Temperature color={getWeatherColor(currentWeather?.main.temp)}>
+                        {parseInt(currentWeather?.main.temp)}°
+                    </Temperature>
+                    <WeatherImage source={WeatherImages[currentWeather?.weather[0].icon]} resizeMode={'contain'} />
+                    <Description>{currentWeather?.weather[0].description}</Description>
                 </BoxContainer>
                 <BoxContainer>
                     <MaxTemperature>{parseInt(dailyWeather[0].temp.max)}°</MaxTemperature>
@@ -70,7 +61,7 @@ const Weather: React.FC<WeatherProps> = ({
                     <MinTemperature>{parseInt(dailyWeather[0].temp.min)}°</MinTemperature>
                     <Entypo
                         name="chevron-up"
-                        size={24}
+                        size={20}
                         color="#828282"
                         style={{
                             transform: [{ rotate: weatherMoreShow ? '0deg' : '180deg' }],

@@ -6,22 +6,23 @@ import { Container, WeatherContainer } from './stlyes';
 import Weather from 'components/Weather';
 import WeatherDetail from 'components/WeatherDetail';
 import { Dimensions, ScrollView, View, Text } from 'react-native';
-
+import RecordListBox from '../../components/RecordListBox';
 const Main = () => {
     const [currentWeather, setCurrentWeather] = useState([]); // 현재날씨
     const [hourlyWeather, setHourlyWeather] = useState([]); // 시간대별 날씨
     const [dailyWeather, setDailyWeather] = useState([]); // 주간 날씨
     const [Location, setLocation] = useState([]);
-    const [weatherMoreShow, setWeatherMoreShow] = useState(true);
+    const [weatherMoreShow, setWeatherMoreShow] = useState(false);
     const [airPollution, setAirPollution] = useState('');
-    const windowHeight = Dimensions.get('window').height;
-    const lat = 37.541; //위도
-    const lon = 126.934086; //경도
+    const { height } = Dimensions.get('screen');
+
+    const lat = 36.15; //위도
+    const lon = 125.454086; //경도
     useEffect(() => {
-        KakaoLocation(lat, lon);
-        WeatherSearch(lat, lon);
-        CurrentWeatherSearch(lat, lon);
-        airPollutionSearch(lat, lon);
+        KakaoLocation(lat, lon); // 지역명
+        WeatherSearch(lat, lon); //시간대별, 주간날씨
+        CurrentWeatherSearch(lat, lon); // 현재날씨
+        airPollutionSearch(lat, lon); //미세먼지
     }, [lat, lon]);
     const airPollutionSearch = (lat: number, lng: number) => {
         let params = {
@@ -76,6 +77,7 @@ const Main = () => {
                     console.log('지역명을 받아오지 못했습니다');
                     return;
                 }
+
                 const LocationName = res.data?.documents[0].address_name.split(' ');
                 setLocation(LocationName);
             })
@@ -107,23 +109,34 @@ const Main = () => {
                 console.log('err', err);
             });
     };
+    const snapToOffsets = [0, height];
 
+    const [posts, setPosts] = useState(Array);
     return (
-        <Container contentContainerStyle={{ flex: 1 }}>
+        <Container>
             <LocationDate Location={Location} setLocation={setLocation} />
             <Weather
-                currentWeather={currentWeather}
-                airPollution={airPollution}
-                dailyWeather={dailyWeather}
+                currentWeather={currentWeather} //현재날씨
+                airPollution={airPollution} //미세먼지
+                dailyWeather={dailyWeather} //월화수목
                 weatherMoreShow={weatherMoreShow}
                 setWeatherMoreShow={setWeatherMoreShow}
             />
-
-            <View style={{ flex: 1 }}>
-                {weatherMoreShow && <WeatherDetail hourlyWeather={hourlyWeather} dailyWeather={dailyWeather} />}
-            </View>
+            {weatherMoreShow && <WeatherDetail hourlyWeather={hourlyWeather} dailyWeather={dailyWeather} />}
+            {!weatherMoreShow && (
+                <ScrollView
+                    showsHorizontalScrollIndicator={false}
+                    bounces={false}
+                    showsVerticalScrollIndicator={false}
+                    snapToOffsets={snapToOffsets}
+                    snapToEnd={false}
+                    decelerationRate={'fast'}
+                >
+                    <View style={{ marginTop: 40, backgroundColor: 'red', height: height - 270 }} />
+                    <RecordListBox />
+                </ScrollView>
+            )}
         </Container>
     );
 };
-
 export default Main;
