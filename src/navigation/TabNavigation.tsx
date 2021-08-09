@@ -45,13 +45,22 @@ const MyTabs = ({ route }: { route: any }) => {
                 component={UpLoad}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <AntDesign
-                            name="pluscircle"
-                            size={50}
-                            color="black"
-                            // color={focused ? 'black' : '#C9C9C9'}
-                            style={{ marginBottom: 50 }}
-                        />
+                        <View
+                            style={{
+                                position: 'absolute',
+                                bottom: 30,
+                                width: 100,
+                                alignItems: 'center',
+                            }}
+                        >
+                            <AntDesign
+                                name="pluscircle"
+                                size={50}
+                                color="black"
+                                // color={focused ? 'black' : '#C9C9C9'}
+                                // style={{ position: 'absolute', bottom: 30 }}
+                            />
+                        </View>
                     ),
                 }}
             />
