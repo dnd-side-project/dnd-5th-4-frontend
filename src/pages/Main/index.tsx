@@ -20,8 +20,8 @@ const Main = () => {
     const [airPollution, setAirPollution] = useState('');
     const { height } = Dimensions.get('screen');
 
-    const lat = 36.15; //위도
-    const lon = 125.454086; //경도
+    // const lat = 36.15; //위도
+    // const lon = 125.454086; //경도 (서해)
     useEffect(() => {
         KakaoLocation(lat, lon); // 지역명
         WeatherSearch(lat, lon); //시간대별, 주간날씨
@@ -116,7 +116,6 @@ const Main = () => {
     const snapToOffsets = [0, height - 30];
     const [scrollHeight, setScrollHeight] = useState(0);
     const [posts, setPosts] = useState(Array);
-
     return (
         <Container>
             <LocationDate Location={Location} setLocation={setLocation} />

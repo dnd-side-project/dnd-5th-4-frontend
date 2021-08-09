@@ -8,11 +8,13 @@ import { ThemeProvider } from 'styled-components';
 import theme from './src/styles/theme';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import { setCustomText } from 'react-native-global-props';
+
 const useFonts = async () => {
     await Font.loadAsync({
         Roboto400: require('Fonts/Roboto400.ttf'),
-        Roboto500: require('Fonts/Roboto400.ttf'),
-        RobotoBold: require('Fonts/Roboto400.ttf'),
+        Roboto500: require('Fonts/Roboto500.ttf'),
+        RobotoBold: require('Fonts/RobotoBold.ttf'),
         Pretendard400: require('Fonts/Pretendard400.otf'),
         Pretendard500: require('Fonts/Pretendard500.otf'),
         PretendardBold: require('Fonts/PretendardBold.otf'),
@@ -24,6 +26,13 @@ export default function App() {
         await useFonts();
     };
     if (!isReady) {
+        const customTextProps = {
+            style: {
+                fontFamily: 'Pretendard400',
+                fontStyle: 'normal',
+            },
+        };
+        setCustomText(customTextProps);
         return (
             <AppLoading
                 startAsync={LoadFonts}
@@ -35,7 +44,8 @@ export default function App() {
     return (
         <NavigationContainer>
             <ThemeProvider theme={theme}>
-                <SafeAreaView style={{ flex: 1 }}>
+                <StatusBar style={'auto'} />
+                <SafeAreaView style={{ flex: 1, marginTop: Platform.OS ? 24 : 0 }}>
                     <MyStack />
                 </SafeAreaView>
             </ThemeProvider>

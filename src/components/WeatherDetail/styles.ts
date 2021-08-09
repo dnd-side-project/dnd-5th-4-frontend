@@ -18,6 +18,7 @@ export const WeatherIcon = styled.Image`
     height: 11px;
 `;
 export const PrecipitationPercent = styled.Text`
+    font-family: Roboto500;
     font-size: 10px;
     line-height: 12px;
     letter-spacing: -0.3px;
@@ -33,7 +34,6 @@ export const Temperature = styled.Text`
     color: #7d7d7d;
 `;
 export const TimeTitle = styled.Text<{ color?: boolean }>`
-    font-weight: normal;
     font-size: 12px;
     line-height: 17px;
     letter-spacing: -0.3px;
@@ -41,6 +41,7 @@ export const TimeTitle = styled.Text<{ color?: boolean }>`
     margin-bottom: 8px;
 `;
 export const MaxMinTemperature = styled.Text<{ color?: boolean }>`
+    font-family: Roboto400;
     font-size: 12px;
     line-height: 14px;
     text-align: center;

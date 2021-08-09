@@ -4,7 +4,7 @@ export const Container = styled.View`
     border-bottom-width: 1px;
     border-bottom-color: #e7e7e7;
     background-color: #fff;
-    margin-top: 8px;
+    margin-top: 12px;
 `;
 export const TopContainer = styled.View`
     flex-direction: row;
@@ -12,6 +12,8 @@ export const TopContainer = styled.View`
     padding-horizontal: 16px;
     justify-content: space-between;
     height: 40px;
+    box-shadow: 0px 4px 10px rgba(173, 178, 217, 0.25);
+    border-radius: 4px;
 `;
 export const BoxContainer = styled.View`
     flex-direction: row;
@@ -23,6 +25,7 @@ export const WeatherImage = styled.Image`
     margin-right: 8px;
 `;
 export const Description = styled.Text`
+    font-family: Pretendard500;
     font-weight: 500;
     font-size: 14px;
     line-height: 17px;
@@ -31,8 +34,8 @@ export const Description = styled.Text`
     color: #a8abb4;
 `;
 export const Temperature = styled.Text<{ color?: any }>`
+    font-family: PretendardBold;
     margin-right: 8px;
-    font-weight: bold;
     font-size: 18px;
     line-height: 22px;
     text-align: center;
@@ -47,7 +50,7 @@ export const Division = styled.Text`
 `;
 
 export const MaxTemperature = styled.Text`
-    font-weight: bold;
+    font-family: PretendardBold;
     font-size: 14px;
     line-height: 17px;
     text-align: center;
@@ -76,10 +79,11 @@ export const Box = styled.View`
     align-items: center;
 `;
 
-export const Information = styled.Text<{ color?: any; font?: any }>`
+export const Information = styled.Text<{ color?: any; type?: String }>`
     color: ${(props) => (!props.color ? '#000000' : props.color)};
     font-size: 12px;
     line-height: 17px;
     text-align: center;
     letter-spacing: -0.3px;
+    font-family: ${(props) => (props.type === 'Pretendard400' ? 'Pretendard400' : 'Roboto400')};
 `;

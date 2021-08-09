@@ -10,12 +10,6 @@ import axios from 'axios';
 
 const Login = () => {
     const navigation = useNavigation();
-    let [fontsLoaded] = useFonts({
-        'Noto-Sans-CJK-KR': require('Fonts/NotoSansCJKkr-Regular.otf'),
-    });
-    if (!fontsLoaded) {
-        return null;
-    }
     const LoginHandler = async (type: string) => {
         if (type === 'google') {
             try {
@@ -83,7 +77,7 @@ const Login = () => {
                             source={require('Images/KakaoLogo.png')}
                             resizeMode="contain"
                         />
-                        <SocialText style={{ fontFamily: 'Noto-Sans-CJK-KR' }}>카카오 로그인</SocialText>
+                        <SocialText>카카오 로그인</SocialText>
                     </SocialBox>
                 </TouchableOpacity>
                 <TouchableOpacity>
@@ -94,9 +88,7 @@ const Login = () => {
                             widthSize={'20px'}
                             heightSize={'18px'}
                         />
-                        <SocialText color="#fff" style={{ fontFamily: 'Noto-Sans-CJK-KR' }}>
-                            네이버 로그인
-                        </SocialText>
+                        <SocialText color="#fff">네이버 로그인</SocialText>
                     </SocialBox>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -111,9 +103,7 @@ const Login = () => {
                             widthSize={'22px'}
                             heightSize={'22px'}
                         />
-                        <SocialText color="#fff" style={{ fontFamily: 'Noto-Sans-CJK-KR' }}>
-                            페이스북 로그인
-                        </SocialText>
+                        <SocialText color="#fff">페이스북 로그인</SocialText>
                     </SocialBox>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -130,7 +120,7 @@ const Login = () => {
                             widthSize={'38px'}
                             heightSize={'38px'}
                         />
-                        <SocialText style={{ fontFamily: 'Noto-Sans-CJK-KR' }}>구글 로그인</SocialText>
+                        <SocialText>구글 로그인</SocialText>
                     </SocialBox>
                 </TouchableOpacity>
             </BottomContainer>
