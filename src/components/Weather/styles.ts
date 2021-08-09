@@ -8,9 +8,10 @@ export const Container = styled.View`
 `;
 export const TopContainer = styled.View`
     flex-direction: row;
-    padding-vertical: 15px;
+    padding-vertical: 11.5px;
     padding-horizontal: 16px;
     justify-content: space-between;
+    height: 40px;
 `;
 export const BoxContainer = styled.View`
     flex-direction: row;

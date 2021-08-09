@@ -5,8 +5,10 @@ import { Container, Nav, Title } from './styles';
 import { FlatList } from 'react-native-gesture-handler';
 import Post from '../Post';
 import { Dummy } from '../../untils/Dummy';
-
-const RecordListBox = () => {
+type ScrollHeightProps = {
+    scrollHeight: number;
+};
+const RecordListBox: React.FC<ScrollHeightProps> = ({ scrollHeight }) => {
     const [isMyPost, setIsMyPost] = useState(true);
     const [posts, setPosts] = useState(Dummy);
 
@@ -14,9 +16,9 @@ const RecordListBox = () => {
     const renderPost = (item: any) => {
         return <Post post={item} />;
     };
-    const { height } = Dimensions.get('window');
+    const { height } = Dimensions.get('screen');
     return (
-        <Container style={{ height: height - 200, marginTop: 50 }}>
+        <Container style={{ height: scrollHeight }}>
             <Nav>
                 <View style={{ flexDirection: 'row' }}>
                     <Title
