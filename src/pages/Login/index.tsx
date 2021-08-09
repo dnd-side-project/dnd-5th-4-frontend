@@ -1,15 +1,73 @@
 import React from 'react';
-
+import * as Google from 'expo-google-app-auth';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { BottomContainer, Container, LogoImage, SocialBox, SocialImage, SocialText, TopContainer } from './stlyes';
 import { useFonts } from 'expo-font';
+import Environment from '../../secret/Environment';
+import { useNavigation } from '@react-navigation/native';
+import * as Facebook from 'expo-facebook';
+import axios from 'axios';
+
 const Login = () => {
+    const navigation = useNavigation();
     let [fontsLoaded] = useFonts({
         'Noto-Sans-CJK-KR': require('Fonts/NotoSansCJKkr-Regular.otf'),
     });
     if (!fontsLoaded) {
         return null;
     }
+    const LoginHandler = async (type: string) => {
+        if (type === 'google') {
+            try {
+                const googleRes: any = await Google.logInAsync({
+                    iosClientId: Environment.IOS_CLIENT_ID,
+                    androidClientId: Environment.ANDROID_CLIENT_ID,
+                    scopes: ['profile', 'email'],
+                });
+                if (googleRes.type === 'success') {
+                    console.warn('성공', googleRes.user);
+
+                    // navigation.navigate('main');
+                    // AsyncStorage.setItem("google_auth", JSON.stringify(googleRes)).then(
+                    //     () => {
+                    //         navigation.navigate("Dashboard");
+                    //     }
+                    // );
+                }
+            } catch (e) {
+                console.log('에러입니다', e);
+            }
+        } else if (type === 'facebook') {
+            try {
+                await Facebook.initializeAsync({
+                    appId: Environment.FacebookAppid,
+                });
+                const { type, token } = await Facebook.logInWithReadPermissionsAsync({
+                    permissions: ['public_profile'],
+                });
+                if (type === 'success') {
+                    // Get the user's name using Facebook's Graph API
+                    axios
+                        .get(`https://graph.facebook.com/me?access_token=${token}`)
+                        .then((res) => {
+                            if (res.status !== 200) {
+                                console.log('로그인 실패하였습니다.');
+                                return;
+                            }
+                            console.warn('성공했어요');
+                            console.log(res);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
+                }
+            } catch ({ message }) {
+                alert(`Facebook Login Error: ${message}`);
+            }
+        } else {
+            console.log('?');
+        }
+    };
     return (
         <Container>
             <TopContainer>
@@ -41,7 +99,11 @@ const Login = () => {
                         </SocialText>
                     </SocialBox>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        LoginHandler('facebook');
+                    }}
+                >
                     <SocialBox background="#1977F3">
                         <SocialImage
                             source={require('Images/FaceBookLogo.png')}
@@ -54,7 +116,12 @@ const Login = () => {
                         </SocialText>
                     </SocialBox>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        console.log('btttttt');
+                        LoginHandler('google');
+                    }}
+                >
                     <SocialBox background="#fff">
                         <SocialImage
                             name={'google'}
