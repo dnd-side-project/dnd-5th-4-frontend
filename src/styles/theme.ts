@@ -16,6 +16,12 @@ const theme = {
     },
     font: {
         // expo google font
+        Pretendard400: {},
+        Pretendard500: {},
+        PretendardBold: {},
+        Roboto400: {},
+        Roboto500: {},
+        RobotoBold: {},
         regular: { fontFamily: 'NotoSans-Regular', fontWeight: '' },
         medium: { fontFamily: 'NotoSans-Medium', fontWeight: '' },
         semiBold: { fontFamily: 'NotoSans-SemiBold', fontWeight: '' },
