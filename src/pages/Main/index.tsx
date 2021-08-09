@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Environment from '../../secret/Environment';
 import LocationDate from 'components/LocationDate';
-import { Container, WeatherContainer } from './stlyes';
+import { Container } from './stlyes';
 import Weather from 'components/Weather';
 import WeatherDetail from 'components/WeatherDetail';
 import { Dimensions, ScrollView, View, Text } from 'react-native';
@@ -113,9 +113,10 @@ const Main = () => {
                 console.log('err', err);
             });
     };
-    const snapToOffsets = [0, height];
-
+    const snapToOffsets = [0, height - 30];
+    const [scrollHeight, setScrollHeight] = useState(0);
     const [posts, setPosts] = useState(Array);
+
     return (
         <Container>
             <LocationDate Location={Location} setLocation={setLocation} />
@@ -129,6 +130,11 @@ const Main = () => {
             {weatherMoreShow && <WeatherDetail hourlyWeather={hourlyWeather} dailyWeather={dailyWeather} />}
             {!weatherMoreShow && (
                 <ScrollView
+                    onLayout={(event) => {
+                        var { height } = event.nativeEvent.layout;
+                        setScrollHeight(height);
+                    }}
+                    style={{ marginTop: 20, marginBottom: 20 }}
                     showsHorizontalScrollIndicator={false}
                     bounces={false}
                     showsVerticalScrollIndicator={false}
@@ -136,8 +142,10 @@ const Main = () => {
                     snapToEnd={false}
                     decelerationRate={'fast'}
                 >
-                    <View style={{ marginTop: 40, backgroundColor: 'red', height: height - 270 }} />
-                    <RecordListBox />
+                    <View style={{ flex: 1 }}>
+                        <View style={{ backgroundColor: 'orange', height: scrollHeight }} />
+                        <RecordListBox scrollHeight={scrollHeight} />
+                    </View>
                 </ScrollView>
             )}
         </Container>

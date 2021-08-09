@@ -9,7 +9,6 @@ export const Nav = styled.View`
     justify-content: space-between;
     margin-bottom: 20px;
     position: relative;
-    margin-top: 30px;
 `;
 export const Title = styled.Text<{ color?: boolean }>`
     font-size: 14px;
