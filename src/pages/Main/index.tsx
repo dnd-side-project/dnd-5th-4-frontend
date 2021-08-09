@@ -7,6 +7,10 @@ import Weather from 'components/Weather';
 import WeatherDetail from 'components/WeatherDetail';
 import { Dimensions, ScrollView, View, Text } from 'react-native';
 import RecordListBox from '../../components/RecordListBox';
+
+const lat = 37.541; //위도
+const lon = 126.934086; //경도
+
 const Main = () => {
     const [currentWeather, setCurrentWeather] = useState([]); // 현재날씨
     const [hourlyWeather, setHourlyWeather] = useState([]); // 시간대별 날씨
