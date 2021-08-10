@@ -8,6 +8,7 @@ type CharacterProps = {
 };
 const Character: React.FC<CharacterProps> = ({ scrollHeight }, props) => {
     const fadeAnim = useRef(new Animated.Value(0)).current;
+    const scaleAnim = useRef(new Animated.Value(1)).current;
     const [imageWidth, setImageWidth] = useState(0);
     const screenWidth = Dimensions.get('screen').width;
     const Array = [
@@ -21,7 +22,14 @@ const Character: React.FC<CharacterProps> = ({ scrollHeight }, props) => {
                 duration: 1000,
                 useNativeDriver: true,
             }),
-
+            { iterations: 1000 }
+        ).start();
+        Animated.loop(
+            Animated.timing(scaleAnim, {
+                toValue: 1.4,
+                duration: 1000,
+                useNativeDriver: true,
+            }),
             { iterations: 1000 }
         ).start();
     });
@@ -38,11 +46,13 @@ const Character: React.FC<CharacterProps> = ({ scrollHeight }, props) => {
                     style={{ width: screenWidth / 4.5 }}
                 />
             </View>
-            <Image
-                source={require('WeatherMainImage/smallCloude.png')}
-                resizeMode={'contain'}
-                style={{ position: 'absolute', top: 53, right: -30, height: 82 }}
-            />
+            <Animated.View style={{ position: 'absolute', top: 53, right: -30, transform: [{ scale: scaleAnim }] }}>
+                <Image
+                    source={require('WeatherMainImage/smallCloude.png')}
+                    resizeMode={'contain'}
+                    // style={{ position: 'absolute', top: 53, right: -30, height: 82 }}
+                />
+            </Animated.View>
             <Image
                 source={require('WeatherMainImage/cloud.png')}
                 resizeMode={'contain'}
