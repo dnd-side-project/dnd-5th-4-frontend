@@ -24,9 +24,7 @@ const RegisterLayout = ({ children, topContents, titleContents }: RegisterLayout
                 <Title>{titleContents}</Title>
                 <Contents>{children}</Contents>
                 <BottomContainer>
-                    <Button background="#000000" color="#ffffff" onClick={onClick}>
-                        다음
-                    </Button>
+                    <Button>{buttonText}</Button>
                 </BottomContainer>
             </ThemeProvider>
         </Container>
