@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import theme from 'styles/theme';
-import { Text, StyleSheet, TouchableOpacity, Image, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, FlatList, Image } from 'react-native';
 import RegisterLayout from 'layout/Register';
-import { Box } from './styles';
+import { Box, Text } from './styles';
+import { AntDesign } from '@expo/vector-icons';
 
-const topContents = () => {
+const topContents: React.FC = () => {
     return (
-        <>
-            <Text>{'<-'}</Text>
-            <Text>{'건너뛰기'}</Text>
-        </>
+        <TouchableOpacity
+        // onPress={() => {
+        //     this.props.navigation.goBack();
+        // }}
+        >
+            <AntDesign name="left" size={24} color="black" />
+        </TouchableOpacity>
     );
 };
 
@@ -35,8 +39,18 @@ const RegisterGender = () => {
     };
 
     return (
-        <RegisterLayout topContents={topContents} titleContents={titleContents}>
-            <TouchableOpacity>
+        <RegisterLayout
+            topContents={topContents}
+            titleContents={titleContents}
+            subTitleContents={subTitleContents}
+            buttonText="다음"
+        >
+            <View
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                }}
+            >
                 <Box clicked={maleClicked} onClick={onMaleClick}>
                     <Image source={require('Images/smile-blue.jpg')} />
                     <Text>남자</Text>
@@ -45,7 +59,7 @@ const RegisterGender = () => {
                     <Image source={require('Images/smile-blue.jpg')} />
                     <Text>여자</Text>
                 </Box>
-            </TouchableOpacity>
+            </View>
         </RegisterLayout>
     );
 };
