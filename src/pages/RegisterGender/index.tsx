@@ -17,14 +17,9 @@ const topContents: React.FC = () => {
     );
 };
 
-const titleContents = () => {
-    return (
-        <>
-            <Text style={styles.title}>성별을 기입해주세요</Text>
-            <Text style={styles.subTitle}>성별 정보는 옷 추천 기능에서 활용됩니다. </Text>
-        </>
-    );
-};
+const titleContents = () => <Text>성별을 기입해주세요</Text>;
+
+const subTitleContents: React.FC = () => <Text>성별 정보는 옷 추천 기능에서 활용됩니다. </Text>;
 
 const RegisterGender = () => {
     const [maleClicked, setMaleClicked] = useState(false);
@@ -70,6 +65,9 @@ const styles = StyleSheet.create({
     },
     subTitle: {
         color: theme.color.black,
+    },
+    Logo: {
+        marginBottom: 16,
     },
 });
 
