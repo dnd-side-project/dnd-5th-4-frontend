@@ -7,6 +7,7 @@ import Weather from 'components/Weather';
 import WeatherDetail from 'components/WeatherDetail';
 import { Dimensions, ScrollView, View, Text } from 'react-native';
 import RecordListBox from '../../components/RecordListBox';
+import Character from '../../components/Character';
 
 const lat = 37.541; //위도
 const lon = 126.934086; //경도
@@ -133,7 +134,7 @@ const Main = () => {
                         var { height } = event.nativeEvent.layout;
                         setScrollHeight(height);
                     }}
-                    style={{ marginTop: 20, marginBottom: 20 }}
+                    style={{ marginTop: 20 }}
                     showsHorizontalScrollIndicator={false}
                     bounces={false}
                     showsVerticalScrollIndicator={false}
@@ -142,7 +143,7 @@ const Main = () => {
                     decelerationRate={'fast'}
                 >
                     <View style={{ flex: 1 }}>
-                        <View style={{ backgroundColor: 'orange', height: scrollHeight }} />
+                        <Character scrollHeight={scrollHeight} />
                         <RecordListBox scrollHeight={scrollHeight} />
                     </View>
                 </ScrollView>
