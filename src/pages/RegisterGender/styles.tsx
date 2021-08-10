@@ -2,20 +2,28 @@ import styled, { css } from 'styled-components/native';
 import theme from 'styles/theme';
 
 const activeStyle = css`
-    border-color: ${theme.mainColor.activeButton};
-`;
-const unActiveStyle = css`
-    border-color: ${theme.mainColor.unactiveButton};
+    border: 2px solid #000000;
+    box-shadow: none;
 `;
 
 export const Box = styled.View<{ clicked: boolean; onClick: () => void }>`
     border-color: ${theme.mainColor.unactiveButton};
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    padding: 28px;
+    box-shadow: 0px 0px 4px #d6d6d7;
+    flex-direction: column;
+    background: #ffffff;
+
     :hover {
-        border-color: ${theme.mainColor.activeButton};
+        border: 2px solid #000000;
+        box-shadow: none;
     }
 
-    ${(props) => (props.clicked ? activeStyle : unActiveStyle)}
+    ${(props) => (props.clicked ? activeStyle : '')}
 `;
 
-export const Image = styled.Image<{ widthSize?: string; heightSize?: string; name?: string }>`
+export const Text = styled.Text`
+    font-size: 12px;
 `;

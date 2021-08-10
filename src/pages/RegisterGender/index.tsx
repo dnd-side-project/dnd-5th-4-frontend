@@ -52,11 +52,11 @@ const RegisterGender = () => {
                 }}
             >
                 <Box clicked={maleClicked} onClick={onMaleClick}>
-                    <Image source={require('Images/smile-blue.jpg')} />
+                    <Image style={styles.Logo} resizeMode="contain" source={require('Images/smile-blue.jpg')} />
                     <Text>남자</Text>
                 </Box>
                 <Box clicked={femaleClicked} onClick={onFemaleClick}>
-                    <Image source={require('Images/smile-blue.jpg')} />
+                    <Image style={styles.Logo} resizeMode="contain" source={require('Images/smile-blue.jpg')} />
                     <Text>여자</Text>
                 </Box>
             </View>
