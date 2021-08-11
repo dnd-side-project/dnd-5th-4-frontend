@@ -36,7 +36,7 @@ const RecordListBox: React.FC<ScrollHeightProps> = ({ scrollHeight }) => {
                             setIsMyPost(false);
                         }}
                     >
-                        다른 유저들의 기록
+                        다른 유저 기록
                     </Title>
                 </View>
             </Nav>

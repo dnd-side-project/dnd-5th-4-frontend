@@ -8,6 +8,7 @@ module.exports = function (api) {
                 {
                     root: ['./src'],
                     alias: {
+                        WeatherMainImage: './assets/weatherMainImage',
                         Fonts: './assets/fonts',
                         WeatherImage: './assets/weatherImage',
                         Images: './assets/images',

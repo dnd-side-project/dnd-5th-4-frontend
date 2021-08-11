@@ -29,7 +29,6 @@ export default function App() {
         const customTextProps = {
             style: {
                 fontFamily: 'Pretendard400',
-                fontStyle: 'normal',
             },
         };
         setCustomText(customTextProps);
