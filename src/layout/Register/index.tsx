@@ -4,6 +4,7 @@ import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 import { AntDesign } from '@expo/vector-icons';
+import { useFonts } from 'expo-font';
 import {
     Container,
     TopContainer,
@@ -13,13 +14,15 @@ import {
     BottomContainer,
     SubTitleWraper,
     StepBar,
+    TitleText,
+    SubTitleText,
 } from './styles';
 
 interface RegisterLayoutProps {
     children: React.ReactNode;
     topContents: React.ReactNode;
-    titleContents: React.FC;
-    subTitleContents: React.FC;
+    titleContents: string;
+    subTitleContents: string;
     buttonText: string;
 }
 
@@ -37,6 +40,13 @@ const RegisterLayout = ({
     subTitleContents,
     buttonText,
 }: RegisterLayoutProps) => {
+    let [fontsLoaded] = useFonts({
+        'Noto-Sans-CJK-KR': require('Fonts/NotoSansCJKkr-Regular.otf'),
+    });
+    if (!fontsLoaded) {
+        return null;
+    }
+
     return (
         <Container>
             <ThemeProvider theme={theme}>
@@ -55,22 +65,16 @@ const RegisterLayout = ({
                             alert('건너뛰기 button clicked');
                         }}
                     >
-                        <Text style={{ color: '' }}>건너뛰기</Text>
+                        <Text style={{ fontFamily: 'Noto-Sans-CJK-KR' }}>건너뛰기</Text>
                     </TouchableOpacity>
                 </TopContainer>
                 <TitleContainer>
-                    <View style={{ flexDirection: 'column', flex: 1, backgroundColor: 'yellow' }}>
+                    <View style={{ flexDirection: 'column', flex: 1 }}>
                         <Title>
-                            {titleContents}
-                            <Text>체질을 기입해주세요</Text>
+                            <TitleText>{titleContents}</TitleText>
                         </Title>
                         <SubTitle>
-                            {subTitleContents}
-                            <Text>
-                                체질 정보는 옷 추천 기능에서 활용됩니다.
-                                {'\n'}
-                                해당되지 않는다면 건너뛰기를 눌러주세요.
-                            </Text>
+                            <SubTitleText>{subTitleContents}</SubTitleText>
                         </SubTitle>
                     </View>
                     <StepBar />
