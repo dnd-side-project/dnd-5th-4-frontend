@@ -29,10 +29,10 @@ export const TitleWraper = styled.View`
 export const TitleText = styled.Text<{ color?: any }>`
     font-style: normal;
     font-weight: 700;
-    font-size: 24;
-    line-height: 32;
+    font-size: 24px;
+    line-height: 32px;
     text-align: left;
-    letter-spacing: -0.3;
+    letter-spacing: -0.3px;
     flex: 1;
     color: #000;
 `;
@@ -45,10 +45,10 @@ export const SubTitleWraper = styled.View`
 export const SubTitleText = styled.Text<{ color?: any }>`
     font-style: normal;
     font-weight: 400;
-    font-size: 12;
-    line-height: 15;
+    font-size: 12px;
+    line-height: 15px;
     text-align: left;
-    letter-spacing: -0.3;
+    letter-spacing: -0.3px;
     flex: 1;
     color: #00000066;
 `;

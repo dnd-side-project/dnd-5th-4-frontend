@@ -19,14 +19,8 @@ const Login = () => {
                     scopes: ['profile', 'email'],
                 });
                 if (googleRes.type === 'success') {
-                    console.warn('성공', googleRes.user);
-
-                    // navigation.navigate('main');
-                    // AsyncStorage.setItem("google_auth", JSON.stringify(googleRes)).then(
-                    //     () => {
-                    //         navigation.navigate("Dashboard");
-                    //     }
-                    // );
+                    // console.warn('성공', googleRes.user.id);
+                    navigation.navigate('RegisterNickName', { userId: googleRes.user.id });
                 }
             } catch (e) {
                 console.log('에러입니다', e);
@@ -48,8 +42,7 @@ const Login = () => {
                                 console.log('로그인 실패하였습니다.');
                                 return;
                             }
-                            console.warn('성공했어요');
-                            console.log(res);
+                            navigation.navigate('RegisterNickName', { userId: res?.data?.id });
                         })
                         .catch((err) => {
                             console.log(err);
@@ -108,7 +101,6 @@ const Login = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
-                        console.log('btttttt');
                         LoginHandler('google');
                     }}
                 >

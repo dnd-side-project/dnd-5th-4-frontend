@@ -8,6 +8,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import UpLoad from '../pages/UpLoad';
 import { AntDesign } from '@expo/vector-icons';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
+import UploadWeather from '../pages/UploadWeather';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,7 +43,7 @@ const MyTabs = ({ route }: { route: any }) => {
             />
             <Tab.Screen
                 name="UpLoad"
-                component={UpLoad}
+                component={UploadWeather}
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <View

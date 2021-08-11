@@ -16,7 +16,7 @@ export const TitleContainer = styled.View``;
 export const TitleText = styled.Text<{ color?: any }>`
     font-family: PretendardBold;
     font-size: 24px;
-    line-height: 28;
+    line-height: 28px;
     text-align: left;
     color: #000;
 `;
