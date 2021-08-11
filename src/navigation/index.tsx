@@ -14,13 +14,13 @@ const MyStack = () => {
             screenOptions={({ route, navigation }) => ({
                 headerShown: false,
             })}
-            initialRouteName="Home"
+            initialRouteName="RegisterNickName"
         >
             <Stack.Screen name="RegisterGender" component={RegisterGender} />
             <Stack.Screen name="Home" component={MyTabs} />
             <Stack.Screen name="Upload" component={UpLoad} />
-            <Stack.Screen name={'Login'} component={Login} />
-            <Stack.Screen name={'RegisterNickName'} component={RegisterNickName} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="RegisterNickName" component={RegisterNickName} />
         </Stack.Navigator>
     );
 };
