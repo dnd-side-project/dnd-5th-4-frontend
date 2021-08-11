@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 type ButtonProps = {
     children: string;
@@ -7,22 +7,24 @@ type ButtonProps = {
 
 const Button = ({ children, ...props }: ButtonProps) => {
     return (
-        <View style={styles.button}>
+        <TouchableOpacity style={styles.button}>
             <Text style={styles.text}>{children}</Text>
-        </View>
+        </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
     button: {
         alignItems: 'center',
-        // backgroundColor: ${(props) => props.background},
         backgroundColor: '#000',
         height: 44,
         justifyContent: 'center',
     },
     text: {
-        // color: ${(props) => props.color};
+        fontSize: 16,
+        lineHeight: 23,
+        letterSpacing: -0.3,
+        fontFamily: 'Pretendard500',
         color: '#fff',
     },
 });
