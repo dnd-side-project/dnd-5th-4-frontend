@@ -20,7 +20,7 @@ import {
 
 interface RegisterLayoutProps {
     children: React.ReactNode;
-    topContents: React.ReactNode;
+    topContents: string | React.ReactNode;
     titleContents: string;
     subTitleContents: string;
     buttonText: string;
@@ -58,14 +58,14 @@ const RegisterLayout = ({
                             // this.props.navigation.goBack();
                         }}
                     >
-                        <AntDesign name="left" size={24} color="black" />
+                        <AntDesign name="left" size={24} color="black" iconStyle={{ left: 0 }} />
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
                             alert('건너뛰기 button clicked');
                         }}
                     >
-                        <Text style={{ fontFamily: 'Noto-Sans-CJK-KR' }}>건너뛰기</Text>
+                        <Text style={{ fontFamily: 'Noto-Sans-CJK-KR' }}>{topContents}</Text>
                     </TouchableOpacity>
                 </TopContainer>
                 <TitleContainer>
