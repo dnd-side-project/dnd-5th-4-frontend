@@ -10,6 +10,7 @@ export const Container = styled.View`
     margin-bottom: 11px;
     padding-horizontal: 15px;
     background-color: #fff;
+    box-shadow: 0px 0px 4px #d6d6d7;
 `;
 export const Expression = styled.Image`
     width: 54px;
@@ -17,7 +18,7 @@ export const Expression = styled.Image`
     margin-right: 12px;
 `;
 export const Temperature = styled.Text<{ color?: String }>`
-    font-weight: bold;
+    font-family: PretendardBold;
     font-size: 14px;
     line-height: 17px;
     text-align: center;
@@ -42,7 +43,7 @@ export const UserName = styled.Text`
     color: #a5a5b4;
 `;
 export const Mood = styled.Text`
-    font-weight: bold;
+    font-family: PretendardBold;
     font-size: 16px;
     line-height: 19px;
     letter-spacing: -0.3px;
@@ -57,9 +58,9 @@ export const TypeBox = styled.View`
     margin-bottom: 8px;
 `;
 export const ClothesName = styled.Text`
+    font-family: Pretendard500;
     font-size: 12px;
     line-height: 14px;
-    text-align: right;
     letter-spacing: -0.3px;
     color: #000000;
 `;
@@ -67,6 +68,7 @@ export const Clothes = styled.Text`
     font-size: 12px;
     line-height: 14px;
     letter-spacing: -0.3px;
+
     color: #8a8d97;
-    margin-right: 19px;
+    margin-right: 17px;
 `;

@@ -84,7 +84,9 @@ const Weather: React.FC<WeatherProps> = ({
                     </Box>
                     <Box>
                         <Title>미세</Title>
-                        <Information color={'#4068B0'}>{airPollutionArray[airPollution - 1]}</Information>
+                        <Information color={'#4068B0'} type={'Pretendard400'}>
+                            {airPollutionArray[airPollution - 1]}
+                        </Information>
                     </Box>
                     <Box>
                         <Title>체감온도</Title>

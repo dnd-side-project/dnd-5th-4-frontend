@@ -20,16 +20,16 @@ const RecordListBox: React.FC<ScrollHeightProps> = ({ scrollHeight }) => {
     return (
         <Container style={{ height: scrollHeight }}>
             <Nav>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1 }}>
                     <Title
                         color={isMyPost}
-                        style={{ marginRight: 30 }}
                         onPress={() => {
                             setIsMyPost(true);
                         }}
                     >
                         내 기록
                     </Title>
+
                     <Title
                         color={!isMyPost}
                         onPress={() => {
@@ -39,7 +39,6 @@ const RecordListBox: React.FC<ScrollHeightProps> = ({ scrollHeight }) => {
                         다른 유저들의 기록
                     </Title>
                 </View>
-                <Text>더운 순</Text>
             </Nav>
             <FlatList
                 // ListHeaderComponent={HeaderComponent}

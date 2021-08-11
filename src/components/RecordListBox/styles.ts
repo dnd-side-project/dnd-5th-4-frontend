@@ -12,7 +12,7 @@ export const Nav = styled.View`
 `;
 export const Title = styled.Text<{ color?: boolean }>`
     font-size: 14px;
-    line-height: 20px;
+    line-height: 17px;
     letter-spacing: -0.3px;
-    color: ${(props) => (!props.color ? '#717171' : '#000000')};
+    color: ${(props) => (!props.color ? '#A3A4AF' : '#000000')};
 `;
