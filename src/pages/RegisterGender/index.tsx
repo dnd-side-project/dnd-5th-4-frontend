@@ -17,15 +17,6 @@ const topContents: React.FC = () => {
     );
 };
 
-const titleContents = () => {
-    return (
-        <>
-            <Text style={styles.title}>성별을 기입해주세요</Text>
-            <Text style={styles.subTitle}>성별 정보는 옷 추천 기능에서 활용됩니다. </Text>
-        </>
-    );
-};
-
 const RegisterGender = () => {
     const [maleClicked, setMaleClicked] = useState(false);
     const [femaleClicked, setFemaleClicked] = useState(false);
@@ -41,14 +32,14 @@ const RegisterGender = () => {
     return (
         <RegisterLayout
             topContents={topContents}
-            titleContents={titleContents}
-            subTitleContents={subTitleContents}
+            titleContents="성별을 기입해주세요"
+            subTitleContents="성별 정보는 옷 추천 기능에서 활용됩니다."
             buttonText="다음"
         >
             <View
                 style={{
                     flexDirection: 'row',
-                    justifyContent: 'space-around',
+                    justifyContent: 'space-between',
                 }}
             >
                 <Box clicked={maleClicked} onClick={onMaleClick}>
@@ -70,6 +61,10 @@ const styles = StyleSheet.create({
     },
     subTitle: {
         color: theme.color.black,
+    },
+    Logo: {
+        marginBottom: 16,
+        width: 94,
     },
 });
 
