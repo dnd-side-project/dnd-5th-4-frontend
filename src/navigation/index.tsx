@@ -5,6 +5,7 @@ import Login from '../pages/Login';
 import MyTabs from './TabNavigation';
 import UpLoad from '../pages/UpLoad';
 import RegisterGender from 'pages/RegisterGender';
+import RegisterConstitution from 'pages/RegisterConstitution';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +17,7 @@ const MyStack = () => {
             })}
             initialRouteName="RegisterGender"
         >
-            <Stack.Screen name="RegisterGender" component={RegisterGender} />
+            <Stack.Screen name="RegisterConstitution" component={RegisterConstitution} />
             <Stack.Screen name="Home" component={MyTabs} />
             <Stack.Screen name="Upload" component={UpLoad} />
         </Stack.Navigator>
