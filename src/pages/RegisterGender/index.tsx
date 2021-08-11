@@ -1,24 +1,19 @@
 import React, { useState } from 'react';
 import theme from 'styles/theme';
-import { Text, StyleSheet, TouchableOpacity, Image, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, FlatList, Image } from 'react-native';
 import RegisterLayout from 'layout/Register';
-import { Box } from './styles';
+import { Box, Text } from './styles';
+import { AntDesign } from '@expo/vector-icons';
 
-const topContents = () => {
+const topContents: React.FC = () => {
     return (
-        <>
-            <Text>{'<-'}</Text>
-            <Text>{'건너뛰기'}</Text>
-        </>
-    );
-};
-
-const titleContents = () => {
-    return (
-        <>
-            <Text style={styles.title}>성별을 기입해주세요</Text>
-            <Text style={styles.subTitle}>성별 정보는 옷 추천 기능에서 활용됩니다. </Text>
-        </>
+        <TouchableOpacity
+        // onPress={() => {
+        //     this.props.navigation.goBack();
+        // }}
+        >
+            <AntDesign name="left" size={24} color="black" />
+        </TouchableOpacity>
     );
 };
 
@@ -35,17 +30,27 @@ const RegisterGender = () => {
     };
 
     return (
-        <RegisterLayout topContents={topContents} titleContents={titleContents}>
-            <TouchableOpacity>
+        <RegisterLayout
+            topContents={topContents}
+            titleContents="성별을 기입해주세요"
+            subTitleContents="성별 정보는 옷 추천 기능에서 활용됩니다."
+            buttonText="다음"
+        >
+            <View
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                }}
+            >
                 <Box clicked={maleClicked} onClick={onMaleClick}>
-                    <Image source={require('Images/smile-blue.jpg')} />
+                    <Image style={styles.Logo} resizeMode="contain" source={require('Images/smile-blue.jpg')} />
                     <Text>남자</Text>
                 </Box>
                 <Box clicked={femaleClicked} onClick={onFemaleClick}>
-                    <Image source={require('Images/smile-blue.jpg')} />
+                    <Image style={styles.Logo} resizeMode="contain" source={require('Images/smile-blue.jpg')} />
                     <Text>여자</Text>
                 </Box>
-            </TouchableOpacity>
+            </View>
         </RegisterLayout>
     );
 };
@@ -56,6 +61,10 @@ const styles = StyleSheet.create({
     },
     subTitle: {
         color: theme.color.black,
+    },
+    Logo: {
+        marginBottom: 16,
+        width: 94,
     },
 });
 
