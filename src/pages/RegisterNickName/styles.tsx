@@ -39,9 +39,8 @@ export const StepBar = styled.View`
     width: 48px;
 `;
 
-export const Button = styled.TouchableOpacity`
+export const Button = styled.TouchableOpacity<{ color?: boolean }>`
     height: 44px;
-    background: #000000;
     border-radius: 4px;
     font-size: 16px;
     line-height: 23px;
@@ -49,6 +48,10 @@ export const Button = styled.TouchableOpacity`
     color: #ffffff;
     align-items: center;
     justify-content: center;
+    background: ${(props) => (props.color ? '#C9C9C9' : '#000000')};
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 `;
 export const Next = styled.Text`
     font-size: 16px;

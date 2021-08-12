@@ -17,13 +17,14 @@ import {
     TitleText,
     SubTitleText,
 } from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 interface RegisterLayoutProps {
     children: React.ReactNode;
-    topContents: string | React.ReactNode;
+    topContents?: string | React.ReactNode;
     titleContents: string;
     subTitleContents: string;
-    buttonText: string;
+    buttonText?: string | any;
 }
 
 const Title: React.FC = ({ children }) => {
@@ -32,7 +33,6 @@ const Title: React.FC = ({ children }) => {
 const SubTitle: React.FC = ({ children }) => {
     return <SubTitleWraper>{children}</SubTitleWraper>;
 };
-
 const RegisterLayout = ({
     children,
     topContents,
@@ -46,7 +46,7 @@ const RegisterLayout = ({
     if (!fontsLoaded) {
         return null;
     }
-
+    const navigation = useNavigation();
     return (
         <Container>
             <ThemeProvider theme={theme}>
@@ -54,7 +54,8 @@ const RegisterLayout = ({
                     {/* {topContents} */}
                     <TouchableOpacity
                         onPress={() => {
-                            alert('back button clicked');
+                            navigation.goBack();
+                            // alert('back button clicked');
                             // this.props.navigation.goBack();
                         }}
                     >
@@ -81,9 +82,11 @@ const RegisterLayout = ({
                 </TitleContainer>
 
                 <Contents>{children}</Contents>
-                <BottomContainer>
-                    <Button>{buttonText}</Button>
-                </BottomContainer>
+                {buttonText && (
+                    <BottomContainer>
+                        <Button>{buttonText}</Button>
+                    </BottomContainer>
+                )}
             </ThemeProvider>
         </Container>
     );

@@ -7,7 +7,9 @@ import MyTabs from './TabNavigation';
 import RegisterGender from 'pages/RegisterGender';
 import RegisterNickName from 'pages/RegisterNickName';
 import UploadWeather from 'pages/UploadWeather';
-import UploadClothes from 'pages/UploadClothes';
+import RegisterGender from '../pages/RegisterGender';
+import RegisterConstitution from '../pages/RegisterConstitution';
+
 const Stack = createNativeStackNavigator();
 
 const MyStack = () => {
@@ -16,13 +18,14 @@ const MyStack = () => {
             screenOptions={({ route, navigation }) => ({
                 headerShown: false,
             })}
-            initialRouteName="UploadClothes"
+            initialRouteName="Login"
         >
             <Stack.Screen name="UploadClothes" component={UploadClothes} />
             <Stack.Screen name="Home" component={MyTabs} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="RegisterNickName" component={RegisterNickName} />
             <Stack.Screen name="RegisterGender" component={RegisterGender} />
+            <Stack.Screen name="RegisterConstitution" component={RegisterConstitution} />
         </Stack.Navigator>
     );
 };
