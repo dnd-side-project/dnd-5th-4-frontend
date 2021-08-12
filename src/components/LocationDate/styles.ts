@@ -21,3 +21,7 @@ export const AreaName = styled.Text`
     letter-spacing: -0.3px;
     color: #000000;
 `;
+export const IconImage = styled.Image`
+    width: 24px;
+    height: 24px;
+`;
