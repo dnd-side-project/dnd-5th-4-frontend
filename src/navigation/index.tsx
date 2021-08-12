@@ -19,7 +19,6 @@ const MyStack = () => {
             initialRouteName="UploadClothes"
         >
             <Stack.Screen name="UploadClothes" component={UploadClothes} />
-            <Stack.Screen name="RegisterGender" component={RegisterGender} />
             <Stack.Screen name="Home" component={MyTabs} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="RegisterNickName" component={RegisterNickName} />
