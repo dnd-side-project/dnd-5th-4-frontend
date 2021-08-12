@@ -1,6 +1,6 @@
 import Button from 'components/Button';
 import React from 'react';
-import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 import { AntDesign } from '@expo/vector-icons';
