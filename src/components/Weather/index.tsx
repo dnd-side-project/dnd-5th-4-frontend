@@ -16,7 +16,7 @@ import {
     Box,
     Information,
 } from './styles';
-import { WeatherImages } from '../../untils/WeatherImages';
+import { WeatherDescription, WeatherImages } from '../../untils/WeatherImages';
 
 type WeatherProps = {
     currentWeather: any;
@@ -47,13 +47,12 @@ const Weather: React.FC<WeatherProps> = ({
     };
     return (
         <Container>
-            <TopContainer>
+            <TopContainer weatherMoreShow={weatherMoreShow}>
                 <BoxContainer>
-                    <Temperature color={getWeatherColor(currentWeather?.main.temp)}>
-                        {parseInt(currentWeather?.main.temp)}°
-                    </Temperature>
+                    <Temperature>{parseInt(currentWeather?.main.temp)}°</Temperature>
                     <WeatherImage source={WeatherImages[currentWeather?.weather[0].icon]} resizeMode={'contain'} />
-                    <Description>{currentWeather?.weather[0].description}</Description>
+                    {/*<Description>{currentWeather?.weather[0].description}</Description>*/}
+                    <Description>{WeatherDescription[currentWeather?.weather[0].icon]}</Description>
                 </BoxContainer>
                 <BoxContainer>
                     <MaxTemperature>{parseInt(dailyWeather[0].temp.max)}°</MaxTemperature>

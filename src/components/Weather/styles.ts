@@ -1,19 +1,19 @@
 import styled from 'styled-components/native';
 
 export const Container = styled.View`
-    border-bottom-width: 1px;
-    border-bottom-color: #e7e7e7;
-    background-color: #fff;
-    margin-top: 12px;
+    position: relative;
+    z-index: -1;
 `;
-export const TopContainer = styled.View`
+export const TopContainer = styled.View<{ weatherMoreShow?: boolean }>`
     flex-direction: row;
     padding-vertical: 11.5px;
     padding-horizontal: 16px;
     justify-content: space-between;
     height: 40px;
-    box-shadow: 0px 4px 10px rgba(173, 178, 217, 0.25);
+    border-width: ${(props) => (props.weatherMoreShow ? '0px' : '1px')};
+    border-color: rgba(173, 178, 217, 0.25);
     border-radius: 4px;
+    elevation: ${(props) => (props.weatherMoreShow ? 0 : 1)};
 `;
 export const BoxContainer = styled.View`
     flex-direction: row;
@@ -40,7 +40,7 @@ export const Temperature = styled.Text<{ color?: any }>`
     line-height: 22px;
     text-align: center;
     letter-spacing: -0.3px;
-    color: ${(props) => props.color};
+    color: ${(props) => (props.color === undefined ? '#000' : props.color)};
 `;
 export const Division = styled.Text`
     color: #e7e7e7;

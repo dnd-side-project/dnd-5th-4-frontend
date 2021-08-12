@@ -20,7 +20,7 @@ const RegisterNickName: React.FC<UserProps> = ({ route }) => {
         };
 
         axios
-            .get('http://13.124.179.186:8080/name?name=test')
+            .get('http://13.124.179.186:8080/name', { data: { params } })
             .then((res) => {
                 if (res?.status !== 200) {
                     console.log('!err');
