@@ -1,44 +1,95 @@
 import React, { useState } from 'react';
 import theme from 'styles/theme';
-import { StyleSheet, TouchableOpacity, View, FlatList, Image } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, FlatList, Image, Alert } from 'react-native';
 import RegisterLayout from 'layout/Register';
-import { Box, Text } from './styles';
-
-const RegisterConstitution = () => {
-    const [maleClicked, setMaleClicked] = useState(false);
-    const [femaleClicked, setFemaleClicked] = useState(false);
+import { Box, Text, Button, Jump } from './styles';
+import { Next } from '../RegisterNickName/styles';
+import { useNavigation } from '@react-navigation/native';
+import api from '../../settings/api';
+type UserProps = {
+    route: any;
+};
+const RegisterConstitution: React.FC<UserProps> = ({ route }) => {
+    const [hotConstitution, setHotConstitution] = useState(false);
+    const [coldConstitution, setColdConstitution] = useState(false);
+    const navigation = useNavigation();
+    const { userId, nickName, gender } = route.params;
+    //
     const onMaleClick = () => {
-        setMaleClicked(!maleClicked);
-        setFemaleClicked(!femaleClicked);
+        setHotConstitution(!hotConstitution);
+        setColdConstitution(false);
     };
     const onFemaleClick = () => {
-        setMaleClicked(!maleClicked);
-        setFemaleClicked(!femaleClicked);
+        setHotConstitution(false);
+        setColdConstitution(!coldConstitution);
     };
+    const CheckConstitution = () => {
+        let constitution;
+        if (!hotConstitution && !coldConstitution) {
+            //    건너뛰기
+            constitution = '';
+        } else if (hotConstitution) {
+            constitution = 'HOT';
+        } else if (coldConstitution) {
+            constitution = 'COLD';
+        }
 
+        let params = {
+            userId: userId,
+            name: nickName,
+            gender: gender,
+            constitution: constitution,
+        };
+        console.log(params);
+        api.post('user/', params)
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log('회원가입 실패하였습니다');
+                    return;
+                }
+                Alert.alert('회원가입 성공');
+                //리덕스 넣으시면됩니다
+                navigation.navigate('Home');
+            })
+            .catch((err) => {
+                console.log('err', err);
+            });
+    };
     return (
-        <RegisterLayout
-            topContents="건너뛰기"
-            titleContents="체질을 기입해주세요"
-            subTitleContents="체질 정보는 옷 추천 기능에서 활용됩니다. \n 해당되지 않는다면 건너뛰기를 눌러주세요."
-            buttonText="시작하기"
-        >
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                }}
+        <View style={{ flex: 1 }}>
+            <TouchableOpacity onPress={() => CheckConstitution()} style={{ position: 'absolute', top: 35, right: 21 }}>
+                <Jump>건너뛰기</Jump>
+            </TouchableOpacity>
+            <RegisterLayout
+                titleContents="체질을 기입해주세요"
+                subTitleContents="체질 정보는 옷 추천 기능에서 활용됩니다. \n 해당되지 않는다면 건너뛰기를 눌러주세요."
             >
-                <Box clicked={maleClicked} onClick={onMaleClick}>
-                    <Image style={styles.Logo} resizeMode="contain" source={require('Images/smile-blue.jpg')} />
-                    <Text>더위 많이 타는 편</Text>
-                </Box>
-                <Box clicked={femaleClicked} onClick={onFemaleClick}>
-                    <Image style={styles.Logo} resizeMode="contain" source={require('Images/smile-blue.jpg')} />
-                    <Text>추위 많이 타는 편</Text>
-                </Box>
-            </View>
-        </RegisterLayout>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                    }}
+                >
+                    <Box clicked={hotConstitution} onPress={() => onMaleClick()}>
+                        <Image style={styles.Logo} resizeMode="contain" source={require('Images/smile-blue.jpg')} />
+                        <Text>더위 많이 타는 편</Text>
+                    </Box>
+                    <Box clicked={coldConstitution} onPress={() => onFemaleClick()}>
+                        <Image style={styles.Logo} resizeMode="contain" source={require('Images/smile-blue.jpg')} />
+                        <Text>추위 많이 타는 편</Text>
+                    </Box>
+                </View>
+                <Button
+                    color={!hotConstitution && !coldConstitution}
+                    onPress={() => CheckConstitution()}
+                    disabled={!hotConstitution && !coldConstitution}
+                >
+                    <TouchableOpacity onPress={() => CheckConstitution()}>
+                        <Next>다음</Next>
+                    </TouchableOpacity>
+                </Button>
+            </RegisterLayout>
+        </View>
     );
 };
 

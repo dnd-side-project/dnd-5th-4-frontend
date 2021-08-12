@@ -7,23 +7,26 @@ import Environment from '../../secret/Environment';
 import { useNavigation } from '@react-navigation/native';
 import * as Facebook from 'expo-facebook';
 import axios from 'axios';
+import api from '../../settings/api';
 
 const Login = () => {
     const navigation = useNavigation();
-    const test = () => {
-        axios
-            .post('http://13.124.179.186:8080/user/', {
-                userId: 'testuser1',
-                name: 'testUser',
-                gender: 'M',
-                constitution: 'HOT',
-            })
+    const IsAlreadySignUp = (userId: any) => {
+        let params = {
+            userId: userId,
+        };
+        api.get('user/', { params })
             .then((res) => {
                 if (res.status !== 200) {
                     console.log('err');
                     return;
                 }
-                console.log(res.data);
+                if (res?.data.isOurMember) {
+                    navigation.navigate('Home');
+                    //    회원가입이 된 경우 main으로 가게됩니다.
+                } else {
+                    navigation.navigate('RegisterNickName', { userId: userId });
+                }
             })
             .catch((err) => {
                 console.log('err', err);
@@ -39,8 +42,8 @@ const Login = () => {
                 });
                 if (googleRes.type === 'success') {
                     // console.warn('성공', googleRes.user.id);
-
-                    navigation.navigate('RegisterNickName', { userId: googleRes.user.id });
+                    IsAlreadySignUp(googleRes?.user.id);
+                    // navigation.navigate('RegisterNickName', { userId: googleRes.user.id });
                 }
             } catch (e) {
                 console.log('에러입니다', e);
@@ -62,7 +65,7 @@ const Login = () => {
                                 console.log('로그인 실패하였습니다.');
                                 return;
                             }
-                            test();
+                            IsAlreadySignUp(res?.data.id);
                             // navigation.navigate('RegisterNickName', { userId: res?.data?.id });
                         })
                         .catch((err) => {

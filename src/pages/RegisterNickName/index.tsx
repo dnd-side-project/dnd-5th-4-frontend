@@ -16,15 +16,21 @@ const RegisterNickName: React.FC<UserProps> = ({ route }) => {
     const navigation = useNavigation();
     const CheckNickName = () => {
         let params = {
-            name: 'testId',
+            name: nickName,
         };
 
-        axios
-            .get('http://13.124.179.186:8080/name', { data: { params } })
+        api.get('name', { params })
             .then((res) => {
                 if (res?.status !== 200) {
                     console.log('!err');
                     return;
+                }
+                console.log(res.data);
+                if (!res?.data.isExistNickName) {
+                    //    사용가능 다음 페이지로 이동
+                    navigation.navigate('RegisterGender', { userId: userId, nickName: nickName });
+                } else {
+                    Alert.alert('중복된 닉네임입니다.');
                 }
             })
             .catch((err) => {
@@ -64,7 +70,11 @@ const RegisterNickName: React.FC<UserProps> = ({ route }) => {
 
                 <SubTitleText>불쾌감을 줄 수 있는 닉네임은 임의로 변경될 수 있습니다</SubTitleText>
             </View>
-            <Button onPress={() => CheckNickName()}>
+            <Button
+                color={nickName.length < 2 || nickName.length > 13}
+                onPress={() => CheckNickName()}
+                disabled={nickName.length < 2 || nickName.length > 13}
+            >
                 <Next>다음</Next>
             </Button>
         </Container>
