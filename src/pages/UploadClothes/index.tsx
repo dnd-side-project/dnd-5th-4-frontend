@@ -1,5 +1,6 @@
-import React, { useState, FC } from 'react';
-import { StyleSheet, ScrollView, View, TouchableHighlight, Text, Image } from 'react-native';
+import React, { useState } from 'react';
+import Modal from 'react-native-modal';
+import { ScrollView, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
 import {
     ClothesViewBox,
     TotalWrap,
@@ -15,6 +16,11 @@ import {
     CategoryName,
     ClothWrap,
     Cloth,
+    ModalWrap,
+    ModalBox,
+    Edit,
+    Line,
+    Delete,
 } from './styles';
 import UploadLayout from 'layout/Upload';
 import { Feather, Entypo } from '@expo/vector-icons';
@@ -35,9 +41,7 @@ const Clothes: React.FC<ClothesProps> = ({ text }) => {
 
 const Category = () => (
     <CategoryWrap>
-        {/* <CategoryNameWrap> */}
         <CategoryName>아우터</CategoryName>
-        {/* </CategoryNameWrap> */}
         <ClothesListWrap>
             <PlusButton
                 onPress={() => {
@@ -58,6 +62,12 @@ const Category = () => (
 );
 
 const UploadClothes = () => {
+    const [isEditDeleteModalVisible, setEditDeleteModalVisibl] = useState(false);
+
+    const showEditDeleteModal = () => {
+        setEditDeleteModalVisibl(!isEditDeleteModalVisible);
+    };
+
     return (
         <UploadLayout
             titleContents1="오늘의 옷차림을"
@@ -65,6 +75,21 @@ const UploadClothes = () => {
             subTitleContents="옷차림을 카테고리별로 기록해주세요."
             buttonText="다음"
         >
+            <Modal isVisible={isEditDeleteModalVisible} animationIn="fadeIn" animationOut="fadeOut">
+                <TouchableWithoutFeedback onPress={showEditDeleteModal}>
+                    <ModalWrap>
+                        <ModalBox>
+                            <TouchableHighlight>
+                                <Edit>수정하기</Edit>
+                            </TouchableHighlight>
+                            <Line />
+                            <TouchableHighlight>
+                                <Delete>삭제하기</Delete>
+                            </TouchableHighlight>
+                        </ModalBox>
+                    </ModalWrap>
+                </TouchableWithoutFeedback>
+            </Modal>
             <ClothesViewBox>
                 <TotalWrap>
                     <TotalTextWrap>
@@ -78,7 +103,7 @@ const UploadClothes = () => {
                         color="black"
                         iconStyle={{ left: 0 }}
                         onPress={() => {
-                            alert('more button clicked!');
+                            showEditDeleteModal();
                         }}
                     />
                 </TotalWrap>
