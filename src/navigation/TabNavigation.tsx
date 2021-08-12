@@ -54,13 +54,14 @@ const MyTabs = ({ route }: { route: any }) => {
                                 alignItems: 'center',
                             }}
                         >
-                            <AntDesign
-                                name="pluscircle"
-                                size={50}
-                                color="black"
-                                // color={focused ? 'black' : '#C9C9C9'}
-                                // style={{ position: 'absolute', bottom: 30 }}
-                            />
+                            <Image source={require('Images/Plus.png')} resizeMode={'contain'} />
+                            {/*<AntDesign*/}
+                            {/*    name="pluscircle"*/}
+                            {/*    size={50}*/}
+                            {/*    color="black"*/}
+                            {/*    // color={focused ? 'black' : '#C9C9C9'}*/}
+                            {/*    // style={{ position: 'absolute', bottom: 30 }}*/}
+                            {/*/>*/}
                         </View>
                     ),
                 }}

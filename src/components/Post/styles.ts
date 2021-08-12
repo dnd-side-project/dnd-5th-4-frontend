@@ -6,12 +6,12 @@ export const TopContainer = styled.View`
     text-align: center;
     padding-vertical: 16px;
 `;
-export const Container = styled.View`
+export const Container = styled.View<{ showMore?: boolean }>`
     margin-bottom: 11px;
     padding-horizontal: 15px;
     background-color: #fff;
-    border-width: 1px;
-    border-color: #d6d6d7;
+    border-width: ${(props) => (!props.showMore ? '1px' : '2px')};
+    border-color: ${(props) => (!props.showMore ? '#d6d6d7' : '#000000')};
     border-radius: 4px;
     elevation: 1;
 `;
@@ -59,6 +59,7 @@ export const BottomContainer = styled.View`
 export const TypeBox = styled.View`
     flex-direction: row;
     margin-bottom: 8px;
+    align-items: center;
 `;
 export const ClothesName = styled.Text`
     font-family: Pretendard500;
@@ -66,12 +67,24 @@ export const ClothesName = styled.Text`
     line-height: 14px;
     letter-spacing: -0.3px;
     color: #000000;
+    margin-left: 2px;
 `;
 export const Clothes = styled.Text`
     font-size: 12px;
     line-height: 14px;
     letter-spacing: -0.3px;
-
     color: #8a8d97;
     margin-right: 17px;
+`;
+export const Circle = styled.View<{ MoodColor?: any }>`
+    width: 10px;
+    height: 10px;
+    border-radius: 50px;
+    margin-right: 4px;
+    background-color: ${(props) => props.MoodColor};
+`;
+export const Blank = styled.Text`
+    font-size: 12px;
+    margin-right: 6px;
+    margin-left: 2px;
 `;

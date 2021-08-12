@@ -14,13 +14,14 @@ const RecordListBox: React.FC<ScrollHeightProps> = ({ scrollHeight }) => {
 
     useEffect(() => {}, [isMyPost]);
     const renderPost = (item: any) => {
-        return <Post post={item} />;
+        return <Post post={item} isMyPost={isMyPost} />;
     };
     const { height } = Dimensions.get('screen');
+
     return (
         <Container style={{ height: scrollHeight }}>
             <Nav>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around', flex: 1 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', flex: 1 }}>
                     <Title
                         color={isMyPost}
                         onPress={() => {
