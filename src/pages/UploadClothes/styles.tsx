@@ -26,7 +26,7 @@ export const Total = styled.Text`
 `;
 
 export const TotalCount = styled.Text`
-    font-family: Pretendard400;
+    font-family: 'Pretendard400';
     font-size: 16px;
     line-height: 19px;
     letter-spacing: -0.3px;
@@ -88,9 +88,44 @@ export const ClothWrap = styled.TouchableHighlight<{ isPress: boolean }>`
 `;
 
 export const Cloth = styled.Text<{ isPress: boolean }>`
-    font-family: Pretendard400;
+    font-family: 'Pretendard400';
     font-size: 14px;
     line-height: 17px;
     letter-spacing: -0.3px;
     color: ${(props) => (props.isPress ? '#000' : '#a4a4aa')};
+`;
+
+// 수정 삭제 모달창
+export const ModalWrap = styled.SafeAreaView`
+    flex: 1;
+`;
+
+export const ModalBox = styled.View`
+    flex-direction: column;
+    background: #fff;
+    border-radius: 4px;
+    position: absolute;
+    bottom: 63%;
+    right: 1%;
+`;
+export const Edit = styled.Text`
+    font-family: 'Pretendard400';
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: -0.3px;
+    padding: 12px 22px;
+`;
+export const Line = styled.View`
+    border-bottom-color: #e7e7e7;
+    border-bottom-width: 1px;
+`;
+export const Delete = styled.Text`
+    font-family: 'Pretendard400';
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: -0.3px;
+    color: #ff4743;
+    padding: 12px;
 `;
