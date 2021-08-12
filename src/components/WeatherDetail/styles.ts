@@ -14,8 +14,8 @@ export const Title = styled.Text`
     margin-bottom: 16px;
 `;
 export const WeatherIcon = styled.Image`
-    width: 16px;
-    height: 11px;
+    width: 17px;
+    height: 13px;
 `;
 export const PrecipitationPercent = styled.Text`
     font-family: Roboto500;
@@ -49,7 +49,7 @@ export const MaxMinTemperature = styled.Text<{ color?: boolean }>`
     color: ${(props) => (!props.color ? '#ff4743' : '#4068B0')};
 `;
 export const Bar = styled.View`
-    border-width: 2px;
+    border-width: 1px;
     height: 14px;
     border-style: solid;
     border-color: #e0e0e0;

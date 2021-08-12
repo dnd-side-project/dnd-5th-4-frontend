@@ -5,9 +5,9 @@ import LocationDate from 'components/LocationDate';
 import { Container } from './stlyes';
 import Weather from 'components/Weather';
 import WeatherDetail from 'components/WeatherDetail';
-import { Dimensions, ScrollView, View, Text } from 'react-native';
-import RecordListBox from '../../components/RecordListBox';
-import Character from '../../components/Character';
+import { Dimensions, ScrollView, View, Text, TouchableOpacity } from 'react-native';
+import RecordListBox from 'components/RecordListBox';
+import Character from 'components/Character';
 
 const lat = 37.541; //위도
 const lon = 126.934086; //경도
@@ -120,14 +120,23 @@ const Main = () => {
     return (
         <Container>
             <LocationDate Location={Location} setLocation={setLocation} />
-            <Weather
-                currentWeather={currentWeather} //현재날씨
-                airPollution={airPollution} //미세먼지
-                dailyWeather={dailyWeather} //월화수목
-                weatherMoreShow={weatherMoreShow}
-                setWeatherMoreShow={setWeatherMoreShow}
-            />
-            {weatherMoreShow && <WeatherDetail hourlyWeather={hourlyWeather} dailyWeather={dailyWeather} />}
+            <View
+                style={{
+                    flex: weatherMoreShow ? 1 : 0,
+                    borderWidth: weatherMoreShow ? 2 : 0,
+                    marginTop: 12,
+                    borderRadius: 4,
+                }}
+            >
+                <Weather
+                    currentWeather={currentWeather} //현재날씨
+                    airPollution={airPollution} //미세먼지
+                    dailyWeather={dailyWeather} //월화수목
+                    weatherMoreShow={weatherMoreShow}
+                    setWeatherMoreShow={setWeatherMoreShow}
+                />
+                {weatherMoreShow && <WeatherDetail hourlyWeather={hourlyWeather} dailyWeather={dailyWeather} />}
+            </View>
             {!weatherMoreShow && (
                 <ScrollView
                     onLayout={(event) => {

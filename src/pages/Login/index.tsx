@@ -10,6 +10,25 @@ import axios from 'axios';
 
 const Login = () => {
     const navigation = useNavigation();
+    const test = () => {
+        axios
+            .post('http://13.124.179.186:8080/user/', {
+                userId: 'testuser1',
+                name: 'testUser',
+                gender: 'M',
+                constitution: 'HOT',
+            })
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log('err');
+                    return;
+                }
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log('err', err);
+            });
+    };
     const LoginHandler = async (type: string) => {
         if (type === 'google') {
             try {
@@ -20,6 +39,7 @@ const Login = () => {
                 });
                 if (googleRes.type === 'success') {
                     // console.warn('성공', googleRes.user.id);
+
                     navigation.navigate('RegisterNickName', { userId: googleRes.user.id });
                 }
             } catch (e) {
@@ -42,7 +62,8 @@ const Login = () => {
                                 console.log('로그인 실패하였습니다.');
                                 return;
                             }
-                            navigation.navigate('RegisterNickName', { userId: res?.data?.id });
+                            test();
+                            // navigation.navigate('RegisterNickName', { userId: res?.data?.id });
                         })
                         .catch((err) => {
                             console.log(err);

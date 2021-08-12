@@ -10,7 +10,10 @@ export const Container = styled.View`
     margin-bottom: 11px;
     padding-horizontal: 15px;
     background-color: #fff;
-    box-shadow: 0px 0px 4px #d6d6d7;
+    border-width: 1px;
+    border-color: #d6d6d7;
+    border-radius: 4px;
+    elevation: 1;
 `;
 export const Expression = styled.Image`
     width: 54px;

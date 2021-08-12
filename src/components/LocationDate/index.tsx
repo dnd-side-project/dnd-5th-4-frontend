@@ -17,7 +17,7 @@ const LocationDate: React.FC<LocationDateProps> = ({ Location, setLocation }) =>
         <Container>
             <View>
                 <Today>
-                    {month}월{date}일 {week[day]}요일
+                    {month}월 {date}일 {week[day]}요일
                 </Today>
                 <AreaName>{LocationName?.replace(/광역시|특별시/gi, '')}</AreaName>
             </View>
