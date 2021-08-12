@@ -14,13 +14,7 @@ export const TextBox = styled.View<{ clicked: boolean; onClick: () => void }>`
     flex-direction: row;
     background: #ffffff;
     justify-content: space-between;
-    margin-bottom: 26;
-
-    :hover {
-        border: 2px solid #000000;
-        box-shadow: none;
-    }
-
+    margin-bottom: 26px;
     ${(props) => (props.clicked ? activeStyle : '')}
 `;
 
@@ -40,11 +34,6 @@ export const LocationBox = styled.View<{ clicked: boolean; onClick: () => void }
     align-items: center;
     margin-bottom: 12px;
 
-    :hover {
-        border: 2px solid #000000;
-        box-shadow: none;
-    }
-
     ${(props) => (props.clicked ? activeStyle : '')}
 `;
 
@@ -57,10 +46,10 @@ export const TextView = styled.View`
 export const TextLine1 = styled.Text`
     font-style: normal;
     font-weight: 400;
-    font-size: 14;
-    line-height: 17;
+    font-size: 14px;
+    line-height: 17px;
     text-align: left;
-    letter-spacing: -0.3;
+    letter-spacing: -0.3px;
     flex: 1;
     color: #717171;
     margin-bottom: 10px;
@@ -69,10 +58,10 @@ export const TextLine1 = styled.Text`
 export const TextLine2 = styled.Text`
     font-style: normal;
     font-weight: 700;
-    font-size: 20;
-    line-height: 24;
+    font-size: 20px;
+    line-height: 24px;
     text-align: left;
-    letter-spacing: -0.3;
+    letter-spacing: -0.3px;
     flex: 1;
     color: #000;
     margin-bottom: 13px;
@@ -81,10 +70,10 @@ export const TextLine2 = styled.Text`
 export const TextLine3 = styled.Text`
     font-style: normal;
     font-weight: 500;
-    font-size: 14;
-    line-height: 17;
+    font-size: 14px;
+    line-height: 17px;
     text-align: left;
-    letter-spacing: -0.3;
+    letter-spacing: -0.3px;
     flex: 1;
     color: #ff4743;
 `;

@@ -23,6 +23,7 @@ const MyStack = () => {
             <Stack.Screen name="Home" component={MyTabs} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="RegisterNickName" component={RegisterNickName} />
+            <Stack.Screen name="RegisterGender" component={RegisterGender} />
         </Stack.Navigator>
     );
 };

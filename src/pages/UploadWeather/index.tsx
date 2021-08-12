@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
     },
     textInput: {
         fontSize: 14,
-        fontWeight: '200',
         flex: 1,
     },
     weatherLogo: {

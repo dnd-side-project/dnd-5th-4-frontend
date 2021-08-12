@@ -1,6 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
-import { AreaName, Today, Container, RightContainer } from './styles';
+import { Image, View } from 'react-native';
+import { AreaName, Today, Container, RightContainer, IconImage } from './styles';
 import { Ionicons } from '@expo/vector-icons';
 type LocationDateProps = {
     Location: Array<string>;
@@ -17,13 +17,13 @@ const LocationDate: React.FC<LocationDateProps> = ({ Location, setLocation }) =>
         <Container>
             <View>
                 <Today>
-                    {month}월{date}일 {week[day]}요일
+                    {month}월 {date}일 {week[day]}요일
                 </Today>
                 <AreaName>{LocationName?.replace(/광역시|특별시/gi, '')}</AreaName>
             </View>
             <RightContainer>
-                <Ionicons name="search" size={24} color={'#797B83'} style={{ marginRight: 16 }} />
-                <Ionicons name="settings-outline" color={'#797B83'} size={24} />
+                <IconImage source={require('Images/search.png')} style={{ marginRight: 16 }} resizeMode={'contain'} />
+                <IconImage source={require('Images/setting.png')} resizeMode={'contain'} />
             </RightContainer>
         </Container>
     );

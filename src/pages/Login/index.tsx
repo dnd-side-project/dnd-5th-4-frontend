@@ -10,6 +10,25 @@ import axios from 'axios';
 
 const Login = () => {
     const navigation = useNavigation();
+    const test = () => {
+        axios
+            .post('http://13.124.179.186:8080/user/', {
+                userId: 'testuser1',
+                name: 'testUser',
+                gender: 'M',
+                constitution: 'HOT',
+            })
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log('err');
+                    return;
+                }
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log('err', err);
+            });
+    };
     const LoginHandler = async (type: string) => {
         if (type === 'google') {
             try {
@@ -19,14 +38,9 @@ const Login = () => {
                     scopes: ['profile', 'email'],
                 });
                 if (googleRes.type === 'success') {
-                    console.warn('성공', googleRes.user);
+                    // console.warn('성공', googleRes.user.id);
 
-                    // navigation.navigate('main');
-                    // AsyncStorage.setItem("google_auth", JSON.stringify(googleRes)).then(
-                    //     () => {
-                    //         navigation.navigate("Dashboard");
-                    //     }
-                    // );
+                    navigation.navigate('RegisterNickName', { userId: googleRes.user.id });
                 }
             } catch (e) {
                 console.log('에러입니다', e);
@@ -48,8 +62,8 @@ const Login = () => {
                                 console.log('로그인 실패하였습니다.');
                                 return;
                             }
-                            console.warn('성공했어요');
-                            console.log(res);
+                            test();
+                            // navigation.navigate('RegisterNickName', { userId: res?.data?.id });
                         })
                         .catch((err) => {
                             console.log(err);
@@ -108,7 +122,6 @@ const Login = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => {
-                        console.log('btttttt');
                         LoginHandler('google');
                     }}
                 >

@@ -10,6 +10,7 @@ module.exports = function (api) {
                     alias: {
                         WeatherMainImage: './assets/weatherMainImage',
                         Fonts: './assets/fonts',
+                        MoodImage: './assets/moodImages',
                         WeatherImage: './assets/weatherImage',
                         Images: './assets/images',
                         layout: './src/layout',
