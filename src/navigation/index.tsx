@@ -8,6 +8,9 @@ import RegisterNickName from 'pages/RegisterNickName';
 import UploadWeather from 'pages/UploadWeather';
 import RegisterGender from '../pages/RegisterGender';
 import RegisterConstitution from '../pages/RegisterConstitution';
+
+import LocationSearch from '../pages/LocationSearch';
+
 import UploadWeatherEstimate from 'pages/UploadWeatherEstimate';
 
 const Stack = createNativeStackNavigator();
@@ -18,7 +21,7 @@ const MyStack = () => {
             screenOptions={({ route, navigation }) => ({
                 headerShown: false,
             })}
-            initialRouteName="UploadWeatherEstimate"
+            initialRouteName="Home"
         >
             <Stack.Screen name="UploadWeatherEstimate" component={UploadWeatherEstimate} />
             <Stack.Screen name="Home" component={MyTabs} />
@@ -26,6 +29,7 @@ const MyStack = () => {
             <Stack.Screen name="RegisterNickName" component={RegisterNickName} />
             <Stack.Screen name="RegisterGender" component={RegisterGender} />
             <Stack.Screen name="RegisterConstitution" component={RegisterConstitution} />
+            <Stack.Screen name="LocationSearch" component={LocationSearch} />
         </Stack.Navigator>
     );
 };

@@ -9,6 +9,7 @@ export const Nav = styled.View`
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 20px;
+    margin-top: 10px;
     position: relative;
     padding: 0 22%;
 `;
