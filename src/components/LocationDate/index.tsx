@@ -1,7 +1,8 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { Image, TouchableOpacity, View } from 'react-native';
 import { AreaName, Today, Container, RightContainer, IconImage } from './styles';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 type LocationDateProps = {
     Location: Array<string>;
     setLocation: React.ReactNode;
@@ -12,7 +13,7 @@ const LocationDate: React.FC<LocationDateProps> = ({ Location, setLocation }) =>
     let month = new Date().getMonth() + 1;
     let day = new Date().getDay(); // 요일
     let week = ['일', '월', '화', '수', '목', '금', '토'];
-
+    const navigation = useNavigation();
     return (
         <Container>
             <View>
@@ -22,8 +23,16 @@ const LocationDate: React.FC<LocationDateProps> = ({ Location, setLocation }) =>
                 <AreaName>{LocationName?.replace(/광역시|특별시/gi, '')}</AreaName>
             </View>
             <RightContainer>
-                <IconImage source={require('Images/search.png')} style={{ marginRight: 16 }} resizeMode={'contain'} />
-                <IconImage source={require('Images/setting.png')} resizeMode={'contain'} />
+                <TouchableOpacity onPress={() => navigation.navigate('LocationSearch')}>
+                    <IconImage
+                        source={require('Images/search.png')}
+                        style={{ marginRight: 16 }}
+                        resizeMode={'contain'}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                    <IconImage source={require('Images/setting.png')} resizeMode={'contain'} />
+                </TouchableOpacity>
             </RightContainer>
         </Container>
     );
