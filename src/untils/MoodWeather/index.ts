@@ -5,6 +5,15 @@ export const MoodImage: { [index: string]: any } = {
     COLD: require('MoodImage/Cold.png'),
     'VERY COLD': require('MoodImage/VeryColdd.png'),
 };
+
+export const MoodImageGray: { [index: string]: any } = {
+    'VERY HOT': require('MoodImageGray/VeryHot.png'),
+    HOT: require('MoodImageGray/Hot.png'),
+    GOOD: require('MoodImageGray/Good.png'),
+    COLD: require('MoodImageGray/Cold.png'),
+    'VERY COLD': require('MoodImageGray/VeryColdd.png'),
+};
+
 export const MoodDescription: { [index: string]: any } = {
     'VERY HOT': '너무 더웠어요',
     HOT: '더웠어요',

@@ -37,7 +37,7 @@ export const SocialImage = styled.Image<{ widthSize?: string; heightSize?: strin
     left: ${(props) => (props.name === 'google' ? '15px' : '21px')}; ;
 `;
 export const SocialText = styled.Text<{ color?: any }>`
-    font-family: Pretendard400;
+    font-family: 'Pretendard400';
     font-size: 16px;
     line-height: 24px;
     text-align: center;

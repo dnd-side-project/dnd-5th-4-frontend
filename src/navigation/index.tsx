@@ -4,12 +4,15 @@ import { createNativeStackNavigator } from 'react-native-screens/native-stack';
 import Login from '../pages/Login';
 import MyTabs from './TabNavigation';
 // import UpLoad from '../pages/UpLoad';
-// import RegisterGender from 'pages/RegisterGender';
 import RegisterNickName from 'pages/RegisterNickName';
 import UploadWeather from 'pages/UploadWeather';
 import RegisterGender from '../pages/RegisterGender';
 import RegisterConstitution from '../pages/RegisterConstitution';
+
 import LocationSearch from '../pages/LocationSearch';
+
+import UploadWeatherEstimate from 'pages/UploadWeatherEstimate';
+
 const Stack = createNativeStackNavigator();
 
 const MyStack = () => {
@@ -20,7 +23,7 @@ const MyStack = () => {
             })}
             initialRouteName="Home"
         >
-            <Stack.Screen name="UploadWeather" component={UploadWeather} />
+            <Stack.Screen name="UploadWeatherEstimate" component={UploadWeatherEstimate} />
             <Stack.Screen name="Home" component={MyTabs} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="RegisterNickName" component={RegisterNickName} />
