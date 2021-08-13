@@ -11,6 +11,7 @@ module.exports = function (api) {
                         WeatherMainImage: './assets/weatherMainImage',
                         Fonts: './assets/fonts',
                         MoodImage: './assets/moodImages',
+                        MoodImageGray: './assets/moodImagesGray',
                         WeatherImage: './assets/weatherImage',
                         Images: './assets/images',
                         layout: './src/layout',
