@@ -58,7 +58,14 @@ const Character: React.FC<CharacterProps> = ({ scrollHeight, currentWeather }, p
                     right: -30,
                     transform: [{ translateX: RightMove }],
                 }}
-            ></Animated.View>
+            >
+                <Image
+                    style={{}}
+                    source={require('WeatherMainImage/smallCloude.png')}
+                    resizeMode={'contain'}
+                    // style={{ position: 'absolute', top: 53, right: -30, height: 82 }}
+                />
+            </Animated.View>
             <Animated.View
                 style={{ position: 'absolute', bottom: 10, left: -40, transform: [{ translateX: LeftMove }] }}
             >
