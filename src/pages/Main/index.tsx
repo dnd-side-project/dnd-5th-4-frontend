@@ -17,11 +17,21 @@ import {
     sunAnimation,
     getWeatherImage,
 } from '../../untils/MainPageAnimation';
+import { WeatherCharcterBackground } from '../../untils/WeatherCharcterBackground';
+import Clean from '../../components/Character/Clean';
+import Cloud from '../../components/Character/Cloud';
+import Lightning from '../../components/Character/Lightning';
+import LittleCloud from '../../components/Character/LittleCloud';
+import ManyCloud from '../../components/Character/ManyCloud';
+import Rain from '../../components/Character/Rain';
+import Smog from '../../components/Character/Smog';
+import Snow from '../../components/Character/Snow';
+
 const lat = 37.541; //위도
 const lon = 126.934086; //경도
 
 const Main = () => {
-    const [currentWeather, setCurrentWeather] = useState([]); // 현재날씨
+    const [currentWeather, setCurrentWeather] = useState<any>([]); // 현재날씨
     const [hourlyWeather, setHourlyWeather] = useState([]); // 시간대별 날씨
     const [dailyWeather, setDailyWeather] = useState([]); // 주간 날씨
     const [Location, setLocation] = useState([]);
@@ -29,8 +39,8 @@ const Main = () => {
     const [airPollution, setAirPollution] = useState('');
     const { height } = Dimensions.get('screen');
     const authState = useAuthState();
-
-    useEffect(() => console.log(authState));
+    const [isLoading, setIsLoading] = useState(true);
+    // useEffect(() => console.log(authState));
 
     const [imageWidth, setImageWidth] = useState(0);
     // const lat = 36.15; //위도
@@ -40,7 +50,17 @@ const Main = () => {
         WeatherSearch(lat, lon); //시간대별, 주간날씨
         CurrentWeatherSearch(lat, lon); // 현재날씨
         airPollutionSearch(lat, lon); //미세먼지
+        if (currentWeather && currentWeather?.weather?.length > 1) {
+            setIsLoading(false);
+        }
     }, [lat, lon]);
+
+    // useEffect(() => {
+    //     if (currentWeather && currentWeather?.weather?.length > 1) {
+    //         setIsLoading(false);
+    //     }
+    // }, []);
+
     const airPollutionSearch = (lat: number, lng: number) => {
         let params = {
             lat: lat,
@@ -79,7 +99,7 @@ const Main = () => {
                 setCurrentWeather(res?.data?.list[0]);
             })
             .catch((err) => {
-                console.log('err');
+                console.log('err', err);
             });
     };
     const KakaoLocation = (lat: number, lng: number) => {
@@ -130,6 +150,7 @@ const Main = () => {
     const [scrollHeight, setScrollHeight] = useState(0);
     const [posts, setPosts] = useState(Array);
     return (
+        // !isLoading && (
         <Container>
             <LocationDate Location={Location} setLocation={setLocation} />
             <View
@@ -152,7 +173,7 @@ const Main = () => {
             {!weatherMoreShow && (
                 <ScrollView
                     onLayout={(event) => {
-                        var { height } = event.nativeEvent.layout;
+                        let { height } = event.nativeEvent.layout;
                         setScrollHeight(height);
                     }}
                     style={{ marginTop: 10 }}
@@ -165,13 +186,56 @@ const Main = () => {
                 >
                     <View style={{ flex: 1 }}>
                         <View style={{ height: scrollHeight }}>
-                            <Character scrollHeight={scrollHeight} currentWeather={currentWeather?.main?.temp} />
+                            {/*{console.log(currentWeather.weather[0].icon)}*/}
+                            <Character currentWeather={currentWeather?.main?.temp} />
+                            {/*{test(currentWeather?.weather[0]?.icon, currentWeather?.main?.temp)}*/}
+                            {test(currentWeather)}
                         </View>
                         <RecordListBox scrollHeight={scrollHeight} />
                     </View>
                 </ScrollView>
             )}
         </Container>
+        // )
     );
 };
 export default Main;
+const test = (currentWeather: any) => {
+    if (currentWeather?.weather && currentWeather?.weather[0]) {
+        if (currentWeather?.weather[0]?.icon.includes('01'))
+            return <Clean currentWeather={currentWeather?.main?.temp} />;
+        else if (currentWeather?.weather[0]?.icon.includes('02'))
+            return <LittleCloud currentWeather={currentWeather?.main?.temp} />;
+        else if (currentWeather?.weather[0]?.icon.includes('03'))
+            return <Cloud currentWeather={currentWeather?.main?.temp} />;
+        else if (currentWeather?.weather[0]?.icon.includes('04'))
+            return <ManyCloud currentWeather={currentWeather?.main?.temp} />;
+        else if (currentWeather?.weather[0]?.icon.includes('09'))
+            return <Rain currentWeather={currentWeather?.main?.temp} />;
+        else if (currentWeather?.weather[0]?.icon.includes('10'))
+            return <Rain currentWeather={currentWeather?.main?.temp} />;
+        else if (currentWeather?.weather[0]?.icon.includes('11'))
+            return <Lightning currentWeather={currentWeather?.main?.temp} />;
+        else if (currentWeather?.weather[0]?.icon.includes('13'))
+            return <Smog currentWeather={currentWeather?.main?.temp} />;
+        else if (currentWeather?.weather[0]?.icon.includes('50'))
+            return <Snow currentWeather={currentWeather?.main?.temp} />;
+    }
+    // if (currentWeather?.weather[0]?.icon.includes('01')) return <Clean currentWeather={currentWeather?.main?.temp} />;
+    // else if (currentWeather?.weather[0]?.icon.includes('02'))
+    //     return <LittleCloud currentWeather={currentWeather?.main?.temp} />;
+    // else if (currentWeather?.weather[0]?.icon.includes('03'))
+    //     return <Cloud currentWeather={currentWeather?.main?.temp} />;
+    // else if (currentWeather?.weather[0]?.icon.includes('04'))
+    //     return <ManyCloud currentWeather={currentWeather?.main?.temp} />;
+    // else if (currentWeather?.weather[0]?.icon.includes('09'))
+    //     return <Rain currentWeather={currentWeather?.main?.temp} />;
+    // else if (currentWeather?.weather[0]?.icon.includes('10'))
+    //     return <Rain currentWeather={currentWeather?.main?.temp} />;
+    // else if (currentWeather?.weather[0]?.icon.includes('11'))
+    //     return <Lightning currentWeather={currentWeather?.main?.temp} />;
+    // else if (currentWeather?.weather[0]?.icon.includes('13'))
+    //     return <Smog currentWeather={currentWeather?.main?.temp} />;
+    // else if (currentWeather?.weather[0]?.icon.includes('50'))
+    //     return <Snow currentWeather={currentWeather?.main?.temp} />;
+};

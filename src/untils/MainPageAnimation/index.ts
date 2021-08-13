@@ -1,10 +1,10 @@
 import { Animated } from 'react-native';
 
-export const CloudLeftMove = (RightMove: any) => {
+export const CloudLeftMove = (RightMove: any, Left: any) => {
     Animated.loop(
         Animated.sequence([
             Animated.timing(RightMove, {
-                toValue: 10,
+                toValue: Left,
                 duration: 1000,
                 useNativeDriver: true,
             }),
@@ -16,11 +16,11 @@ export const CloudLeftMove = (RightMove: any) => {
         ])
     ).start();
 };
-export const CloudRightMove = (LeftMove: any) => {
+export const CloudRightMove = (LeftMove: any, Right: any) => {
     Animated.loop(
         Animated.sequence([
             Animated.timing(LeftMove, {
-                toValue: -20,
+                toValue: Right,
                 duration: 1000,
                 useNativeDriver: true,
             }),

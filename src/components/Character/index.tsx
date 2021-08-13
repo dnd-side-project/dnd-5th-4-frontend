@@ -10,10 +10,9 @@ import {
     getWeatherImage,
 } from '../../untils/MainPageAnimation';
 type CharacterProps = {
-    scrollHeight: number;
     currentWeather: number;
 };
-const Character: React.FC<CharacterProps> = ({ scrollHeight, currentWeather }, props) => {
+const Character: React.FC<CharacterProps> = ({ currentWeather }) => {
     const ArrowMove = useRef(new Animated.Value(0)).current; // arrow
     const SunTurn = new Animated.Value(0); //SUN회전
     const SunMove = useRef(new Animated.Value(1)); //Sun
@@ -32,8 +31,8 @@ const Character: React.FC<CharacterProps> = ({ scrollHeight, currentWeather }, p
 
     useEffect(() => {
         sunAnimation(SunTurn);
-        CloudLeftMove(RightMove);
-        CloudRightMove(LeftMove);
+        CloudLeftMove(RightMove, 10);
+        CloudRightMove(LeftMove, -20);
         ArrowDownMove(ArrowMove);
     });
 
@@ -79,16 +78,15 @@ const Character: React.FC<CharacterProps> = ({ scrollHeight, currentWeather }, p
             </Animated.View>
             <View style={{ alignItems: 'center' }}>
                 <Title>
-                    <Title boldFont={true}>{Array[0][0]}</Title>
-                    {Array[0][1]}
+                    <Title boldFont={true}>일교차</Title>클 예정이니
                 </Title>
                 <Title>
-                    <Title boldFont={true}>{Array[0][2]}</Title>
-                    {Array[0][3]}
+                    <Title boldFont={true}>겉옷을 </Title>
+                    챙기세요.
                 </Title>
             </View>
 
-            <Image source={require('WeatherMainImage/hot.png')} resizeMode={'contain'} />
+            <Image source={getWeatherImage(currentWeather)} resizeMode={'contain'} />
             <Animated.View
                 style={{
                     position: 'absolute',

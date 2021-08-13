@@ -32,7 +32,7 @@ const RegisterGender: React.FC<UserProps> = ({ route }) => {
         } else {
             gender = 'W';
         }
-        navigation.navigate('RegisterConstitution', { userId: userId, name: nickName, gender: gender });
+        navigation.navigate('RegisterConstitution', { userId: userId, nickName: nickName, gender: gender });
     };
     return (
         <RegisterLayout titleContents="성별을 기입해주세요" subTitleContents="성별 정보는 옷 추천 기능에서 활용됩니다.">
