@@ -30,7 +30,6 @@ const LocationSearch = () => {
             setLocations([]);
             return;
         }
-        console.log('1');
         LocationWeatherArray = [];
         setLocations(KoreaLocations.filter((element) => element.name.includes(TEXT)));
         Locations.map((location: any) => {
