@@ -5,7 +5,7 @@ import Main from '../pages/Main';
 import MyPage from '../pages/MyPage';
 import { Fontisto } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
-import UpLoad from '../pages/UpLoad';
+// import UpLoad from '../pages/UpLoad';
 import { AntDesign } from '@expo/vector-icons';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import UploadWeather from '../pages/UploadWeather';
