@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from './src/styles/theme';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
+import { AuthProvider } from './src/context';
 import { setCustomText } from 'react-native-global-props';
 
 const useFonts = async () => {
@@ -42,12 +43,14 @@ export default function App() {
     }
     return (
         <NavigationContainer>
-            <ThemeProvider theme={theme}>
-                <StatusBar style={'auto'} />
-                <SafeAreaView style={{ flex: 1, marginTop: Platform.OS ? 24 : 0 }}>
-                    <MyStack />
-                </SafeAreaView>
-            </ThemeProvider>
+            <AuthProvider>
+                <ThemeProvider theme={theme}>
+                    <StatusBar style={'auto'} />
+                    <SafeAreaView style={{ flex: 1, marginTop: Platform.OS ? 24 : 0 }}>
+                        <MyStack />
+                    </SafeAreaView>
+                </ThemeProvider>
+            </AuthProvider>
         </NavigationContainer>
     );
 }

@@ -8,6 +8,8 @@ import WeatherDetail from 'components/WeatherDetail';
 import { Dimensions, ScrollView, View, Text, TouchableOpacity, Image } from 'react-native';
 import RecordListBox from 'components/RecordListBox';
 import Character from 'components/Character';
+import { useAuthState } from '../../context';
+
 import {
     ArrowDownMove,
     CloudRightMove,
@@ -26,6 +28,10 @@ const Main = () => {
     const [weatherMoreShow, setWeatherMoreShow] = useState(false);
     const [airPollution, setAirPollution] = useState('');
     const { height } = Dimensions.get('screen');
+    const authState = useAuthState();
+
+    useEffect(() => console.log(authState));
+
     const [imageWidth, setImageWidth] = useState(0);
     // const lat = 36.15; //위도
     // const lon = 125.454086; //경도 (서해)

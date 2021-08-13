@@ -9,8 +9,11 @@ import * as Facebook from 'expo-facebook';
 import axios from 'axios';
 import api from '../../settings/api';
 
+import { useAuthDispatch } from '../../context';
+
 const Login = () => {
     const navigation = useNavigation();
+    const authDispatch = useAuthDispatch();
     const IsAlreadySignUp = (userId: any) => {
         let params = {
             userId: userId,
@@ -22,6 +25,7 @@ const Login = () => {
                     return;
                 }
                 if (res?.data.isOurMember) {
+                    authDispatch({ type: 'LOGIN', payload: { userId } });
                     navigation.navigate('Home');
                     //    회원가입이 된 경우 main으로 가게됩니다.
                 } else {

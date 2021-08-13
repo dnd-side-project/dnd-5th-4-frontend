@@ -21,9 +21,9 @@ const MyStack = () => {
             screenOptions={({ route, navigation }) => ({
                 headerShown: false,
             })}
-            initialRouteName="Home"
+            initialRouteName="Login"
         >
-            <Stack.Screen name="UploadWeatherEstimate" component={UploadWeatherEstimate} />
+            <Stack.Screen name="UploadWeather" component={UploadWeather} />
             <Stack.Screen name="Home" component={MyTabs} />
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="RegisterNickName" component={RegisterNickName} />
