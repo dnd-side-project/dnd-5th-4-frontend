@@ -5,10 +5,16 @@ import LocationDate from 'components/LocationDate';
 import { Container } from './stlyes';
 import Weather from 'components/Weather';
 import WeatherDetail from 'components/WeatherDetail';
-import { Dimensions, ScrollView, View, Text, TouchableOpacity } from 'react-native';
+import { Dimensions, ScrollView, View, Text, TouchableOpacity, Image } from 'react-native';
 import RecordListBox from 'components/RecordListBox';
 import Character from 'components/Character';
-
+import {
+    ArrowDownMove,
+    CloudRightMove,
+    CloudLeftMove,
+    sunAnimation,
+    getWeatherImage,
+} from '../../untils/MainPageAnimation';
 const lat = 37.541; //위도
 const lon = 126.934086; //경도
 
@@ -20,7 +26,7 @@ const Main = () => {
     const [weatherMoreShow, setWeatherMoreShow] = useState(false);
     const [airPollution, setAirPollution] = useState('');
     const { height } = Dimensions.get('screen');
-
+    const [imageWidth, setImageWidth] = useState(0);
     // const lat = 36.15; //위도
     // const lon = 125.454086; //경도 (서해)
     useEffect(() => {
@@ -152,7 +158,9 @@ const Main = () => {
                     decelerationRate={'fast'}
                 >
                     <View style={{ flex: 1 }}>
-                        <Character scrollHeight={scrollHeight} />
+                        <View style={{ height: scrollHeight }}>
+                            <Character scrollHeight={scrollHeight} currentWeather={currentWeather?.main?.temp} />
+                        </View>
                         <RecordListBox scrollHeight={scrollHeight} />
                     </View>
                 </ScrollView>
