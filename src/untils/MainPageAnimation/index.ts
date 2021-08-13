@@ -45,20 +45,12 @@ export const ArrowDownMove = (ArrowMove: any) => {
 export const sunAnimation = (anim: any) => {
     //스케일
     Animated.loop(
-        Animated.sequence([
-            // increase size
-            Animated.timing(anim.current, {
-                toValue: 1.6,
-                duration: 2000,
-                useNativeDriver: false,
-            }),
-            // decrease size
-            Animated.timing(anim.current, {
-                toValue: 1,
-                duration: 2000,
-                useNativeDriver: false,
-            }),
-        ])
+        Animated.timing(anim, {
+            toValue: 100,
+            duration: 3000,
+            useNativeDriver: true,
+        }),
+        { iterations: 1000 }
     ).start();
 };
 export const getWeatherImage = (currentWeather: any) => {

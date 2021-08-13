@@ -15,22 +15,28 @@ type CharacterProps = {
 };
 const Character: React.FC<CharacterProps> = ({ scrollHeight, currentWeather }, props) => {
     const ArrowMove = useRef(new Animated.Value(0)).current; // arrow
+    const SunTurn = new Animated.Value(0); //SUN회전
     const SunMove = useRef(new Animated.Value(1)); //Sun
     const RightMove = useRef(new Animated.Value(1)).current;
     const LeftMove = useRef(new Animated.Value(1)).current;
     const [imageWidth, setImageWidth] = useState(0);
     const screenWidth = Dimensions.get('screen').width;
+    const interpolatedRotateAnimation = SunTurn.interpolate({
+        inputRange: [0, 100],
+        outputRange: ['0deg', '360deg'],
+    });
     const Array = [
         ['일교차', '가 클 예정이니', '겉옷', '을 챙기세요'],
         ['일교차', '낮으니', '겉옷', '을 챙기세요'],
     ];
 
     useEffect(() => {
-        sunAnimation(SunMove);
+        sunAnimation(SunTurn);
         CloudLeftMove(RightMove);
         CloudRightMove(LeftMove);
         ArrowDownMove(ArrowMove);
     });
+
     return (
         <Container
             style={{
@@ -40,15 +46,15 @@ const Character: React.FC<CharacterProps> = ({ scrollHeight, currentWeather }, p
             <Animated.View
                 style={{
                     position: 'absolute',
-                    top: 10,
+                    top: 0,
                     left: -15,
-                    transform: [{ scale: SunMove.current }],
+                    transform: [{ rotate: interpolatedRotateAnimation }],
                 }}
             >
                 <Image
                     source={require('WeatherMainImage/sun.png')}
                     resizeMode={'contain'}
-                    style={{ width: screenWidth / 4.5 }}
+                    style={{ width: screenWidth / 3 }}
                 />
             </Animated.View>
             <Animated.View
