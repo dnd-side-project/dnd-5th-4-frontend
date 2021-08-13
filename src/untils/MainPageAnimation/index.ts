@@ -43,6 +43,7 @@ export const ArrowDownMove = (ArrowMove: any) => {
     ).start();
 };
 export const sunAnimation = (anim: any) => {
+    //회전
     //스케일
     Animated.loop(
         Animated.timing(anim, {
@@ -51,6 +52,25 @@ export const sunAnimation = (anim: any) => {
             useNativeDriver: true,
         }),
         { iterations: 1000 }
+    ).start();
+};
+export const sunScaleAnimation = (anim: any) => {
+    //스케일
+    Animated.loop(
+        Animated.sequence([
+            // increase size
+            Animated.timing(anim.current, {
+                toValue: 1.2,
+                duration: 2000,
+                useNativeDriver: false,
+            }),
+            // decrease size
+            Animated.timing(anim.current, {
+                toValue: 1,
+                duration: 2000,
+                useNativeDriver: false,
+            }),
+        ])
     ).start();
 };
 export const getWeatherImage = (currentWeather: any) => {
