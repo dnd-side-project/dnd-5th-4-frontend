@@ -76,7 +76,7 @@ const UploadClothes = () => {
             buttonText="다음"
         >
             <Modal isVisible={isEditDeleteModalVisible} animationIn="fadeIn" animationOut="fadeOut">
-                <TouchableWithoutFeedback onPress={showEditDeleteModal}>
+                <TouchableWithoutFeedback onPress={() => showEditDeleteModal}>
                     <ModalWrap>
                         <ModalBox>
                             <TouchableHighlight>
