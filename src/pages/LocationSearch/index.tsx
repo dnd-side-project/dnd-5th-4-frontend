@@ -24,15 +24,19 @@ const LocationSearch = () => {
     const onBlur = () => {
         setBorderColor('#d6d6d7');
     };
-    const KeyWordChange = (TEXT: any) => {
+    const KeyWordChange = async (TEXT: any) => {
         if (TEXT.length < 2) {
             setLocationWeather([]);
             setLocations([]);
             return;
         }
-        LocationWeatherArray = [];
-        setLocations(KoreaLocations.filter((element) => element.name.includes(TEXT)));
-        Locations.map((location: any) => {
+        let newLocationWeather: { Area: any; temp: any; description: any; icon: any }[] = [];
+        let NewLocations = KoreaLocations.filter((element) => element.name.includes(TEXT));
+        await setLocations(NewLocations);
+
+        // let newLocationWeather = []; //하나씩 넣을거얌
+        console.log(Locations);
+        NewLocations.map((location: any) => {
             // CurrentWeatherSearch(location.location[0], location.location[1], location.name);
             let params = {
                 lat: location.location[0],
@@ -42,9 +46,10 @@ const LocationSearch = () => {
                 lang: 'kr',
                 cnt: 1,
             };
+
             axios
                 .get('https://api.openweathermap.org/data/2.5/find?', { params })
-                .then((res) => {
+                .then(async (res) => {
                     if (res.status !== 200) {
                         console.log('날씨 정보를 받아오지 못했습니다');
                         return;
@@ -56,12 +61,15 @@ const LocationSearch = () => {
                         description: res?.data?.list[0].weather[0].description,
                         icon: res?.data?.list[0].weather[0].icon,
                     };
-                    setLocationWeather((locationWeather: any) => locationWeather.concat(Array));
+                    newLocationWeather.push(Array);
+                    // await setLocationWeather((locationWeather: any) => locationWeather.concat(Array));
                 })
                 .catch((err) => {
                     console.log('캡치', err, 'err');
                 });
         });
+        await setLocationWeather(newLocationWeather);
+        // await setLocationWeather((locationWeather: any) => locationWeather.concat(LocationWeatherArray));
     };
     // const CurrentWeatherSearch = (lat: number, lng: number, area: string) => {
     //     let params = {
@@ -97,6 +105,7 @@ const LocationSearch = () => {
     return (
         <Container>
             <View style={{ flex: 1 }}>
+                {console.log(locationWeather.length)}
                 <Title>원하는 지역을 {'\n'}검색해주세요</Title>
                 <SubTitle>현재 날씨와 위치정보를 확인해주세요</SubTitle>
                 <CloseTouch onPress={() => navigation.goBack()}>
