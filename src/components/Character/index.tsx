@@ -99,7 +99,7 @@ const Character: React.FC<CharacterProps> = ({ currentWeather }) => {
                     source={require('Images/Arrow.png')}
                     resizeMode={'contain'}
                     onLayout={(event) => {
-                        var { height, width } = event.nativeEvent.layout;
+                        var { width } = event.nativeEvent.layout;
                         setImageWidth(width);
                     }}
                     style={{ marginLeft: -imageWidth / 2 }}

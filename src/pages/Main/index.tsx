@@ -26,6 +26,7 @@ import ManyCloud from '../../components/Character/ManyCloud';
 import Rain from '../../components/Character/Rain';
 import Smog from '../../components/Character/Smog';
 import Snow from '../../components/Character/Snow';
+import Characters from '../../components/Character/Characters';
 
 const lat = 37.541; //위도
 const lon = 126.934086; //경도
@@ -187,8 +188,11 @@ const Main = () => {
                     <View style={{ flex: 1 }}>
                         <View style={{ height: scrollHeight }}>
                             {/*{console.log(currentWeather.weather[0].icon)}*/}
-                            <Character currentWeather={currentWeather?.main?.temp} />
+                            {/*<Character currentWeather={currentWeather?.main?.temp} />*/}
                             {/*{test(currentWeather?.weather[0]?.icon, currentWeather?.main?.temp)}*/}
+                            {/*{test(currentWeather)}*/}
+                            {/*{test('01d')}*/}
+                            <Characters currentWeather={currentWeather?.main?.temp} />
                             {test(currentWeather)}
                         </View>
                         <RecordListBox scrollHeight={scrollHeight} />
@@ -202,24 +206,15 @@ const Main = () => {
 export default Main;
 const test = (currentWeather: any) => {
     if (currentWeather?.weather && currentWeather?.weather[0]) {
-        if (currentWeather?.weather[0]?.icon.includes('01'))
-            return <Clean currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('02'))
-            return <LittleCloud currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('03'))
-            return <Cloud currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('04'))
-            return <ManyCloud currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('09'))
-            return <Rain currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('10'))
-            return <Rain currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('11'))
-            return <Lightning currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('13'))
-            return <Smog currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('50'))
-            return <Snow currentWeather={currentWeather?.main?.temp} />;
+        if (currentWeather?.weather[0]?.icon.includes('01')) return <Clean />;
+        else if (currentWeather?.weather[0]?.icon.includes('02')) return <LittleCloud />;
+        else if (currentWeather?.weather[0]?.icon.includes('03')) return <Cloud />;
+        else if (currentWeather?.weather[0]?.icon.includes('04')) return <ManyCloud />;
+        else if (currentWeather?.weather[0]?.icon.includes('09')) return <Rain />;
+        else if (currentWeather?.weather[0]?.icon.includes('10')) return <Rain />;
+        else if (currentWeather?.weather[0]?.icon.includes('11')) return <Lightning />;
+        else if (currentWeather?.weather[0]?.icon.includes('13')) return <Smog />;
+        else if (currentWeather?.weather[0]?.icon.includes('50')) return <Snow />;
     }
     // if (currentWeather?.weather[0]?.icon.includes('01')) return <Clean currentWeather={currentWeather?.main?.temp} />;
     // else if (currentWeather?.weather[0]?.icon.includes('02'))
