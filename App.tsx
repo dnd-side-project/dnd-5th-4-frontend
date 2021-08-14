@@ -8,7 +8,7 @@ import { ThemeProvider } from 'styled-components';
 import theme from './src/styles/theme';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import { AuthProvider } from './src/context';
+import { AuthProvider, DressProvider } from './src/context';
 import { setCustomText } from 'react-native-global-props';
 import { LocationProvider } from './src/context/LocationContext';
 
@@ -46,12 +46,14 @@ export default function App() {
         <NavigationContainer>
             <LocationProvider>
                 <AuthProvider>
-                    <ThemeProvider theme={theme}>
-                        <StatusBar style={'auto'} />
-                        <SafeAreaView style={{ flex: 1, marginTop: Platform.OS ? 24 : 0 }}>
-                            <MyStack />
-                        </SafeAreaView>
-                    </ThemeProvider>
+                    <DressProvider>
+                        <ThemeProvider theme={theme}>
+                            <StatusBar style={'auto'} />
+                            <SafeAreaView style={{ flex: 1, marginTop: Platform.OS ? 24 : 0 }}>
+                                <MyStack />
+                            </SafeAreaView>
+                        </ThemeProvider>
+                    </DressProvider>
                 </AuthProvider>
             </LocationProvider>
         </NavigationContainer>

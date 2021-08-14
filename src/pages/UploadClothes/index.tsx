@@ -24,6 +24,7 @@ import {
 } from './styles';
 import UploadLayout from 'layout/Upload';
 import { Feather, Entypo } from '@expo/vector-icons';
+import { useDressDispatch } from 'context/DressContext';
 
 type ClothesProps = {
     text: string;
@@ -63,9 +64,29 @@ const Category = () => (
 
 const UploadClothes = () => {
     const [isEditDeleteModalVisible, setEditDeleteModalVisibl] = useState(false);
+    const userId = 'dummyUserId';
+    const [dressName, setDressName] = useState('나이키 반바지');
+    const [dressType, setDressType] = useState('BOTTOM');
 
     const showEditDeleteModal = () => {
         setEditDeleteModalVisibl(!isEditDeleteModalVisible);
+    };
+
+    const dress = {
+        userId,
+        dressName,
+        dressType,
+    };
+
+    const dressDispath = useDressDispatch();
+    const upLoadClothes = () => {
+        // alert('upLoadClothes 실행!!\n' + 'userId: ' + userId);  // test
+        dressDispath({
+            type: 'UPLOAD_DRESS',
+            payload: {
+                dress,
+            },
+        });
     };
 
     return (
@@ -74,6 +95,7 @@ const UploadClothes = () => {
             titleContents2="기록해볼까요?"
             subTitleContents="옷차림을 카테고리별로 기록해주세요."
             buttonText="다음"
+            OnPressButton={upLoadClothes}
         >
             <Modal isVisible={isEditDeleteModalVisible} animationIn="fadeIn" animationOut="fadeOut">
                 <TouchableWithoutFeedback onPress={() => showEditDeleteModal}>
