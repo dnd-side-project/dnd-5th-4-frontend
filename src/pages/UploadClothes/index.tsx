@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-native-modal';
-import { ScrollView, TouchableHighlight, TouchableWithoutFeedback } from 'react-native';
+import { ScrollView, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
 import {
     ClothesViewBox,
     TotalWrap,
@@ -27,6 +27,7 @@ import { Feather, Entypo } from '@expo/vector-icons';
 import api from '../../settings/api';
 import Category from '../../components/Category';
 import { KoreaLocations } from '../../untils/Map';
+import TextModal from '../../components/TextModal';
 
 type ClothesProps = {
     categoryList: any;
@@ -38,15 +39,20 @@ const UploadClothes = () => {
     const [category, setCategory] = useState([]);
     const [selectCategory, setSelectCategory] = useState([]);
     const [totalNumber, setTotalNumber] = useState(0);
+    const [isRe, setIsRe] = useState(false);
+    //
+    const [isOpenAddModal, setIsOpenAddModal] = useState(false);
+    const [clickCategory, setClickCategory] = useState('');
+    //
     const showEditDeleteModal = () => {
         setEditDeleteModalVisibl(!isEditDeleteModalVisible);
     };
-    let CategoryArray = {
-        아우터: 'OUTER',
-        상의: 'TOP',
-        하의: 'BOTTOM',
-        신발: 'OUTER',
-        기타: 'OTHERS',
+    const CategoryArray = {
+        OUTER: '아우터',
+        TOP: '상의',
+        BOTTOM: '하의',
+        SHOES: '신발',
+        OTHERS: '기타',
     };
     const Category: React.FC<ClothesProps> = ({ categoryList, name }) => (
         <CategoryWrap>
@@ -55,7 +61,8 @@ const UploadClothes = () => {
                 <PlusButton
                     key={name}
                     onPress={() => {
-                        alert(CategoryArray[name]);
+                        setClickCategory(name);
+                        setIsOpenAddModal(true);
                     }}
                     underlayColor="#DDDDDD"
                     activeOpacity={0.6}
@@ -96,7 +103,7 @@ const UploadClothes = () => {
 
     useEffect(() => {
         fetchUserCloth();
-    }, []);
+    }, [isRe]);
     const fetchUserCloth = () => {
         let testuser1 = 'testuser1';
         api.get(`user/dresses?userId=${testuser1}`)
@@ -130,69 +137,78 @@ const UploadClothes = () => {
             });
     };
     return (
-        <UploadLayout
-            titleContents1="오늘의 옷차림을"
-            titleContents2="기록해볼까요?"
-            subTitleContents="옷차림을 카테고리별로 기록해주세요."
-        >
-            <Modal isVisible={isEditDeleteModalVisible} animationIn="fadeIn" animationOut="fadeOut">
-                <TouchableWithoutFeedback onPress={() => showEditDeleteModal}>
-                    <ModalWrap>
-                        <ModalBox>
-                            <TouchableHighlight>
-                                <Edit>수정하기</Edit>
-                            </TouchableHighlight>
-                            <Line />
-                            <TouchableHighlight>
-                                <Delete>삭제하기</Delete>
-                            </TouchableHighlight>
-                        </ModalBox>
-                    </ModalWrap>
-                </TouchableWithoutFeedback>
-            </Modal>
-            <ClothesViewBox>
-                <TotalWrap>
-                    <TotalTextWrap>
-                        <Total>전체 </Total>
-                        <TotalCount>{totalNumber}</TotalCount>
-                    </TotalTextWrap>
+        <View style={{ flex: 1, width: '100%' }}>
+            <TextModal
+                clickCategory={clickCategory}
+                isOpenAddModal={isOpenAddModal}
+                setIsOpenAddModal={setIsOpenAddModal}
+                setIsRe={setIsRe}
+                isRe={isRe}
+            />
+            <UploadLayout
+                titleContents1="오늘의 옷차림을"
+                titleContents2="기록해볼까요?"
+                subTitleContents="옷차림을 카테고리별로 기록해주세요."
+            >
+                <Modal isVisible={isEditDeleteModalVisible} animationIn="fadeIn" animationOut="fadeOut">
+                    <TouchableWithoutFeedback onPress={() => showEditDeleteModal}>
+                        <ModalWrap>
+                            <ModalBox>
+                                <TouchableHighlight>
+                                    <Edit>수정하기</Edit>
+                                </TouchableHighlight>
+                                <Line />
+                                <TouchableHighlight>
+                                    <Delete>삭제하기</Delete>
+                                </TouchableHighlight>
+                            </ModalBox>
+                        </ModalWrap>
+                    </TouchableWithoutFeedback>
+                </Modal>
+                <ClothesViewBox>
+                    <TotalWrap>
+                        <TotalTextWrap>
+                            <Total>전체 </Total>
+                            <TotalCount>{totalNumber}</TotalCount>
+                        </TotalTextWrap>
 
-                    <Feather
-                        name="more-horizontal"
-                        size={24}
-                        color="black"
-                        iconStyle={{ left: 0 }}
-                        onPress={() => {
-                            showEditDeleteModal();
-                        }}
-                    />
-                </TotalWrap>
-                <CategoryListWrap>
-                    <ScrollView>
-                        <Category
-                            categoryList={category.filter((element: any) => element.type === 'OUTER')}
-                            name="아우터"
+                        <Feather
+                            name="more-horizontal"
+                            size={24}
+                            color="black"
+                            iconStyle={{ left: 0 }}
+                            onPress={() => {
+                                showEditDeleteModal();
+                            }}
                         />
-                        <Category
-                            categoryList={category.filter((element: any) => element.type === 'TOP')}
-                            name="상의"
-                        />
-                        <Category
-                            categoryList={category.filter((element: any) => element.type === 'BOTTOM')}
-                            name="하의"
-                        />
-                        <Category
-                            categoryList={category.filter((element: any) => element.type === 'SHOES')}
-                            name="신발"
-                        />
-                        <Category
-                            categoryList={category.filter((element: any) => element.type === 'OTHERS')}
-                            name="기타"
-                        />
-                    </ScrollView>
-                </CategoryListWrap>
-            </ClothesViewBox>
-        </UploadLayout>
+                    </TotalWrap>
+                    <CategoryListWrap>
+                        <ScrollView>
+                            <Category
+                                categoryList={category.filter((element: any) => element.type === 'OUTER')}
+                                name="아우터"
+                            />
+                            <Category
+                                categoryList={category.filter((element: any) => element.type === 'TOP')}
+                                name="상의"
+                            />
+                            <Category
+                                categoryList={category.filter((element: any) => element.type === 'BOTTOM')}
+                                name="하의"
+                            />
+                            <Category
+                                categoryList={category.filter((element: any) => element.type === 'SHOES')}
+                                name="신발"
+                            />
+                            <Category
+                                categoryList={category.filter((element: any) => element.type === 'OTHERS')}
+                                name="기타"
+                            />
+                        </ScrollView>
+                    </CategoryListWrap>
+                </ClothesViewBox>
+            </UploadLayout>
+        </View>
     );
 };
 
