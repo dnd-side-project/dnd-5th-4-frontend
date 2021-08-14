@@ -28,6 +28,7 @@ import api from '../../settings/api';
 import Category from '../../components/Category';
 import { KoreaLocations } from '../../untils/Map';
 import TextModal from '../../components/TextModal';
+import { Button, Next } from '../RegisterNickName/styles';
 
 type ClothesProps = {
     categoryList: any;
@@ -207,6 +208,14 @@ const UploadClothes = () => {
                         </ScrollView>
                     </CategoryListWrap>
                 </ClothesViewBox>
+                <Button
+                    style={{ marginTop: 30 }}
+                    // color={!maleClicked && !femaleClicked}
+                    // onPress={() => CheckNickGender()}
+                    // disabled={!maleClicked && !femaleClicked}
+                >
+                    <Next>다음</Next>
+                </Button>
             </UploadLayout>
         </View>
     );

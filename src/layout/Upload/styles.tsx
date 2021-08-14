@@ -27,14 +27,11 @@ export const TitleWraper = styled.View`
 `;
 
 export const TitleText = styled.Text<{ color?: any }>`
-    font-style: normal;
-    font-weight: 700;
     font-size: 24px;
-    line-height: 32px;
-    text-align: left;
+    line-height: 32.52px;
     letter-spacing: -0.3px;
-    flex: 1;
-    color: #000;
+    color: #000000;
+    font-family: PretendardBold;
 `;
 
 export const SubTitleWraper = styled.View`
@@ -43,14 +40,10 @@ export const SubTitleWraper = styled.View`
 `;
 
 export const SubTitleText = styled.Text<{ color?: any }>`
-    font-style: normal;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 15px;
-    text-align: left;
+    font-size: 14px;
+    line-height: 17px;
     letter-spacing: -0.3px;
-    flex: 1;
-    color: #00000066;
+    color: #a5a7af;
 `;
 
 export const Contents = styled.View`
