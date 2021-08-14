@@ -58,8 +58,6 @@ export const BottomContainer = styled.View`
 `;
 export const TypeBox = styled.View`
     flex-direction: row;
-    margin-bottom: 8px;
-    align-items: center;
 `;
 export const ClothesName = styled.Text`
     font-family: Pretendard500;
@@ -68,6 +66,7 @@ export const ClothesName = styled.Text`
     letter-spacing: -0.3px;
     color: #000000;
     margin-left: 2px;
+    margin-bottom: 10px;
 `;
 export const Clothes = styled.Text`
     font-size: 12px;
@@ -75,6 +74,7 @@ export const Clothes = styled.Text`
     letter-spacing: -0.3px;
     color: #8a8d97;
     margin-right: 17px;
+    margin-bottom: 10px;
 `;
 export const Circle = styled.View<{ MoodColor?: any }>`
     width: 10px;
