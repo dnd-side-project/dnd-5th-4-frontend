@@ -9,9 +9,11 @@ import { Button, Next } from '../RegisterNickName/styles';
 import Post from '../../components/Post';
 import LocationPost from 'components/LocationPost';
 import { useNavigation } from '@react-navigation/native';
+import { useLocationDispatch } from '../../context';
 let LocationWeatherArray: any = [];
 const LocationSearch = () => {
     const navigation = useNavigation();
+    const locationDispatch = useLocationDispatch();
     const [Locations, setLocations] = useState<any>([]);
     const [keyword, setKeyWord] = useState<string>('');
     const [locationWeather, setLocationWeather] = useState<any>([]);
@@ -35,7 +37,7 @@ const LocationSearch = () => {
         await setLocations(NewLocations);
 
         // let newLocationWeather = []; //하나씩 넣을거얌
-        console.log(Locations);
+        // console.log(Locations);
         NewLocations.map((location: any) => {
             // CurrentWeatherSearch(location.location[0], location.location[1], location.name);
             let params = {
@@ -56,6 +58,8 @@ const LocationSearch = () => {
                     }
                     //
                     let Array = {
+                        lat: location.location[0],
+                        lon: location.location[1],
                         Area: location.name,
                         temp: res?.data?.list[0].main.temp,
                         description: res?.data?.list[0].weather[0].description,
@@ -101,11 +105,17 @@ const LocationSearch = () => {
     //             console.log('캡치', err, 'err');
     //         });
     // };
-
+    const CheckLocation = () => {
+        let keys = {
+            latitude: Math.abs(isLocation?.lat),
+            longitude: Math.abs(isLocation?.lon),
+        };
+        locationDispatch({ type: 'LOCATION', payload: { location: keys } });
+        navigation.goBack();
+    };
     return (
         <Container>
             <View style={{ flex: 1 }}>
-                {console.log(locationWeather.length)}
                 <Title>원하는 지역을 {'\n'}검색해주세요</Title>
                 <SubTitle>현재 날씨와 위치정보를 확인해주세요</SubTitle>
                 <CloseTouch onPress={() => navigation.goBack()}>
@@ -151,7 +161,7 @@ const LocationSearch = () => {
                 </View>
                 <Button
                     color={isLocation.length === 0}
-                    // onPress={() => CheckNickName()}
+                    onPress={() => CheckLocation()}
                     disabled={isLocation.length === 0}
                 >
                     <Next>다음</Next>

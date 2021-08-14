@@ -8,16 +8,8 @@ import WeatherDetail from 'components/WeatherDetail';
 import { Dimensions, ScrollView, View, Text, TouchableOpacity, Image } from 'react-native';
 import RecordListBox from 'components/RecordListBox';
 import Character from 'components/Character';
-import { useAuthState } from '../../context';
+import { useAuthState, useLocationState } from '../../context';
 
-import {
-    ArrowDownMove,
-    CloudRightMove,
-    CloudLeftMove,
-    sunAnimation,
-    getWeatherImage,
-} from '../../untils/MainPageAnimation';
-import { WeatherCharcterBackground } from '../../untils/WeatherCharcterBackground';
 import Clean from '../../components/Character/Clean';
 import Cloud from '../../components/Character/Cloud';
 import Lightning from '../../components/Character/Lightning';
@@ -26,11 +18,13 @@ import ManyCloud from '../../components/Character/ManyCloud';
 import Rain from '../../components/Character/Rain';
 import Smog from '../../components/Character/Smog';
 import Snow from '../../components/Character/Snow';
-
-const lat = 37.541; //위도
-const lon = 126.934086; //경도
+import Characters from '../../components/Character/Characters';
 
 const Main = () => {
+    const authState = useAuthState();
+    const locationState = useLocationState();
+    const [lat, setLat] = useState(locationState === undefined ? locationState?.location?.latitude : 37.541);
+    const [lon, setLon] = useState(locationState === undefined ? locationState?.location?.longitude : 126.934086);
     const [currentWeather, setCurrentWeather] = useState<any>([]); // 현재날씨
     const [hourlyWeather, setHourlyWeather] = useState([]); // 시간대별 날씨
     const [dailyWeather, setDailyWeather] = useState([]); // 주간 날씨
@@ -38,13 +32,23 @@ const Main = () => {
     const [weatherMoreShow, setWeatherMoreShow] = useState(false);
     const [airPollution, setAirPollution] = useState('');
     const { height } = Dimensions.get('screen');
-    const authState = useAuthState();
+
     const [isLoading, setIsLoading] = useState(true);
     // useEffect(() => console.log(authState));
-
+    // useEffect(() => {
+    //     console.log('콘테스트', locationState?.location?.latitude);
+    //     console.log('콘테스트', locationState?.location?.longitude);
+    // });
+    // locationState.latitude
+    //locationState.longitude
     const [imageWidth, setImageWidth] = useState(0);
     // const lat = 36.15; //위도
     // const lon = 125.454086; //경도 (서해)
+
+    useEffect(() => {
+        setLat(locationState?.location?.latitude);
+        setLon(locationState?.location?.longitude);
+    }, [locationState]);
     useEffect(() => {
         KakaoLocation(lat, lon); // 지역명
         WeatherSearch(lat, lon); //시간대별, 주간날씨
@@ -187,8 +191,11 @@ const Main = () => {
                     <View style={{ flex: 1 }}>
                         <View style={{ height: scrollHeight }}>
                             {/*{console.log(currentWeather.weather[0].icon)}*/}
-                            <Character currentWeather={currentWeather?.main?.temp} />
+                            {/*<Character currentWeather={currentWeather?.main?.temp} />*/}
                             {/*{test(currentWeather?.weather[0]?.icon, currentWeather?.main?.temp)}*/}
+                            {/*{test(currentWeather)}*/}
+                            {/*{test('01d')}*/}
+                            <Characters currentWeather={currentWeather?.main?.temp} />
                             {test(currentWeather)}
                         </View>
                         <RecordListBox scrollHeight={scrollHeight} />
@@ -202,24 +209,15 @@ const Main = () => {
 export default Main;
 const test = (currentWeather: any) => {
     if (currentWeather?.weather && currentWeather?.weather[0]) {
-        if (currentWeather?.weather[0]?.icon.includes('01'))
-            return <Clean currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('02'))
-            return <LittleCloud currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('03'))
-            return <Cloud currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('04'))
-            return <ManyCloud currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('09'))
-            return <Rain currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('10'))
-            return <Rain currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('11'))
-            return <Lightning currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('13'))
-            return <Smog currentWeather={currentWeather?.main?.temp} />;
-        else if (currentWeather?.weather[0]?.icon.includes('50'))
-            return <Snow currentWeather={currentWeather?.main?.temp} />;
+        if (currentWeather?.weather[0]?.icon.includes('01')) return <Clean />;
+        else if (currentWeather?.weather[0]?.icon.includes('02')) return <LittleCloud />;
+        else if (currentWeather?.weather[0]?.icon.includes('03')) return <Cloud />;
+        else if (currentWeather?.weather[0]?.icon.includes('04')) return <ManyCloud />;
+        else if (currentWeather?.weather[0]?.icon.includes('09')) return <Rain />;
+        else if (currentWeather?.weather[0]?.icon.includes('10')) return <Rain />;
+        else if (currentWeather?.weather[0]?.icon.includes('11')) return <Lightning />;
+        else if (currentWeather?.weather[0]?.icon.includes('13')) return <Smog />;
+        else if (currentWeather?.weather[0]?.icon.includes('50')) return <Snow />;
     }
     // if (currentWeather?.weather[0]?.icon.includes('01')) return <Clean currentWeather={currentWeather?.main?.temp} />;
     // else if (currentWeather?.weather[0]?.icon.includes('02'))
