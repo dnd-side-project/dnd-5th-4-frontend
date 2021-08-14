@@ -17,13 +17,13 @@ import {
     TitleText,
     SubTitleText,
 } from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 interface RegisterLayoutProps {
     children: React.ReactNode;
     titleContents1: string;
     titleContents2: string;
     subTitleContents: string;
-    buttonText: string;
 }
 
 const Title: React.FC = ({ children }) => {
@@ -33,20 +33,14 @@ const SubTitle: React.FC = ({ children }) => {
     return <SubTitleWraper>{children}</SubTitleWraper>;
 };
 
-const UploadLayout = ({
-    children,
-    titleContents1,
-    titleContents2,
-    subTitleContents,
-    buttonText,
-}: RegisterLayoutProps) => {
+const UploadLayout = ({ children, titleContents1, titleContents2, subTitleContents }: RegisterLayoutProps) => {
     let [fontsLoaded] = useFonts({
         'Noto-Sans-CJK-KR': require('Fonts/NotoSansCJKkr-Regular.otf'),
     });
     if (!fontsLoaded) {
         return null;
     }
-
+    const navigation = useNavigation();
     return (
         <Container>
             <ThemeProvider theme={theme}>
@@ -54,7 +48,8 @@ const UploadLayout = ({
                     {/* {topContents} */}
                     <TouchableOpacity
                         onPress={() => {
-                            alert('back button clicked');
+                            navigation.goBack();
+                            // alert('back button clicked');
                             // this.props.navigation.goBack();
                         }}
                     >
@@ -62,7 +57,7 @@ const UploadLayout = ({
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
-                            alert('건너뛰기 button clicked');
+                            navigation.navigate('Home');
                         }}
                     >
                         <AntDesign name="close" size={24} color="black" iconStyle={{ left: 0 }} />
@@ -82,9 +77,9 @@ const UploadLayout = ({
                 </TitleContainer>
 
                 <Contents>{children}</Contents>
-                <BottomContainer>
-                    <Button>{buttonText}</Button>
-                </BottomContainer>
+                {/*<BottomContainer>*/}
+                {/*    <Button>{buttonText}</Button>*/}
+                {/*</BottomContainer>*/}
             </ThemeProvider>
         </Container>
     );
