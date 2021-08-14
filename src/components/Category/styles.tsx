@@ -1,11 +1,5 @@
 import styled, { css } from 'styled-components/native';
-import theme from 'styles/theme';
 
-export const ClothesViewBox = styled.View`
-    flex: 1;
-`;
-
-// Total
 export const TotalWrap = styled.View`
     flex-direction: row;
     justify-content: space-between;

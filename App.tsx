@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Platform, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Login from './src/pages/Login';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import MyStack from './src/navigation';
 import { ThemeProvider } from 'styled-components';
 import theme from './src/styles/theme';
@@ -23,6 +23,13 @@ const useFonts = async () => {
     });
 };
 export default function App() {
+    const MyTheme = {
+        ...DefaultTheme,
+        colors: {
+            ...DefaultTheme.colors,
+            background: '#fff',
+        },
+    };
     const [isReady, setIsReady] = useState(false);
     const LoadFonts = async () => {
         await useFonts();
@@ -43,7 +50,7 @@ export default function App() {
         );
     }
     return (
-        <NavigationContainer>
+        <NavigationContainer theme={MyTheme}>
             <LocationProvider>
                 <AuthProvider>
                     <ThemeProvider theme={theme}>

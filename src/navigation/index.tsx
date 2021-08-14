@@ -12,6 +12,7 @@ import RegisterConstitution from '../pages/RegisterConstitution';
 import LocationSearch from '../pages/LocationSearch';
 
 import UploadWeatherEstimate from 'pages/UploadWeatherEstimate';
+import UploadClothes from '../pages/UploadClothes';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,7 +22,7 @@ const MyStack = () => {
             screenOptions={({ route, navigation }) => ({
                 headerShown: false,
             })}
-            initialRouteName="Login"
+            initialRouteName="UploadClothes"
         >
             <Stack.Screen name="UploadWeather" component={UploadWeather} />
             <Stack.Screen name="Home" component={MyTabs} />
@@ -30,6 +31,7 @@ const MyStack = () => {
             <Stack.Screen name="RegisterGender" component={RegisterGender} />
             <Stack.Screen name="RegisterConstitution" component={RegisterConstitution} />
             <Stack.Screen name="LocationSearch" component={LocationSearch} />
+            <Stack.Screen name="UploadClothes" component={UploadClothes} />
         </Stack.Navigator>
     );
 };
