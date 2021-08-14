@@ -26,6 +26,7 @@ import UploadLayout from 'layout/Upload';
 import { Feather, Entypo } from '@expo/vector-icons';
 import api from '../../settings/api';
 import Category from '../../components/Category';
+import { KoreaLocations } from '../../untils/Map';
 
 type ClothesProps = {
     categoryList: any;
@@ -34,10 +35,18 @@ type ClothesProps = {
 
 const UploadClothes = () => {
     const [isEditDeleteModalVisible, setEditDeleteModalVisibl] = useState(false);
-    const [category, setCategory] = useState({});
+    const [category, setCategory] = useState([]);
+    const [selectCategory, setSelectCategory] = useState([]);
     const [totalNumber, setTotalNumber] = useState(0);
     const showEditDeleteModal = () => {
         setEditDeleteModalVisibl(!isEditDeleteModalVisible);
+    };
+    let CategoryArray = {
+        아우터: 'OUTER',
+        상의: 'TOP',
+        하의: 'BOTTOM',
+        신발: 'OUTER',
+        기타: 'OTHERS',
     };
     const Category: React.FC<ClothesProps> = ({ categoryList, name }) => (
         <CategoryWrap>
@@ -46,7 +55,7 @@ const UploadClothes = () => {
                 <PlusButton
                     key={name}
                     onPress={() => {
-                        alert(name);
+                        alert(CategoryArray[name]);
                     }}
                     underlayColor="#DDDDDD"
                     activeOpacity={0.6}
@@ -59,13 +68,25 @@ const UploadClothes = () => {
                     showsHorizontalScrollIndicator={false}
                 >
                     {categoryList &&
-                        categoryList.map((category: any) => (
+                        categoryList.map((category: any, index: any) => (
                             <ClothWrap
+                                style={{
+                                    borderColor: selectCategory.includes(category) ? '#000000' : '#D6D6D7',
+                                }}
+                                key={index}
                                 onPress={() => {
-                                    console.log(category);
+                                    if (!selectCategory.includes(category)) {
+                                        setSelectCategory([...selectCategory, category]);
+                                    } else {
+                                        selectCategory.filter((element) => {
+                                            setSelectCategory(selectCategory.filter((element) => element !== category));
+                                        });
+                                    }
                                 }}
                             >
-                                <Cloth> {category?.name}</Cloth>
+                                <Cloth style={{ color: selectCategory.includes(category) ? '#000000' : '#D6D6D7' }}>
+                                    {category?.name}
+                                </Cloth>
                             </ClothWrap>
                         ))}
                 </ScrollView>
@@ -88,16 +109,16 @@ const UploadClothes = () => {
                 //
                 //
                 //
-                let data = res?.data?.dresses;
-                let newCategorys = Object.assign({}, category);
-                data.forEach((recycleInfo: any) => {
-                    let category = recycleInfo.type;
-                    if (!newCategorys.hasOwnProperty(category)) {
-                        newCategorys[category] = [];
-                    }
-                    newCategorys[category].push(recycleInfo);
-                });
-                setCategory(newCategorys);
+                // let data = res?.data?.dresses;
+                // let newCategorys = Object.assign({}, category);
+                // data.forEach((recycleInfo: any) => {
+                //     let category = recycleInfo.type;
+                //     if (!newCategorys.hasOwnProperty(category)) {
+                //         newCategorys[category] = [];
+                //     }
+                //     newCategorys[category].push(recycleInfo);
+                // });
+                setCategory(res?.data?.dresses);
                 //
                 //
                 //
@@ -108,7 +129,6 @@ const UploadClothes = () => {
                 console.log('err', err);
             });
     };
-    const TTTTTT = [{ 1: '아우터', 2: '상의', 3: '하의', 4: '신발', 5: '기타' }];
     return (
         <UploadLayout
             titleContents1="오늘의 옷차림을"
@@ -149,11 +169,26 @@ const UploadClothes = () => {
                 </TotalWrap>
                 <CategoryListWrap>
                     <ScrollView>
-                        <Category categoryList={category['OUTER']} name="아우터" />
-                        <Category categoryList={category['TOP']} name="상의" />
-                        <Category categoryList={category['BOTTOM']} name="하의" />
-                        <Category categoryList={category['SHOES']} name="신발" />
-                        <Category categoryList={category['OTHER']} name="기타" />
+                        <Category
+                            categoryList={category.filter((element: any) => element.type === 'OUTER')}
+                            name="아우터"
+                        />
+                        <Category
+                            categoryList={category.filter((element: any) => element.type === 'TOP')}
+                            name="상의"
+                        />
+                        <Category
+                            categoryList={category.filter((element: any) => element.type === 'BOTTOM')}
+                            name="하의"
+                        />
+                        <Category
+                            categoryList={category.filter((element: any) => element.type === 'SHOES')}
+                            name="신발"
+                        />
+                        <Category
+                            categoryList={category.filter((element: any) => element.type === 'OTHERS')}
+                            name="기타"
+                        />
                     </ScrollView>
                 </CategoryListWrap>
             </ClothesViewBox>
