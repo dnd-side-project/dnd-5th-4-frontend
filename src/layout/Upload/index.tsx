@@ -17,6 +17,7 @@ import {
     TitleText,
     SubTitleText,
 } from './styles';
+import { useNavigation } from '@react-navigation/native';
 
 interface RegisterLayoutProps {
     children: React.ReactNode;
@@ -39,7 +40,7 @@ const UploadLayout = ({ children, titleContents1, titleContents2, subTitleConten
     if (!fontsLoaded) {
         return null;
     }
-
+    const navigation = useNavigation();
     return (
         <Container>
             <ThemeProvider theme={theme}>
@@ -47,7 +48,8 @@ const UploadLayout = ({ children, titleContents1, titleContents2, subTitleConten
                     {/* {topContents} */}
                     <TouchableOpacity
                         onPress={() => {
-                            alert('back button clicked');
+                            navigation.goBack();
+                            // alert('back button clicked');
                             // this.props.navigation.goBack();
                         }}
                     >
@@ -55,7 +57,7 @@ const UploadLayout = ({ children, titleContents1, titleContents2, subTitleConten
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {
-                            alert('건너뛰기 button clicked');
+                            navigation.navigate('Home');
                         }}
                     >
                         <AntDesign name="close" size={24} color="black" iconStyle={{ left: 0 }} />
