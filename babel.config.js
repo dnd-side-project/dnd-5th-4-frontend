@@ -19,6 +19,7 @@ module.exports = function (api) {
                         styles: './src/styles',
                         pages: './src/pages',
                         until: './src/untils',
+                        context: './src/context',
                     },
                 },
             ],

@@ -24,6 +24,9 @@ interface RegisterLayoutProps {
     titleContents1: string;
     titleContents2: string;
     subTitleContents: string;
+    buttonText: string;
+    OnPressButton: () => void;
+
 }
 
 const Title: React.FC = ({ children }) => {
@@ -33,7 +36,15 @@ const SubTitle: React.FC = ({ children }) => {
     return <SubTitleWraper>{children}</SubTitleWraper>;
 };
 
-const UploadLayout = ({ children, titleContents1, titleContents2, subTitleContents }: RegisterLayoutProps) => {
+const UploadLayout = ({
+    children,
+    titleContents1,
+    titleContents2,
+    subTitleContents,
+    buttonText,
+    OnPressButton,
+}: RegisterLayoutProps) => {
+
     let [fontsLoaded] = useFonts({
         'Noto-Sans-CJK-KR': require('Fonts/NotoSansCJKkr-Regular.otf'),
     });
@@ -77,9 +88,10 @@ const UploadLayout = ({ children, titleContents1, titleContents2, subTitleConten
                 </TitleContainer>
 
                 <Contents>{children}</Contents>
-                {/*<BottomContainer>*/}
-                {/*    <Button>{buttonText}</Button>*/}
-                {/*</BottomContainer>*/}
+                <BottomContainer>
+                    <Button onPress={OnPressButton}>{buttonText}</Button>
+                </BottomContainer>
+
             </ThemeProvider>
         </Container>
     );

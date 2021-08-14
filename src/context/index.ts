@@ -1,4 +1,6 @@
 export * from './AuthContext';
-export { AuthAction } from './types';
+export * from './DressContext';
 export * from './LocationContext';
+export { AuthAction, DressAction } from './types';
+
 export { LocationAction } from './locationTypes';

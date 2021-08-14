@@ -4,3 +4,10 @@ export const login = (user: object) => ({
         user,
     },
 });
+
+export const uploadDress = (dress: object) => ({
+    type: 'UPLOAD_DRESS',
+    payload: {
+        dress,
+    },
+});
