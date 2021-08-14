@@ -34,7 +34,10 @@ const Main = () => {
     const { height } = Dimensions.get('screen');
 
     const [isLoading, setIsLoading] = useState(true);
-    // useEffect(() => console.log(authState));
+    // useEffect(() => console.log('123', authState));
+
+    //
+    //
     // useEffect(() => {
     //     console.log('콘테스트', locationState?.location?.latitude);
     //     console.log('콘테스트', locationState?.location?.longitude);

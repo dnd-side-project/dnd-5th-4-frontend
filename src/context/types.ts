@@ -1,7 +1,7 @@
 export type LoginAction = {
     type: 'LOGIN';
     payload: {
-        userId: string;
+        user: object;
     };
 };
 

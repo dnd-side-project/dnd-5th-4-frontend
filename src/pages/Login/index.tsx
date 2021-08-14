@@ -25,8 +25,18 @@ const Login = () => {
                     return;
                 }
                 if (res?.data.isOurMember) {
-                    authDispatch({ type: 'LOGIN', payload: { userId } });
-                    navigation.navigate('Home');
+                    api.get(`user/${userId}`)
+                        .then((res) => {
+                            if (res.status !== 200) {
+                                console.log('날씨 정보를 받아오지 못했습니다');
+                                return;
+                            }
+                            authDispatch({ type: 'LOGIN', payload: { user: res?.data?.userResponse } });
+                            navigation.navigate('Home');
+                        })
+                        .catch((err) => {
+                            console.log('에러', err);
+                        });
                     //    회원가입이 된 경우 main으로 가게됩니다.
                 } else {
                     navigation.navigate('RegisterNickName', { userId: userId });
