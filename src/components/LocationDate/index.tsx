@@ -3,6 +3,7 @@ import { Image, TouchableOpacity, View } from 'react-native';
 import { AreaName, Today, Container, RightContainer, IconImage } from './styles';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { LocationGps } from '../../untils/GpsFunction';
 type LocationDateProps = {
     Location: Array<string>;
     setLocation: React.ReactNode;
@@ -22,7 +23,11 @@ const LocationDate: React.FC<LocationDateProps> = ({ Location, setLocation }) =>
                 </Today>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <AreaName>{LocationName?.replace(/광역시|특별시/gi, '')}</AreaName>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            LocationGps();
+                        }}
+                    >
                         <IconImage
                             source={require('Images/location.png')}
                             resizeMode={'contain'}
