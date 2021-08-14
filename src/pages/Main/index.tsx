@@ -10,14 +10,6 @@ import RecordListBox from 'components/RecordListBox';
 import Character from 'components/Character';
 import { useAuthState } from '../../context';
 
-import {
-    ArrowDownMove,
-    CloudRightMove,
-    CloudLeftMove,
-    sunAnimation,
-    getWeatherImage,
-} from '../../untils/MainPageAnimation';
-import { WeatherCharcterBackground } from '../../untils/WeatherCharcterBackground';
 import Clean from '../../components/Character/Clean';
 import Cloud from '../../components/Character/Cloud';
 import Lightning from '../../components/Character/Lightning';

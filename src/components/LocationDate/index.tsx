@@ -20,7 +20,16 @@ const LocationDate: React.FC<LocationDateProps> = ({ Location, setLocation }) =>
                 <Today>
                     {month}월 {date}일 {week[day]}요일
                 </Today>
-                <AreaName>{LocationName?.replace(/광역시|특별시/gi, '')}</AreaName>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <AreaName>{LocationName?.replace(/광역시|특별시/gi, '')}</AreaName>
+                    <TouchableOpacity>
+                        <IconImage
+                            source={require('Images/location.png')}
+                            resizeMode={'contain'}
+                            style={{ width: 15, height: 15, marginLeft: 6 }}
+                        />
+                    </TouchableOpacity>
+                </View>
             </View>
             <RightContainer>
                 <TouchableOpacity onPress={() => navigation.navigate('LocationSearch')}>
