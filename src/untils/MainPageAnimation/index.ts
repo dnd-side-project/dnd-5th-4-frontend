@@ -48,7 +48,7 @@ export const sunAnimation = (anim: any) => {
     Animated.loop(
         Animated.timing(anim, {
             toValue: 100,
-            duration: 3000,
+            duration: 20000,
             useNativeDriver: true,
         }),
         { iterations: 1000 }

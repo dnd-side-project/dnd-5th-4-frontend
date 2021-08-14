@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+
 export const TextFiled = styled.TextInput`
     width: 100%;
     height: 44px;

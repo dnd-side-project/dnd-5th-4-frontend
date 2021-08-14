@@ -48,7 +48,7 @@ export const Button = styled.TouchableOpacity<{ color?: boolean }>`
     color: #ffffff;
     align-items: center;
     justify-content: center;
-    background: ${(props) => (props.color ? '#C9C9C9' : '#000000')};
+    background: ${(props) => (props.color ? '#CACCD6' : '#000000')};
     width: 100%;
 `;
 export const Next = styled.Text`
