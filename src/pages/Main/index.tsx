@@ -8,7 +8,7 @@ import WeatherDetail from 'components/WeatherDetail';
 import { Dimensions, ScrollView, View, Text, TouchableOpacity, Image } from 'react-native';
 import RecordListBox from 'components/RecordListBox';
 import Character from 'components/Character';
-import { useAuthState } from '../../context';
+import { useAuthState, useLocationState } from '../../context';
 
 import Clean from '../../components/Character/Clean';
 import Cloud from '../../components/Character/Cloud';
@@ -20,10 +20,11 @@ import Smog from '../../components/Character/Smog';
 import Snow from '../../components/Character/Snow';
 import Characters from '../../components/Character/Characters';
 
-const lat = 37.541; //위도
-const lon = 126.934086; //경도
-
 const Main = () => {
+    const authState = useAuthState();
+    const locationState = useLocationState();
+    const [lat, setLat] = useState(locationState === undefined ? locationState?.location?.latitude : 37.541);
+    const [lon, setLon] = useState(locationState === undefined ? locationState?.location?.longitude : 126.934086);
     const [currentWeather, setCurrentWeather] = useState<any>([]); // 현재날씨
     const [hourlyWeather, setHourlyWeather] = useState([]); // 시간대별 날씨
     const [dailyWeather, setDailyWeather] = useState([]); // 주간 날씨
@@ -31,13 +32,23 @@ const Main = () => {
     const [weatherMoreShow, setWeatherMoreShow] = useState(false);
     const [airPollution, setAirPollution] = useState('');
     const { height } = Dimensions.get('screen');
-    const authState = useAuthState();
+
     const [isLoading, setIsLoading] = useState(true);
     // useEffect(() => console.log(authState));
-
+    // useEffect(() => {
+    //     console.log('콘테스트', locationState?.location?.latitude);
+    //     console.log('콘테스트', locationState?.location?.longitude);
+    // });
+    // locationState.latitude
+    //locationState.longitude
     const [imageWidth, setImageWidth] = useState(0);
     // const lat = 36.15; //위도
     // const lon = 125.454086; //경도 (서해)
+
+    useEffect(() => {
+        setLat(locationState?.location?.latitude);
+        setLon(locationState?.location?.longitude);
+    }, [locationState]);
     useEffect(() => {
         KakaoLocation(lat, lon); // 지역명
         WeatherSearch(lat, lon); //시간대별, 주간날씨
