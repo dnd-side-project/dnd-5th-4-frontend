@@ -26,6 +26,7 @@ type WeatherDetailProps = {
 
 const Post: React.FC<WeatherDetailProps> = ({ post, isMyPost }) => {
     const ClothesType = ['겉옷', '상의', '하의', '신발'];
+    const ClothesTypeEng = ['OUTER', 'TOP', 'BOTTOM', 'SHOES'];
     const [showMore, setShowMore] = useState(false);
     let Day = ['일', '월', '화', '수', '목', '금', '토'];
     const Dates = Date.parse(post?.item.date) / 1000;
@@ -72,17 +73,31 @@ const Post: React.FC<WeatherDetailProps> = ({ post, isMyPost }) => {
             </TopContainer>
             {showMore && (
                 <BottomContainer>
-                    {post?.item.dressResponses.map((item: any, index: number) => (
+                    {/*{post?.item.dressResponses.map((item: any, index: number) => (*/}
+                    {/*    <TypeBox key={index}>*/}
+                    {/*        <Clothes>{ClothesType[index]}</Clothes>*/}
+                    {/*        {item?.dressName ? (*/}
+                    {/*            item?.partialMood ? (*/}
+                    {/*                <Circle MoodColor={MoodColor[item?.partialMood]} />*/}
+                    {/*            ) : (*/}
+                    {/*                <Blank>-</Blank>*/}
+                    {/*            )*/}
+                    {/*        ) : null}*/}
+                    {/*        <ClothesName>{item?.dressName ? item?.dressName : '-'}</ClothesName>*/}
+                    {/*    </TypeBox>*/}
+                    {/*))}*/}
+                    {ClothesTypeEng.map((cloth, index) => (
                         <TypeBox key={index}>
                             <Clothes>{ClothesType[index]}</Clothes>
-                            {item?.dressName ? (
-                                item?.partialMood ? (
-                                    <Circle MoodColor={MoodColor[item?.partialMood]} />
-                                ) : (
-                                    <Blank>-</Blank>
-                                )
-                            ) : null}
-                            <ClothesName>{item?.dressName ? item?.dressName : '-'}</ClothesName>
+                            {post?.item.dressResponses.map(
+                                (item: any, count: any) =>
+                                    cloth === item.dressType && (
+                                        <View key={count} style={{ flexDirection: 'row' }}>
+                                            <Circle MoodColor={MoodColor[item?.partialMood]} />
+                                            <ClothesName>{item?.dressName ? item?.dressName : '-'}</ClothesName>
+                                        </View>
+                                    )
+                            )}
                         </TypeBox>
                     ))}
                 </BottomContainer>

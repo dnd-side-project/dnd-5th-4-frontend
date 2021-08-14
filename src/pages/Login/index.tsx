@@ -28,7 +28,7 @@ const Login = () => {
                     api.get(`user/${userId}`)
                         .then((res) => {
                             if (res.status !== 200) {
-                                console.log('날씨 정보를 받아오지 못했습니다');
+                                console.log('로그인정보를 얻지못했습니다');
                                 return;
                             }
                             authDispatch({ type: 'LOGIN', payload: { user: res?.data?.userResponse } });

@@ -201,7 +201,7 @@ const Main = () => {
                             <Characters currentWeather={currentWeather?.main?.temp} />
                             {test(currentWeather)}
                         </View>
-                        <RecordListBox scrollHeight={scrollHeight} />
+                        <RecordListBox scrollHeight={scrollHeight} dailyWeather={dailyWeather} />
                     </View>
                 </ScrollView>
             )}
