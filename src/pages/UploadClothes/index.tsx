@@ -24,7 +24,6 @@ import {
 } from './styles';
 import UploadLayout from 'layout/Upload';
 import { Feather, Entypo } from '@expo/vector-icons';
-import { useDressDispatch } from 'context/DressContext';
 import api from '../../settings/api';
 import Category from '../../components/Category';
 import { KoreaLocations } from '../../untils/Map';
@@ -38,18 +37,14 @@ type ClothesProps = {
 
 const UploadClothes = () => {
     const [isEditDeleteModalVisible, setEditDeleteModalVisibl] = useState(false);
-    const userId = 'dummyUserId';
-    const [dressName, setDressName] = useState('나이키 반바지');
-    const [dressType, setDressType] = useState('BOTTOM');
-
     const [category, setCategory] = useState([]);
     const [selectCategory, setSelectCategory] = useState([]);
     const [totalNumber, setTotalNumber] = useState(0);
     const [isRe, setIsRe] = useState(false);
-
+    //
     const [isOpenAddModal, setIsOpenAddModal] = useState(false);
     const [clickCategory, setClickCategory] = useState('');
-
+    //
     const showEditDeleteModal = () => {
         setEditDeleteModalVisibl(!isEditDeleteModalVisible);
     };
@@ -118,52 +113,7 @@ const UploadClothes = () => {
                     console.log('유저의 드레스를 가져오지못했습니다');
                     return;
                 }
-    const dress = {
-        userId,
-        dressName,
-        dressType,
-    };
 
-    const dressDispath = useDressDispatch();
-    const upLoadClothes = () => {
-        // alert('upLoadClothes 실행!!\n' + 'userId: ' + userId);  // test
-        dressDispath({
-            type: 'UPLOAD_DRESS',
-            payload: {
-                dress,
-            },
-        });
-    };
-
-    return (
-        <UploadLayout
-            titleContents1="오늘의 옷차림을"
-            titleContents2="기록해볼까요?"
-            subTitleContents="옷차림을 카테고리별로 기록해주세요."
-            buttonText="다음"
-            OnPressButton={upLoadClothes}
-        >
-            <Modal isVisible={isEditDeleteModalVisible} animationIn="fadeIn" animationOut="fadeOut">
-                <TouchableWithoutFeedback onPress={() => showEditDeleteModal}>
-                    <ModalWrap>
-                        <ModalBox>
-                            <TouchableHighlight>
-                                <Edit>수정하기</Edit>
-                            </TouchableHighlight>
-                            <Line />
-                            <TouchableHighlight>
-                                <Delete>삭제하기</Delete>
-                            </TouchableHighlight>
-                        </ModalBox>
-                    </ModalWrap>
-                </TouchableWithoutFeedback>
-            </Modal>
-            <ClothesViewBox>
-                <TotalWrap>
-                    <TotalTextWrap>
-                        <Total>전체</Total>
-                        <TotalCount>15</TotalCount>
-                    </TotalTextWrap>
                 //
                 //
                 //
@@ -222,7 +172,6 @@ const UploadClothes = () => {
                             <Total>전체 </Total>
                             <TotalCount>{totalNumber}</TotalCount>
                         </TotalTextWrap>
-
 
                         <Feather
                             name="more-horizontal"
