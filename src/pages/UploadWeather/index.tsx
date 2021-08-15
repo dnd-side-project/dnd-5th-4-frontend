@@ -20,6 +20,7 @@ const UploadWeather = () => {
     const [isLocation, setIsLocation] = useState([]); // 클릭 한 위치에 정보
     const [borderColor, setBorderColor] = useState('#d6d6d7');
     const [border, setBorder] = useState(1);
+
     const onFucus = () => {
         setBorderColor('#000000');
         setBorder(2);
@@ -92,7 +93,12 @@ const UploadWeather = () => {
     return (
         <Container>
             <View style={{ flex: 1 }}>
-                <CloseTouch onPress={() => navigation.goBack()}>
+                <CloseTouch
+                    onPress={() => {
+                        setKeyWord('');
+                        navigation.goBack();
+                    }}
+                >
                     <Close source={require('Images/Close.png')} resizeMode={'contain'} />
                 </CloseTouch>
                 <Title>오늘의 날씨를{'\n'}기록해볼까요?</Title>

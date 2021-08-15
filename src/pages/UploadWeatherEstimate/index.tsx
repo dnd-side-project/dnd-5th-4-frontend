@@ -94,7 +94,7 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) 
                     return;
                 }
                 Alert.alert('날씨를 업로드했습니다');
-                navigation.navigate('Home');
+                navigation.navigate('Main');
             })
             .catch((err) => {
                 console.log('err', err);
@@ -178,8 +178,8 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) 
                 <ScrollView style={{ marginTop: 22 }}>
                     {!isShowEstimateList && (
                         <View>
-                            {types.map((type: any) => (
-                                <EstimateBox name={type} selectCategory={selectCategory} />
+                            {types.map((type: any, index: number) => (
+                                <EstimateBox name={type} selectCategory={selectCategory} key={index} />
                             ))}
                         </View>
                     )}

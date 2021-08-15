@@ -23,7 +23,7 @@ const TextModal: React.FC<UserProps> = ({ isOpenAddModal, clickCategory, setIsOp
     const user = authState?.user;
     useEffect(() => {
         setKeyword('');
-    }, []);
+    }, [isRe]);
     const onFucus = () => {
         setBorderColor('#000000');
     };
@@ -32,7 +32,7 @@ const TextModal: React.FC<UserProps> = ({ isOpenAddModal, clickCategory, setIsOp
     };
     const CategoryArray = {
         아우터: 'OUTER',
-        상의: '상의',
+        상의: 'TOP',
         하의: 'BOTTOM',
         신발: 'SHOES',
         기타: 'OTHERS',
