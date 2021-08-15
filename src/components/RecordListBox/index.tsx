@@ -23,7 +23,7 @@ const RecordListBox: React.FC<ScrollHeightProps> = ({ scrollHeight, dailyWeather
     //
     useEffect(() => {
         fetchPost(isMyPost);
-    }, []);
+    }, [dailyWeather, isMyPost]);
     const renderPost = (item: any) => {
         return <Post post={item} isMyPost={isMyPost} />;
     };
@@ -32,7 +32,8 @@ const RecordListBox: React.FC<ScrollHeightProps> = ({ scrollHeight, dailyWeather
         let maxTemp = dailyWeather[0]?.temp.max;
         let minTemp = dailyWeather[0]?.temp.min;
         let pageSize = 7;
-        let measureType = !isMyPost ? 'user' : 'others';
+        let measureType = isMyPost ? 'user' : 'others';
+        setPosts([]);
         let params = {
             userId: user?.id,
             tempHigh: maxTemp,
@@ -67,7 +68,7 @@ const RecordListBox: React.FC<ScrollHeightProps> = ({ scrollHeight, dailyWeather
                             e.preventDefault();
                             if (!isMyPost) {
                                 setIsMyPost(true);
-                                fetchPost(isMyPost);
+                                // fetchPost(isMyPost);
                             }
                         }}
                     >
@@ -80,7 +81,7 @@ const RecordListBox: React.FC<ScrollHeightProps> = ({ scrollHeight, dailyWeather
                             e.preventDefault();
                             if (isMyPost) {
                                 setIsMyPost(false);
-                                fetchPost(isMyPost);
+                                // fetchPost(isMyPost);
                             }
                         }}
                     >

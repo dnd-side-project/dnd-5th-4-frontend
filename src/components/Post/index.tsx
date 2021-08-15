@@ -62,6 +62,7 @@ const Post: React.FC<WeatherDetailProps> = ({ post, isMyPost }) => {
                         size={24}
                         color="#828282"
                         onPress={() => {
+                            console.log(post);
                             setShowMore(!showMore);
                         }}
                         style={{

@@ -1,9 +1,10 @@
 {
     "expo": {
-        "name": "clother",
+        "name": "Clother",
         "slug": "clother",
         "version": "1.0.0",
         "orientation": "portrait",
+        "icon": "./assets/tests.png",
         "splash": {
             "image": "./assets/splash.png",
             "resizeMode": "contain",
@@ -17,7 +18,8 @@
             "supportsTablet": true
         },
         "android": {
-            "adaptiveIcon": {
+          "package": "com.Clother.Clother",
+          "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#FFF"
             }
