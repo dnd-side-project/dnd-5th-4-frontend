@@ -44,6 +44,7 @@ const UploadClothes = () => {
     //
     const [isOpenAddModal, setIsOpenAddModal] = useState(false);
     const [clickCategory, setClickCategory] = useState('');
+    const [selectType, setSelectType] = useState([]);
     //
     const showEditDeleteModal = () => {
         setEditDeleteModalVisibl(!isEditDeleteModalVisible);
@@ -105,6 +106,25 @@ const UploadClothes = () => {
     useEffect(() => {
         fetchUserCloth();
     }, [isRe]);
+    const onNextPage = () => {
+        let newSelectType = [];
+        if (selectCategory.filter((ele) => ele.type == 'OUTER').length !== 0) {
+            newSelectType.push('OUTER');
+        }
+        if (selectCategory.filter((ele) => ele.type == 'TOP').length !== 0) {
+            newSelectType.push('TOP');
+        }
+        if (selectCategory.filter((ele) => ele.type == 'BOTTOM').length !== 0) {
+            newSelectType.push('BOTTOM');
+        }
+        if (selectCategory.filter((ele) => ele.type == 'SHOES').length !== 0) {
+            newSelectType.push('SHOES');
+        }
+        if (selectCategory.filter((ele) => ele.type == 'OTHERS').length !== 0) {
+            newSelectType.push('OTHERS');
+        }
+        console.log(newSelectType);
+    };
     const fetchUserCloth = () => {
         let testuser1 = 'testuser1';
         api.get(`user/dresses?userId=${testuser1}`)
@@ -211,7 +231,7 @@ const UploadClothes = () => {
                 <Button
                     style={{ marginTop: 30 }}
                     // color={!maleClicked && !femaleClicked}
-                    // onPress={() => CheckNickGender()}
+                    onPress={() => onNextPage()}
                     // disabled={!maleClicked && !femaleClicked}
                 >
                     <Next>다음</Next>

@@ -21,11 +21,11 @@ import { useNavigation } from '@react-navigation/native';
 
 interface RegisterLayoutProps {
     children: React.ReactNode;
-    titleContents1: string;
-    titleContents2: string;
-    subTitleContents: string;
-    buttonText: string;
-    OnPressButton: () => void;
+    titleContents1?: string;
+    titleContents2?: string;
+    subTitleContents?: string;
+    buttonText?: string;
+    OnPressButton?: () => void;
 }
 
 const Title: React.FC = ({ children }) => {

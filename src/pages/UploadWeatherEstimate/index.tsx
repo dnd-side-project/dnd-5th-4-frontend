@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import Modal from 'react-native-modal';
 import { ScrollView, Text, TextInput, View, TouchableWithoutFeedback } from 'react-native';
 import {
@@ -26,100 +26,87 @@ import { useFonts } from 'expo-font';
 import { AntDesign } from '@expo/vector-icons';
 import { MoodImageGray, MoodImage, MoodColor } from '../../untils/MoodWeather';
 
-const EstimateBox = () => {
-    // const [isMoodClicked, setIsMoodClicked] = useState(false);
-    const [isVeryHotMoodClicked, setVeryHotMoodClicked] = useState(false);
-    const [isHotMoodClicked, setHotMoodClicked] = useState(false);
-    const [isGoodMoodClicked, setIsGoodMoodClicked] = useState(false);
-    const [isColdMoodClicked, setIsColdMoodClicked] = useState(false);
-    const [isVeryColdMoodClicked, setIsVeryColdMoodClicked] = useState(false);
-    const onMoodClick = () => {
-        setVeryHotMoodClicked(false);
-        setHotMoodClicked(false);
-        setIsGoodMoodClicked(false);
-        setIsColdMoodClicked(false);
-        setIsVeryColdMoodClicked(false);
+const EstimateBox = ({ name }) => {
+    const [isCategoryMood, setIsCategoryMood] = useState('');
+    const [selectMood, setSelectMood] = useState([]);
+    const onCategoryMoodHandler = (mood: string) => {
+        if (mood === isCategoryMood) {
+            setIsCategoryMood('');
+        } else {
+            setIsCategoryMood(mood);
+        }
     };
-
-    let [fontsLoaded] = useFonts({
-        'Noto-Sans-CJK-KR': require('Fonts/NotoSansCJKkr-Regular.otf'),
-    });
-    if (!fontsLoaded) {
-        return null;
-    }
+    useEffect(() => {
+        console.log(Array.filter((ele) => ele.type));
+    }, []);
 
     return (
         <EstimateComponent>
-            <EstimateCategory>겉옷</EstimateCategory>
+            <EstimateCategory>{name}</EstimateCategory>
             <EstimateEmotionSelect>
                 <Mood
                     onPress={() => {
-                        onMoodClick();
-                        setVeryHotMoodClicked(!isVeryHotMoodClicked);
+                        onCategoryMoodHandler('VERYHOT');
                     }}
                 >
                     <View>
                         <VeryHot
-                            source={isVeryHotMoodClicked ? MoodImage['VERY HOT'] : MoodImageGray['VERY HOT']}
+                            source={isCategoryMood === 'VERYHOT' ? MoodImage['VERYHOT'] : MoodImageGray['VERY HOT']}
                             resizeMode={'contain'}
                         />
-                        <MoodText>{isVeryHotMoodClicked ? '너무 \n더웠어요' : ' '}</MoodText>
+                        <MoodText>{isCategoryMood === 'VERYHOT' ? '너무 \n더웠어요' : ' '}</MoodText>
                     </View>
                 </Mood>
                 <Mood
                     onPress={() => {
-                        onMoodClick();
-                        setHotMoodClicked(!isHotMoodClicked);
+                        onCategoryMoodHandler('HOT');
                     }}
                 >
                     <View>
                         <Hot
-                            source={isHotMoodClicked ? MoodImage['HOT'] : MoodImageGray['HOT']}
+                            source={isCategoryMood === 'HOT' ? MoodImage['HOT'] : MoodImageGray['HOT']}
                             resizeMode={'contain'}
                         />
-                        <MoodText>{isHotMoodClicked ? '더웠어요' : ' '}</MoodText>
+                        <MoodText>{isCategoryMood === 'HOT' ? '더웠어요' : ' '}</MoodText>
                     </View>
                 </Mood>
                 <Mood
                     onPress={() => {
-                        onMoodClick();
-                        setIsGoodMoodClicked(!isGoodMoodClicked);
+                        onCategoryMoodHandler('GOOD');
                     }}
                 >
                     <View>
                         <Good
-                            source={isGoodMoodClicked ? MoodImage['GOOD'] : MoodImageGray['GOOD']}
+                            source={isCategoryMood === 'GOOD' ? MoodImage['GOOD'] : MoodImageGray['GOOD']}
                             resizeMode={'contain'}
                         />
-                        <MoodText>{isGoodMoodClicked ? '좋았어요' : ' '}</MoodText>
+                        <MoodText>{isCategoryMood === 'GOOD' ? '좋았어요' : ' '}</MoodText>
                     </View>
                 </Mood>
                 <Mood
                     onPress={() => {
-                        onMoodClick();
-                        setIsColdMoodClicked(!isColdMoodClicked);
+                        onCategoryMoodHandler('COLD');
                     }}
                 >
                     <View>
                         <Cold
-                            source={isColdMoodClicked ? MoodImage['COLD'] : MoodImageGray['COLD']}
+                            source={isCategoryMood === 'COLD' ? MoodImage['COLD'] : MoodImageGray['COLD']}
                             resizeMode={'contain'}
                         />
-                        <MoodText>{isColdMoodClicked ? '추웠어요' : ' '}</MoodText>
+                        <MoodText>{isCategoryMood === 'COLD' ? '추웠어요' : ' '}</MoodText>
                     </View>
                 </Mood>
                 <Mood
                     onPress={() => {
-                        onMoodClick();
-                        setIsVeryColdMoodClicked(!isVeryColdMoodClicked);
+                        onCategoryMoodHandler('VERYCOLD');
                     }}
                 >
                     <View>
                         <VeryCold
-                            source={isVeryColdMoodClicked ? MoodImage['VERY COLD'] : MoodImageGray['VERY COLD']}
+                            source={isCategoryMood === 'VERYCOLD' ? MoodImage['VERYCOLD'] : MoodImageGray['VERY COLD']}
                             resizeMode={'contain'}
                         />
-                        <MoodText>{isVeryColdMoodClicked ? '너무 \n 추웠어요' : ' '}</MoodText>
+                        <MoodText>{isCategoryMood === 'VERYCOLD' ? '너무 \n 추웠어요' : ' '}</MoodText>
                     </View>
                 </Mood>
             </EstimateEmotionSelect>
@@ -129,18 +116,28 @@ const EstimateBox = () => {
 
 const UploadWeatherEstimate = () => {
     const [isShowEstimateList, setIsShowEstimateList] = useState(false);
-    // const [isMoodClicked, setIsMoodClicked] = useState(false);
-    const [isVeryHotMoodClicked, setVeryHotMoodClicked] = useState(false);
-    const [isHotMoodClicked, setHotMoodClicked] = useState(false);
-    const [isGoodMoodClicked, setIsGoodMoodClicked] = useState(false);
-    const [isColdMoodClicked, setIsColdMoodClicked] = useState(false);
-    const [isVeryColdMoodClicked, setIsVeryColdMoodClicked] = useState(false);
-    const onMoodClick = () => {
-        setVeryHotMoodClicked(false);
-        setHotMoodClicked(false);
-        setIsGoodMoodClicked(false);
-        setIsColdMoodClicked(false);
-        setIsVeryColdMoodClicked(false);
+    const [isMainMood, setIsMainMood] = useState('');
+    const onMoodHandler = (mood: string) => {
+        if (mood === isMainMood) {
+            setIsMainMood('');
+        } else {
+            setIsMainMood(mood);
+        }
+    };
+    let MoodArray = {
+        VERYHOT: '너무 더웠어요',
+        HOT: '더웠어요',
+        GOOD: '좋았어요',
+        COLD: '추웠어요',
+        VERYCOLD: '너무 추웠어요',
+    };
+    let MoodColorArray = {
+        VERYHOT: '#FF4743',
+        HOT: '#FFD000',
+        GOOD: '#2EE788',
+        COLD: '#48CFFA',
+        VERYCOLD: '#4068B0',
+        '': 'B1B5BC',
     };
     const [memo, setMemo] = useState<string>('');
 
@@ -149,68 +146,65 @@ const UploadWeatherEstimate = () => {
             titleContents1="오늘의 날씨를"
             titleContents2="평가해볼까요?"
             subTitleContents="오늘 하루 느낀 점을 평가해주세요."
-            buttonText="완료"
         >
             <WeatherEstimateWrap>
                 <EmotionSelectWrap>
                     <EmotionSelect>
                         <TouchableWithoutFeedback
                             onPress={() => {
-                                onMoodClick();
-                                setVeryHotMoodClicked(!isVeryHotMoodClicked);
+                                onMoodHandler('VERYHOT');
                             }}
                         >
                             <VeryHot
-                                source={isVeryHotMoodClicked ? MoodImage['VERY HOT'] : MoodImageGray['VERY HOT']}
+                                source={isMainMood === 'VERYHOT' ? MoodImage['VERYHOT'] : MoodImageGray['VERY HOT']}
                                 resizeMode={'contain'}
                             />
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback
                             onPress={() => {
-                                onMoodClick();
-                                setHotMoodClicked(!isHotMoodClicked);
+                                onMoodHandler('HOT');
                             }}
                         >
                             <Hot
-                                source={isHotMoodClicked ? MoodImage['HOT'] : MoodImageGray['HOT']}
+                                source={isMainMood === 'HOT' ? MoodImage['HOT'] : MoodImageGray['HOT']}
                                 resizeMode={'contain'}
                             />
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback
                             onPress={() => {
-                                onMoodClick();
-                                setIsGoodMoodClicked(!isGoodMoodClicked);
+                                onMoodHandler('GOOD');
                             }}
                         >
                             <Good
-                                source={isGoodMoodClicked ? MoodImage['GOOD'] : MoodImageGray['GOOD']}
+                                source={isMainMood === 'GOOD' ? MoodImage['GOOD'] : MoodImageGray['GOOD']}
                                 resizeMode={'contain'}
                             />
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback
                             onPress={() => {
-                                onMoodClick();
-                                setIsColdMoodClicked(!isColdMoodClicked);
+                                onMoodHandler('COLD');
                             }}
                         >
                             <Cold
-                                source={isColdMoodClicked ? MoodImage['COLD'] : MoodImageGray['COLD']}
+                                source={isMainMood === 'COLD' ? MoodImage['COLD'] : MoodImageGray['COLD']}
                                 resizeMode={'contain'}
                             />
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback
                             onPress={() => {
-                                onMoodClick();
-                                setIsVeryColdMoodClicked(!isVeryColdMoodClicked);
+                                onMoodHandler('VERYCOLD');
                             }}
                         >
                             <VeryCold
-                                source={isVeryColdMoodClicked ? MoodImage['VERY COLD'] : MoodImageGray['VERY COLD']}
+                                source={isMainMood === 'VERYCOLD' ? MoodImage['VERYCOLD'] : MoodImageGray['VERY COLD']}
                                 resizeMode={'contain'}
                             />
                         </TouchableWithoutFeedback>
                     </EmotionSelect>
-                    <EmotionText> &quot; 오늘의 날씨는 &quot;</EmotionText>
+                    {/*<EmotionText> {isMainMood === '' ? { &quot; 오늘의 날씨는 &quot;}: 'red'}</EmotionText>*/}
+                    <EmotionText style={{ color: !isMainMood ? '#B1B5BC' : MoodColorArray[isMainMood] }}>
+                        &quot; {!isMainMood ? '오늘의 날씨는' : MoodArray[isMainMood]}&quot;
+                    </EmotionText>
                 </EmotionSelectWrap>
                 <TouchableWithoutFeedback onPress={() => setIsShowEstimateList(!isShowEstimateList)}>
                     <EstimateButton>
@@ -224,10 +218,10 @@ const UploadWeatherEstimate = () => {
                 <ScrollView style={{ marginTop: 22 }}>
                     {!isShowEstimateList && (
                         <View>
-                            <EstimateBox />
-                            <EstimateBox />
-                            <EstimateBox />
-                            <EstimateBox />
+                            <EstimateBox name={'겉옷'} />
+                            <EstimateBox name={'상의'} />
+                            <EstimateBox name={'하의'} />
+                            <EstimateBox name={'신발'} />
                         </View>
                     )}
                     <Memo>
@@ -245,3 +239,42 @@ const UploadWeatherEstimate = () => {
 };
 
 export default UploadWeatherEstimate;
+
+const Array = [
+    {
+        id: 32,
+        name: '연청바지',
+        type: 'BOTTOM',
+        userId: 'testuser1',
+    },
+    {
+        id: 32,
+        name: '연청바지',
+        type: 'BOTTOM',
+        userId: 'testuser1',
+    },
+    {
+        id: 746,
+        name: '빨간 반팔',
+        type: 'TOP',
+        userId: 'testuser1',
+    },
+    {
+        id: 751,
+        name: '노랑 반팔',
+        type: 'TOP',
+        userId: 'testuser1',
+    },
+    {
+        id: 804,
+        name: '패딩이쁜거',
+        type: 'OUTER',
+        userId: 'testuser1',
+    },
+    {
+        id: 802,
+        name: '빈폴패딩',
+        type: 'OUTER',
+        userId: 'testuser1',
+    },
+];
