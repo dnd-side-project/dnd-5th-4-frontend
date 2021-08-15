@@ -26,8 +26,8 @@ import UploadLayout from 'layout/Upload';
 import { Feather, Entypo } from '@expo/vector-icons';
 import { useDressDispatch } from 'context/DressContext';
 import api from '../../settings/api';
-import Category from '../../components/Category';
-import { KoreaLocations } from '../../untils/Map';
+// import Category from '../../components/Category';
+// import { KoreaLocations } from '../../untils/Map';
 import TextModal from '../../components/TextModal';
 import { Button, Next } from '../RegisterNickName/styles';
 
@@ -38,18 +38,15 @@ type ClothesProps = {
 
 const UploadClothes = () => {
     const [isEditDeleteModalVisible, setEditDeleteModalVisibl] = useState(false);
-    const userId = 'dummyUserId';
-    const [dressName, setDressName] = useState('나이키 반바지');
-    const [dressType, setDressType] = useState('BOTTOM');
-
     const [category, setCategory] = useState([]);
-    const [selectCategory, setSelectCategory] = useState([]);
+    const [selectCategory, setSelectCategory] = useState([]); // 선택된 카테고리
     const [totalNumber, setTotalNumber] = useState(0);
     const [isRe, setIsRe] = useState(false);
 
     const [isOpenAddModal, setIsOpenAddModal] = useState(false);
     const [clickCategory, setClickCategory] = useState('');
 
+    const dressDispath = useDressDispatch();
     const showEditDeleteModal = () => {
         setEditDeleteModalVisibl(!isEditDeleteModalVisible);
     };
@@ -95,6 +92,7 @@ const UploadClothes = () => {
                                             setSelectCategory(selectCategory.filter((element) => element !== category));
                                         });
                                     }
+                                    alert('selectCategory', selectCategory.length);
                                 }}
                             >
                                 <Cloth style={{ color: selectCategory.includes(category) ? '#000000' : '#D6D6D7' }}>
@@ -110,6 +108,7 @@ const UploadClothes = () => {
     useEffect(() => {
         fetchUserCloth();
     }, [isRe]);
+
     const fetchUserCloth = () => {
         let testuser1 = 'testuser1';
         api.get(`user/dresses?userId=${testuser1}`)
@@ -118,15 +117,23 @@ const UploadClothes = () => {
                     console.log('유저의 드레스를 가져오지못했습니다');
                     return;
                 }
-    const dress = {
-        userId,
-        dressName,
-        dressType,
+                setCategory(res?.data?.dresses);
+                setTotalNumber(res?.data.dresses.length);
+            })
+            .catch((err) => {
+                console.log('err', err);
+            });
     };
 
-    const dressDispath = useDressDispatch();
+    const dress = {
+        // userId,
+        // dressName,
+        // dressType,
+    };
+
     const upLoadClothes = () => {
-        // alert('upLoadClothes 실행!!\n' + 'userId: ' + userId);  // test
+        alert('selected clothes: ', selectCategory.length);
+
         dressDispath({
             type: 'UPLOAD_DRESS',
             payload: {
@@ -135,58 +142,6 @@ const UploadClothes = () => {
         });
     };
 
-    return (
-        <UploadLayout
-            titleContents1="오늘의 옷차림을"
-            titleContents2="기록해볼까요?"
-            subTitleContents="옷차림을 카테고리별로 기록해주세요."
-            buttonText="다음"
-            OnPressButton={upLoadClothes}
-        >
-            <Modal isVisible={isEditDeleteModalVisible} animationIn="fadeIn" animationOut="fadeOut">
-                <TouchableWithoutFeedback onPress={() => showEditDeleteModal}>
-                    <ModalWrap>
-                        <ModalBox>
-                            <TouchableHighlight>
-                                <Edit>수정하기</Edit>
-                            </TouchableHighlight>
-                            <Line />
-                            <TouchableHighlight>
-                                <Delete>삭제하기</Delete>
-                            </TouchableHighlight>
-                        </ModalBox>
-                    </ModalWrap>
-                </TouchableWithoutFeedback>
-            </Modal>
-            <ClothesViewBox>
-                <TotalWrap>
-                    <TotalTextWrap>
-                        <Total>전체</Total>
-                        <TotalCount>15</TotalCount>
-                    </TotalTextWrap>
-                //
-                //
-                //
-                // let data = res?.data?.dresses;
-                // let newCategorys = Object.assign({}, category);
-                // data.forEach((recycleInfo: any) => {
-                //     let category = recycleInfo.type;
-                //     if (!newCategorys.hasOwnProperty(category)) {
-                //         newCategorys[category] = [];
-                //     }
-                //     newCategorys[category].push(recycleInfo);
-                // });
-                setCategory(res?.data?.dresses);
-                //
-                //
-                //
-
-                setTotalNumber(res?.data.dresses.length);
-            })
-            .catch((err) => {
-                console.log('err', err);
-            });
-    };
     return (
         <View style={{ flex: 1, width: '100%' }}>
             <TextModal
@@ -200,6 +155,8 @@ const UploadClothes = () => {
                 titleContents1="오늘의 옷차림을"
                 titleContents2="기록해볼까요?"
                 subTitleContents="옷차림을 카테고리별로 기록해주세요."
+                buttonText="다음"
+                OnPressButton={upLoadClothes}
             >
                 <Modal isVisible={isEditDeleteModalVisible} animationIn="fadeIn" animationOut="fadeOut">
                     <TouchableWithoutFeedback onPress={() => showEditDeleteModal}>
@@ -222,7 +179,6 @@ const UploadClothes = () => {
                             <Total>전체 </Total>
                             <TotalCount>{totalNumber}</TotalCount>
                         </TotalTextWrap>
-
 
                         <Feather
                             name="more-horizontal"
@@ -259,14 +215,6 @@ const UploadClothes = () => {
                         </ScrollView>
                     </CategoryListWrap>
                 </ClothesViewBox>
-                <Button
-                    style={{ marginTop: 30 }}
-                    // color={!maleClicked && !femaleClicked}
-                    // onPress={() => CheckNickGender()}
-                    // disabled={!maleClicked && !femaleClicked}
-                >
-                    <Next>다음</Next>
-                </Button>
             </UploadLayout>
         </View>
     );

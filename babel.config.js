@@ -20,6 +20,7 @@ module.exports = function (api) {
                         pages: './src/pages',
                         until: './src/untils',
                         context: './src/context',
+                        settings: './src/settings',
                     },
                 },
             ],

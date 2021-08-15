@@ -79,20 +79,20 @@ export const ClothesList = styled.View`
     flex-direction: row;
 `;
 
-export const ClothWrap = styled.TouchableHighlight`
+export const ClothWrap = styled.TouchableHighlight<{ isPress: boolean }>`
     padding: 3px 10px;
     border-radius: 16.5px;
-    border-color: #a4a4aa;
+    border-color: ${(props) => (props.isPress ? '#000' : '#a4a4aa')};
     border-width: 1px;
     margin-right: 8px;
 `;
 
-export const Cloth = styled.Text`
+export const Cloth = styled.Text<{ isPress: boolean }>`
     font-family: 'Pretendard400';
     font-size: 14px;
     line-height: 17px;
     letter-spacing: -0.3px;
-    color: #a4a4aa;
+    color: ${(props) => (props.isPress ? '#000' : '#a4a4aa')};
 `;
 
 // 수정 삭제 모달창
