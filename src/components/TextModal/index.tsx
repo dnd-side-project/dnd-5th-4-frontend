@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Close, Container, AddButton, TextField, AddText, Title } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../settings/api';
+import { useAuthState } from '../../context';
 type UserProps = {
     isOpenAddModal: boolean;
     clickCategory: any;
@@ -18,6 +19,8 @@ const TextModal: React.FC<UserProps> = ({ isOpenAddModal, clickCategory, setIsOp
     const navigation = useNavigation();
     const [borderColor, setBorderColor] = useState('#d6d6d7');
     const [keyword, setKeyword] = useState('');
+    const authState = useAuthState();
+    const user = authState?.user;
     useEffect(() => {
         setKeyword('');
     }, []);
@@ -34,9 +37,10 @@ const TextModal: React.FC<UserProps> = ({ isOpenAddModal, clickCategory, setIsOp
         신발: 'SHOES',
         기타: 'OTHERS',
     };
+
     const onSubmitMyCloth = () => {
         let params = {
-            userId: 'testuser1',
+            userId: user.id,
             dressName: keyword,
             dressType: CategoryArray[clickCategory],
         };

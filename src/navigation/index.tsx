@@ -19,7 +19,7 @@ const MyStack = () => {
             screenOptions={({ route, navigation }) => ({
                 headerShown: false,
             })}
-            initialRouteName="UploadClothes"
+            initialRouteName="Login"
         >
             <Stack.Screen name="UploadWeatherEstimate" component={UploadWeatherEstimate} />
             <Stack.Screen name="UploadClothes" component={UploadClothes} />

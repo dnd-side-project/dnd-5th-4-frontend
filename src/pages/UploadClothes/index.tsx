@@ -29,13 +29,19 @@ import Category from '../../components/Category';
 import { KoreaLocations } from '../../untils/Map';
 import TextModal from '../../components/TextModal';
 import { Button, Next } from '../RegisterNickName/styles';
+import { useNavigation } from '@react-navigation/native';
+import { useAuthState } from '../../context';
 
 type ClothesProps = {
     categoryList: any;
     name: string;
 };
-
-const UploadClothes = () => {
+type UserProps = {
+    route: any;
+};
+const UploadClothes: React.FC<UserProps> = ({ route }) => {
+    const { location } = route.params;
+    const navigation = useNavigation();
     const [isEditDeleteModalVisible, setEditDeleteModalVisibl] = useState(false);
     const [category, setCategory] = useState([]);
     const [selectCategory, setSelectCategory] = useState([]);
@@ -46,16 +52,12 @@ const UploadClothes = () => {
     const [clickCategory, setClickCategory] = useState('');
     const [selectType, setSelectType] = useState([]);
     //
+    const authState = useAuthState();
+    const user = authState?.user;
     const showEditDeleteModal = () => {
         setEditDeleteModalVisibl(!isEditDeleteModalVisible);
     };
-    const CategoryArray = {
-        OUTER: '아우터',
-        TOP: '상의',
-        BOTTOM: '하의',
-        SHOES: '신발',
-        OTHERS: '기타',
-    };
+
     const Category: React.FC<ClothesProps> = ({ categoryList, name }) => (
         <CategoryWrap>
             <CategoryName>{name}</CategoryName>
@@ -123,11 +125,18 @@ const UploadClothes = () => {
         if (selectCategory.filter((ele) => ele.type == 'OTHERS').length !== 0) {
             newSelectType.push('OTHERS');
         }
+        // clothes type    newSelectType
+        // selecct Clothes  selectCategory
+        navigation.navigate('UploadWeatherEstimate', {
+            selectCategory: selectCategory,
+            types: newSelectType,
+            location: location,
+        });
         console.log(newSelectType);
     };
     const fetchUserCloth = () => {
         let testuser1 = 'testuser1';
-        api.get(`user/dresses?userId=${testuser1}`)
+        api.get(`user/dresses?userId=${user.id}`)
             .then((res) => {
                 if (res.status !== 200) {
                     console.log('유저의 드레스를 가져오지못했습니다');
