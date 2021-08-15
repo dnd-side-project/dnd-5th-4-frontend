@@ -8,14 +8,16 @@ import {
     sunAnimation,
     getWeatherImage,
 } from '../../untils/MainPageAnimation';
+
 type CharacterProps = {
     currentWeather: number;
 };
 const Characters: React.FC<CharacterProps> = ({ currentWeather }) => {
     const ArrowMove = useRef(new Animated.Value(0)).current; // arrow
+    const [count, setCount] = useState(0);
     useEffect(() => {
         ArrowDownMove(ArrowMove);
-    });
+    }, []);
     const [imageWidth, setImageWidth] = useState(0);
     return (
         <Container
@@ -25,12 +27,15 @@ const Characters: React.FC<CharacterProps> = ({ currentWeather }) => {
             }}
         >
             <View style={{ alignItems: 'center' }}>
+                {/**/}
+                {/*{console.log(mainText)}*/}
+
                 <Title>
-                    <Title boldFont={true}>일교차</Title>클 예정이니
+                    미세먼지 상태가
+                    <Title boldFont={true}>나쁨</Title>이니
                 </Title>
                 <Title>
-                    <Title boldFont={true}>겉옷을 </Title>
-                    챙기세요.
+                    <Title boldFont={true}>마스크 </Title>를 꼭 착용하세요.
                 </Title>
             </View>
             <Image source={getWeatherImage(currentWeather)} resizeMode={'contain'} />
