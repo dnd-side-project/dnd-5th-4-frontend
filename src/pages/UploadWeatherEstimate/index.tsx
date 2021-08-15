@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import Modal from 'react-native-modal';
-import { ScrollView, Text, TextInput, View, TouchableWithoutFeedback } from 'react-native';
+import { ScrollView, Text, TextInput, View, TouchableWithoutFeedback, Alert } from 'react-native';
 import {
     WeatherEstimateWrap,
     EmotionSelectWrap,
     EmotionSelect,
-    Mood,
     VeryHot,
     Hot,
     Good,
@@ -14,203 +13,158 @@ import {
     EmotionText,
     EstimateButton,
     Memo,
-    MoodText,
-    EstimateComponent,
-    EstimateCategory,
-    EstimateEmotionSelect,
     SelectText,
     SelectButton,
 } from './styles';
 import UploadLayout from 'layout/Upload';
-import { useFonts } from 'expo-font';
 import { AntDesign } from '@expo/vector-icons';
-import { MoodImageGray, MoodImage, MoodColor } from '../../untils/MoodWeather';
-
-const EstimateBox = () => {
-    // const [isMoodClicked, setIsMoodClicked] = useState(false);
-    const [isVeryHotMoodClicked, setVeryHotMoodClicked] = useState(false);
-    const [isHotMoodClicked, setHotMoodClicked] = useState(false);
-    const [isGoodMoodClicked, setIsGoodMoodClicked] = useState(false);
-    const [isColdMoodClicked, setIsColdMoodClicked] = useState(false);
-    const [isVeryColdMoodClicked, setIsVeryColdMoodClicked] = useState(false);
-    const onMoodClick = () => {
-        setVeryHotMoodClicked(false);
-        setHotMoodClicked(false);
-        setIsGoodMoodClicked(false);
-        setIsColdMoodClicked(false);
-        setIsVeryColdMoodClicked(false);
-    };
-
-    let [fontsLoaded] = useFonts({
-        'Noto-Sans-CJK-KR': require('Fonts/NotoSansCJKkr-Regular.otf'),
-    });
-    if (!fontsLoaded) {
-        return null;
-    }
-
-    return (
-        <EstimateComponent>
-            <EstimateCategory>겉옷</EstimateCategory>
-            <EstimateEmotionSelect>
-                <Mood
-                    onPress={() => {
-                        onMoodClick();
-                        setVeryHotMoodClicked(!isVeryHotMoodClicked);
-                    }}
-                >
-                    <View>
-                        <VeryHot
-                            source={isVeryHotMoodClicked ? MoodImage['VERY HOT'] : MoodImageGray['VERY HOT']}
-                            resizeMode={'contain'}
-                        />
-                        <MoodText>{isVeryHotMoodClicked ? '너무 \n더웠어요' : ' '}</MoodText>
-                    </View>
-                </Mood>
-                <Mood
-                    onPress={() => {
-                        onMoodClick();
-                        setHotMoodClicked(!isHotMoodClicked);
-                    }}
-                >
-                    <View>
-                        <Hot
-                            source={isHotMoodClicked ? MoodImage['HOT'] : MoodImageGray['HOT']}
-                            resizeMode={'contain'}
-                        />
-                        <MoodText>{isHotMoodClicked ? '더웠어요' : ' '}</MoodText>
-                    </View>
-                </Mood>
-                <Mood
-                    onPress={() => {
-                        onMoodClick();
-                        setIsGoodMoodClicked(!isGoodMoodClicked);
-                    }}
-                >
-                    <View>
-                        <Good
-                            source={isGoodMoodClicked ? MoodImage['GOOD'] : MoodImageGray['GOOD']}
-                            resizeMode={'contain'}
-                        />
-                        <MoodText>{isGoodMoodClicked ? '좋았어요' : ' '}</MoodText>
-                    </View>
-                </Mood>
-                <Mood
-                    onPress={() => {
-                        onMoodClick();
-                        setIsColdMoodClicked(!isColdMoodClicked);
-                    }}
-                >
-                    <View>
-                        <Cold
-                            source={isColdMoodClicked ? MoodImage['COLD'] : MoodImageGray['COLD']}
-                            resizeMode={'contain'}
-                        />
-                        <MoodText>{isColdMoodClicked ? '추웠어요' : ' '}</MoodText>
-                    </View>
-                </Mood>
-                <Mood
-                    onPress={() => {
-                        onMoodClick();
-                        setIsVeryColdMoodClicked(!isVeryColdMoodClicked);
-                    }}
-                >
-                    <View>
-                        <VeryCold
-                            source={isVeryColdMoodClicked ? MoodImage['VERY COLD'] : MoodImageGray['VERY COLD']}
-                            resizeMode={'contain'}
-                        />
-                        <MoodText>{isVeryColdMoodClicked ? '너무 \n 추웠어요' : ' '}</MoodText>
-                    </View>
-                </Mood>
-            </EstimateEmotionSelect>
-        </EstimateComponent>
-    );
+import { MoodImageGray, MoodImage } from '../../untils/MoodWeather';
+import { Button, Next } from '../RegisterNickName/styles';
+import EstimateBox from '../../components/EstimateBox';
+import api from '../../settings/api';
+import { useNavigation } from '@react-navigation/native';
+import Environment from '../../secret/Environment';
+import axios from 'axios';
+import { useAuthState } from '../../context';
+type UploadWeatherEstimateProps = {
+    route: any;
 };
+const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) => {
+    const { selectCategory, types, location } = route.params;
 
-const UploadWeatherEstimate = () => {
     const [isShowEstimateList, setIsShowEstimateList] = useState(false);
-    // const [isMoodClicked, setIsMoodClicked] = useState(false);
-    const [isVeryHotMoodClicked, setVeryHotMoodClicked] = useState(false);
-    const [isHotMoodClicked, setHotMoodClicked] = useState(false);
-    const [isGoodMoodClicked, setIsGoodMoodClicked] = useState(false);
-    const [isColdMoodClicked, setIsColdMoodClicked] = useState(false);
-    const [isVeryColdMoodClicked, setIsVeryColdMoodClicked] = useState(false);
-    const onMoodClick = () => {
-        setVeryHotMoodClicked(false);
-        setHotMoodClicked(false);
-        setIsGoodMoodClicked(false);
-        setIsColdMoodClicked(false);
-        setIsVeryColdMoodClicked(false);
-    };
+    const [isMainMood, setIsMainMood] = useState('');
     const [memo, setMemo] = useState<string>('');
+    const [isDaily, setIsDaily] = useState([]);
+    const navigation = useNavigation();
+    const authState = useAuthState();
+    const user = authState?.user;
+    const onMoodHandler = (mood: string) => {
+        if (mood === isMainMood) {
+            setIsMainMood('');
+        } else {
+            setIsMainMood(mood);
+        }
+    };
+    useEffect(() => {
+        WeatherSearch();
+    }, []);
+    const WeatherSearch = () => {
+        let params = {
+            lat: location.latitude,
+            lon: location.longitude,
+            exclude: 'minutely,alerts,current',
+            appid: Environment.Weather_API,
+            units: 'metric',
+            lang: 'kr',
+        };
+        axios
+            .get('https://api.openweathermap.org/data/2.5/onecall?', { params })
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log('날씨 정보를 받아오지 못했습니다');
+                    return;
+                }
+                setIsDaily(res?.data?.daily[0]?.temp);
+                // console.log(res.data.daily[0].temp);
+            })
+            .catch((err) => {
+                console.log('err', err);
+            });
+    };
+
+    const onSubmitHandler = () => {
+        let params = {
+            userId: user?.id,
+            date: new Date(+new Date() + 3240 * 10000).toISOString().replace('T', ' ').replace(/\..*/, ''),
+            temperatureHigh: isDaily?.max,
+            temperatureLow: isDaily?.min,
+            humidity: location.humidity,
+            area: location.Area,
+            tempInfo: location.description,
+            dresses: selectCategory,
+            mood: isMainMood,
+            comment: memo,
+        };
+        console.log(params);
+        api.post('measure/', params)
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log('게시글 업로드 실패');
+                    return;
+                }
+                Alert.alert('날씨를 업로드했습니다');
+                navigation.navigate('Home');
+            })
+            .catch((err) => {
+                console.log('err', err);
+            });
+    };
 
     return (
         <UploadLayout
             titleContents1="오늘의 날씨를"
             titleContents2="평가해볼까요?"
             subTitleContents="오늘 하루 느낀 점을 평가해주세요."
-            buttonText="완료"
         >
             <WeatherEstimateWrap>
                 <EmotionSelectWrap>
                     <EmotionSelect>
                         <TouchableWithoutFeedback
                             onPress={() => {
-                                onMoodClick();
-                                setVeryHotMoodClicked(!isVeryHotMoodClicked);
+                                onMoodHandler('VERYHOT');
                             }}
                         >
                             <VeryHot
-                                source={isVeryHotMoodClicked ? MoodImage['VERY HOT'] : MoodImageGray['VERY HOT']}
+                                source={isMainMood === 'VERYHOT' ? MoodImage['VERYHOT'] : MoodImageGray['VERY HOT']}
                                 resizeMode={'contain'}
                             />
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback
                             onPress={() => {
-                                onMoodClick();
-                                setHotMoodClicked(!isHotMoodClicked);
+                                onMoodHandler('HOT');
                             }}
                         >
                             <Hot
-                                source={isHotMoodClicked ? MoodImage['HOT'] : MoodImageGray['HOT']}
+                                source={isMainMood === 'HOT' ? MoodImage['HOT'] : MoodImageGray['HOT']}
                                 resizeMode={'contain'}
                             />
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback
                             onPress={() => {
-                                onMoodClick();
-                                setIsGoodMoodClicked(!isGoodMoodClicked);
+                                onMoodHandler('GOOD');
                             }}
                         >
                             <Good
-                                source={isGoodMoodClicked ? MoodImage['GOOD'] : MoodImageGray['GOOD']}
+                                source={isMainMood === 'GOOD' ? MoodImage['GOOD'] : MoodImageGray['GOOD']}
                                 resizeMode={'contain'}
                             />
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback
                             onPress={() => {
-                                onMoodClick();
-                                setIsColdMoodClicked(!isColdMoodClicked);
+                                onMoodHandler('COLD');
                             }}
                         >
                             <Cold
-                                source={isColdMoodClicked ? MoodImage['COLD'] : MoodImageGray['COLD']}
+                                source={isMainMood === 'COLD' ? MoodImage['COLD'] : MoodImageGray['COLD']}
                                 resizeMode={'contain'}
                             />
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback
                             onPress={() => {
-                                onMoodClick();
-                                setIsVeryColdMoodClicked(!isVeryColdMoodClicked);
+                                onMoodHandler('VERYCOLD');
                             }}
                         >
                             <VeryCold
-                                source={isVeryColdMoodClicked ? MoodImage['VERY COLD'] : MoodImageGray['VERY COLD']}
+                                source={isMainMood === 'VERYCOLD' ? MoodImage['VERYCOLD'] : MoodImageGray['VERY COLD']}
                                 resizeMode={'contain'}
                             />
                         </TouchableWithoutFeedback>
                     </EmotionSelect>
-                    <EmotionText> &quot; 오늘의 날씨는 &quot;</EmotionText>
+                    {/*<EmotionText> {isMainMood === '' ? { &quot; 오늘의 날씨는 &quot;}: 'red'}</EmotionText>*/}
+                    <EmotionText style={{ color: !isMainMood ? '#B1B5BC' : MoodColorArray[isMainMood] }}>
+                        &quot; {!isMainMood ? '오늘의 날씨는' : MoodArray[isMainMood]}&quot;
+                    </EmotionText>
                 </EmotionSelectWrap>
                 <TouchableWithoutFeedback onPress={() => setIsShowEstimateList(!isShowEstimateList)}>
                     <EstimateButton>
@@ -224,10 +178,9 @@ const UploadWeatherEstimate = () => {
                 <ScrollView style={{ marginTop: 22 }}>
                     {!isShowEstimateList && (
                         <View>
-                            <EstimateBox />
-                            <EstimateBox />
-                            <EstimateBox />
-                            <EstimateBox />
+                            {types.map((type: any) => (
+                                <EstimateBox name={type} selectCategory={selectCategory} />
+                            ))}
                         </View>
                     )}
                     <Memo>
@@ -240,8 +193,39 @@ const UploadWeatherEstimate = () => {
                     </Memo>
                 </ScrollView>
             </WeatherEstimateWrap>
+
+            <Button
+                color={isMainMood.length === 0}
+                onPress={() => onSubmitHandler()}
+                disabled={isMainMood.length === 0}
+            >
+                <Next>완료</Next>
+            </Button>
         </UploadLayout>
     );
 };
 
 export default UploadWeatherEstimate;
+let categorysItems = {
+    OUTER: '아우터',
+    TOP: '상의',
+    BOTTOM: '하의',
+    SHOES: '신발',
+    OTHERS: '기타',
+};
+let MoodArray = {
+    VERYHOT: '너무 더웠어요',
+    HOT: '더웠어요',
+    GOOD: '좋았어요',
+    COLD: '추웠어요',
+    VERYCOLD: '너무 추웠어요',
+};
+let MoodColorArray = {
+    VERYHOT: '#FF4743',
+    HOT: '#FFD000',
+    GOOD: '#2EE788',
+    COLD: '#48CFFA',
+    VERYCOLD: '#4068B0',
+    '': 'B1B5BC',
+};
+const TYPE = ['OUTER', 'TOP', 'BOTTOM'];

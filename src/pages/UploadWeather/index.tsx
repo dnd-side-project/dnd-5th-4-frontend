@@ -55,6 +55,7 @@ const UploadWeather = () => {
                         return;
                     }
                     //
+                    // console.log(res?.data?.list[0].main.temp);
                     let Array = {
                         lat: location.location[0],
                         lon: location.location[1],
@@ -62,6 +63,7 @@ const UploadWeather = () => {
                         temp: res?.data?.list[0].main.temp,
                         description: res?.data?.list[0].weather[0].description,
                         icon: res?.data?.list[0].weather[0].icon,
+                        humidity: res?.data?.list[0].main.humidity,
                     };
                     newLocationWeather.push(Array);
                     // await setLocationWeather((locationWeather: any) => locationWeather.concat(Array));
@@ -75,9 +77,14 @@ const UploadWeather = () => {
     };
 
     const CheckLocation = () => {
+        // console.log('111111111111', isLocation);
         let keys = {
             latitude: Math.abs(isLocation?.lat),
             longitude: Math.abs(isLocation?.lon),
+            Area: isLocation?.Area,
+            humidity: isLocation?.humidity,
+            description: isLocation?.description,
+            temp: isLocation?.temp,
         };
         // UploadClothes
         navigation.navigate('UploadClothes', { location: keys });
@@ -139,67 +146,5 @@ const UploadWeather = () => {
         </Container>
     );
 };
-const Array = [
-    {
-        Area: '부산광역시 영도구',
-        description: '온흐림',
-        icon: '04n',
-        temp: 23.09,
-    },
-    {
-        Area: '부산광역시 영도구',
-        description: '온흐림',
-        icon: '04n',
-        temp: 23.09,
-    },
-    {
-        Area: '부산광역시 영도구',
-        description: '온흐림',
-        icon: '04n',
-        temp: 23.09,
-    },
-    {
-        Area: '부산광역시 영도구',
-        description: '온흐림',
-        icon: '04n',
-        temp: 23.09,
-    },
-    {
-        Area: '부산광역시 영도구',
-        description: '온흐림',
-        icon: '04n',
-        temp: 23.09,
-    },
-    {
-        Area: '부산광역시 영도구',
-        description: '온흐림',
-        icon: '04n',
-        temp: 23.09,
-    },
-    {
-        Area: '부산광역시 영도구',
-        description: '온흐림',
-        icon: '04n',
-        temp: 23.09,
-    },
-    {
-        Area: '부산광역시 영도구',
-        description: '온흐림',
-        icon: '04n',
-        temp: 23.09,
-    },
-    {
-        Area: '부산광역시 영도구',
-        description: '온흐림',
-        icon: '04n',
-        temp: 23.09,
-    },
-    {
-        Area: '부산광역시 영도구',
-        description: '온흐림',
-        icon: '04n',
-        temp: 23.09,
-    },
-];
 
 export default UploadWeather;

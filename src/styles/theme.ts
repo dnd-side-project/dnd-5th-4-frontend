@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 const theme = {
     mainColor: {
         activeButton: '#000000',
-        unactiveButton: '#C9C9C9',
+        unactiveButton: '#CACCD6',
     },
     color: {
         white: '#ffffff',

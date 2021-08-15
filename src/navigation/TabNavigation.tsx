@@ -70,7 +70,7 @@ const MyTabs = ({ route }: { route: any }) => {
                 component={MyPage}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <MaterialIcons name="calendar-today" size={23} color={focused ? 'black' : '#C9C9C9'} />
+                        <MaterialIcons name="calendar-today" size={23} color={focused ? 'black' : '#CACCD6'} />
                     ),
                 }}
             />
