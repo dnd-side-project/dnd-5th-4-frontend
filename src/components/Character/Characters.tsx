@@ -11,9 +11,8 @@ import {
 
 type CharacterProps = {
     currentWeather: number;
-    mainText: any;
 };
-const Characters: React.FC<CharacterProps> = ({ currentWeather, mainText }) => {
+const Characters: React.FC<CharacterProps> = ({ currentWeather }) => {
     const ArrowMove = useRef(new Animated.Value(0)).current; // arrow
     const [count, setCount] = useState(0);
     useEffect(() => {
