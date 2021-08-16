@@ -36,7 +36,12 @@ const MyTabs = ({ route }: { route: any }) => {
                 component={Main}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <Fontisto name="day-sunny" size={23} color={focused ? 'black' : '#C9C9C9'} />
+                        // <Fontisto name="day-sunny" size={23} color={focused ? 'black' : '#C9C9C9'} />
+                        <Image
+                            source={focused ? require('Images/Sun.png') : require('Images/GraySun.png')}
+                            resizeMode={'contain'}
+                            style={{ width: 24, height: 24 }}
+                        />
                     ),
                 }}
             />
@@ -70,7 +75,11 @@ const MyTabs = ({ route }: { route: any }) => {
                 component={MyPage}
                 options={{
                     tabBarIcon: ({ focused }) => (
-                        <MaterialIcons name="calendar-today" size={23} color={focused ? 'black' : '#CACCD6'} />
+                        <Image
+                            source={focused ? require('Images/Calendar.png') : require('Images/GrayCalendar.png')}
+                            resizeMode={'contain'}
+                            style={{ width: 24, height: 24 }}
+                        />
                     ),
                 }}
             />
