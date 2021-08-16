@@ -1,17 +1,26 @@
 import styled from 'styled-components/native';
-
-export const TextFiled = styled.TextInput`
+export const TextFiledContainer = styled.View`
+    flex-direction: row;
     width: 100%;
-    height: 44px;
-    padding-vertical: 10px;
-    padding-horizontal: 12px;
     border-radius: 4px;
     border-color: #d6d6d7;
     border-width: 2px;
     elevation: 1;
+    padding-vertical: 8px;
+    padding-horizontal: 16px;
+    height: 40px;
+    justify-content: space-between;
+    margin-bottom: 17px;
+    align-items: center;
+`;
+export const TextFiled = styled.TextInput`
+    height: 100%;
     font-size: 14px;
     line-height: 17px;
     letter-spacing: -0.3px;
+    margin-left: 12px;
+    padding-right: 20px;
+    align-items: center;
 `;
 export const Close = styled.Image`
     width: 24px;

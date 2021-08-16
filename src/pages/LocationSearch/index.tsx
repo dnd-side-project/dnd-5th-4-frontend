@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { FlatList, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { KoreaLocations } from '../../untils/Map';
-import { Close, CloseTouch, Container, SubTitle, TextFiled, Title, Touch } from './stlyes';
+import { Close, CloseTouch, Container, SubTitle, TextFiled, TextFiledContainer, Title, Touch } from './stlyes';
 import Environment from '../../secret/Environment';
 import axios from 'axios';
 import { Button, Next } from '../RegisterNickName/styles';
@@ -26,6 +26,9 @@ const LocationSearch = () => {
     const onBlur = () => {
         setBorderColor('#d6d6d7');
     };
+    useEffect(() => {
+        KeyWordChange(keyword);
+    }, [keyword]);
     const KeyWordChange = async (TEXT: any) => {
         if (TEXT.length < 2) {
             setLocationWeather([]);
@@ -121,44 +124,60 @@ const LocationSearch = () => {
                 <CloseTouch onPress={() => navigation.goBack()}>
                     <Close source={require('Images/Close.png')} resizeMode={'contain'} />
                 </CloseTouch>
-                <TextFiled
-                    // onChangeText={setKeyWord}
-                    value={keyword}
-                    placeholder="예) 강남구, 진주시"
-                    keyboardType="default"
-                    onChange={(e) => {
-                        setKeyWord(e.nativeEvent.text);
-                        KeyWordChange(e.nativeEvent.text);
-                    }}
-                    onFocus={onFucus}
-                    onBlur={onBlur}
-                    style={{ marginBottom: 17, borderColor: borderColor }}
-                    placeholderTextColor="#717171"
-                />
-                <View style={{ flex: 1 }}>
-                    <ScrollView style={{ flex: 1, marginBottom: 28 }}>
-                        {locationWeather?.map((locationWeathers: any, index: any) => (
-                            <Touch
-                                key={index}
-                                onPress={(e) => {
-                                    if (isClicked === index) {
-                                        setIsClicked('');
-                                        setIsLocation([]);
-                                    } else {
-                                        setIsClicked(index);
-                                        setIsLocation(locationWeathers);
-                                    }
-                                }}
-                                style={{
-                                    borderWidth: index !== isClicked ? 1 : 2,
-                                    borderColor: index !== isClicked ? '#d6d6d7' : '#000',
-                                }}
-                            >
-                                <LocationPost post={locationWeathers} />
-                            </Touch>
-                        ))}
-                    </ScrollView>
-                </View>
+                <TextFiledContainer style={{ borderColor: borderColor }}>
+                    <Image
+                        source={require('Images/BlackSearch.png')}
+                        resizeMode={'contain'}
+                        style={{ width: 18, height: 18 }}
+                    />
+                    <TextFiled
+                        // onChangeText={setKeyWord}
+                        value={keyword}
+                        placeholder="예) 강남구, 진주시"
+                        keyboardType="default"
+                        onChange={(e) => {
+                            setKeyWord(e.nativeEvent.text);
+                            // KeyWordChange(e.nativeEvent.text);
+                        }}
+                        onFocus={onFucus}
+                        onBlur={onBlur}
+                        style={{
+                            flex: 1,
+                        }}
+                        placeholderTextColor="#717171"
+                    />
+                    <TouchableOpacity onPress={() => setKeyWord('')}>
+                        <Image
+                            source={require('Images/GrayClose.png')}
+                            resizeMode={'contain'}
+                            style={{ width: 15, height: 15 }}
+                        />
+                    </TouchableOpacity>
+                </TextFiledContainer>
+
+                <ScrollView style={{ flex: 1, marginBottom: 28 }}>
+                    {locationWeather?.map((locationWeathers: any, index: any) => (
+                        <Touch
+                            key={index}
+                            onPress={(e) => {
+                                if (isClicked === index) {
+                                    setIsClicked('');
+                                    setIsLocation([]);
+                                } else {
+                                    setIsClicked(index);
+                                    setIsLocation(locationWeathers);
+                                }
+                            }}
+                            style={{
+                                borderWidth: index !== isClicked ? 1 : 2,
+                                borderColor: index !== isClicked ? '#d6d6d7' : '#000',
+                            }}
+                        >
+                            <LocationPost post={locationWeathers} />
+                        </Touch>
+                    ))}
+                </ScrollView>
+
                 <Button
                     color={isLocation.length === 0}
                     onPress={() => CheckLocation()}
