@@ -13,7 +13,7 @@ export const DatesContainer = styled.View`
     align-items: center;
     text-align: center;
     width: 27px;
-    margin-bottom: 8px;
+    margin-bottom: 14px;
 `;
 export const SelectText = styled.Text`
     font-family: PretendardBold;
