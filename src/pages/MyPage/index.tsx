@@ -67,11 +67,20 @@ const MyPage = () => {
                                         </View>
 
                                         <EmojiBox>
-                                            {posts.map((post, index) =>
-                                                moment(post.dateTime).format('YYYYMMDD') === days.format('YYYYMMDD') ? (
-                                                    <CalendarEmoji post={post} key={index} />
-                                                ) : null
-                                            )}
+                                            {/*{posts.map((post, index) =>*/}
+                                            {/*    moment(post.dateTime).format('YYYYMMDD') === days.format('YYYYMMDD') ? (*/}
+                                            {/*        <CalendarEmoji post={post} key={index} />*/}
+                                            {/*    ) : null*/}
+                                            {/*)}*/}
+                                            {posts
+                                                .filter(
+                                                    (el: any) =>
+                                                        moment(el.dateTime).format('YYYYMMDD') ===
+                                                        days.format('YYYYMMDD')
+                                                )
+                                                .map((post: any, index: number) =>
+                                                    index === 0 ? <CalendarEmoji post={post} key={index} /> : null
+                                                )}
                                         </EmojiBox>
                                     </DatesContainer>
                                 );
@@ -87,11 +96,20 @@ const MyPage = () => {
                                     <DatesContainer key={index}>
                                         <DateNumber color={'#000000'}>{days.format('D')}</DateNumber>
                                         <EmojiBox>
-                                            {posts.map((post: any, index: number) =>
-                                                moment(post.dateTime).format('YYYYMMDD') === days.format('YYYYMMDD') ? (
-                                                    <CalendarEmoji post={post} key={index} />
-                                                ) : null
-                                            )}
+                                            {/*{posts.map((post, index) =>*/}
+                                            {/*    moment(post.dateTime).format('YYYYMMDD') === days.format('YYYYMMDD') ? (*/}
+                                            {/*        <CalendarEmoji post={post} key={index} />*/}
+                                            {/*    ) : null*/}
+                                            {/*)}*/}
+                                            {posts
+                                                .filter(
+                                                    (el: any) =>
+                                                        moment(el.dateTime).format('YYYYMMDD') ===
+                                                        days.format('YYYYMMDD')
+                                                )
+                                                .map((post: any, index: number) =>
+                                                    index === 0 ? <CalendarEmoji post={post} key={index} /> : null
+                                                )}
                                         </EmojiBox>
                                     </DatesContainer>
                                 );
