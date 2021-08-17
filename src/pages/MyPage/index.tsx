@@ -9,8 +9,10 @@ import calendarEmoji from '../../components/calendarEmoji';
 import CalendarEmoji from '../../components/calendarEmoji';
 import api from '../../settings/api';
 import { useAuthState } from '../../context';
+import { useNavigation } from '@react-navigation/native';
 
 const MyPage = () => {
+    const navigation = useNavigation();
     const [show, setShow] = useState(false);
     const [selectDate, setSelectDate] = useState(new Date());
     const today = moment(selectDate);
@@ -21,7 +23,7 @@ const MyPage = () => {
     const user = authState?.user;
     useEffect(() => {
         fetchUserPosts();
-    }, [selectDate]);
+    }, [selectDate, navigation]);
     const fetchUserPosts = () => {
         let params = {
             userId: user?.id,
