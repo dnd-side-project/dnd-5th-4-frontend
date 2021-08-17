@@ -10,6 +10,7 @@ import RegisterConstitution from '../pages/RegisterConstitution';
 import LocationSearch from '../pages/LocationSearch';
 import UploadWeatherEstimate from 'pages/UploadWeatherEstimate';
 import UploadClothes from 'pages/UploadClothes';
+import MyPage from '../pages/MyPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,7 @@ const MyStack = () => {
             <Stack.Screen name="RegisterGender" component={RegisterGender} />
             <Stack.Screen name="RegisterConstitution" component={RegisterConstitution} />
             <Stack.Screen name="LocationSearch" component={LocationSearch} />
+            <Stack.Screen name="Mypage" component={MyPage} />
         </Stack.Navigator>
     );
 };
