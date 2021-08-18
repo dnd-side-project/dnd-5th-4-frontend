@@ -90,3 +90,16 @@ export const Title = styled.Text<{ color?: boolean }>`
     color: ${(props) => (!props.color ? '#A3A4AF' : '#000000')};
     font-family: ${(props) => (!props.color ? 'Pretendard400' : 'Pretendard500')};
 `;
+export const ModalWrap = styled.SafeAreaView`
+    flex: 1;
+`;
+
+export const ModalBox = styled.View`
+    flex-direction: column;
+    background: #fff;
+    border-radius: 4px;
+    position: absolute;
+    elevation: 1;
+    bottom: 40%;
+    right: 8%;
+`;

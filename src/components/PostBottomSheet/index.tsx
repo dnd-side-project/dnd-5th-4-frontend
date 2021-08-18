@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
     View,
     StyleSheet,
@@ -10,6 +10,8 @@ import {
     PanResponder,
     Image,
     TouchableOpacity,
+    TouchableHighlight,
+    Alert,
 } from 'react-native';
 import {
     Area,
@@ -21,10 +23,16 @@ import {
     Mood,
     MoodEmoji,
     Temperature,
+    ModalWrap,
+    ModalBox,
     TopContainer,
 } from './style';
 import { MoodColor, MoodDescription, MoodImage } from '../../untils/MoodWeather';
 import { Circle, Clothes, ClothesName, TypeBox } from '../Post/styles';
+import { Delete, Edit, Line } from '../../pages/UploadClothes/styles';
+import api from '../../settings/api';
+import { useAuthState } from '../../context';
+// import Modal from 'react-native-modal';
 type UserProps = {
     modalVisible: any;
     setModalVisible: any;
@@ -33,13 +41,18 @@ type UserProps = {
 const BottomSheet: React.FC<UserProps> = ({ modalVisible, setModalVisible, detailPost }) => {
     const screenHeight = Dimensions.get('screen').height;
     const panY = useRef(new Animated.Value(screenHeight)).current;
+    const [isEditDeleteModalVisible, setEditDeleteModalVisibl] = useState(false);
     const ClothesType = ['겉옷', '상의', '하의', '신발'];
     const ClothesTypeEng = ['OUTER', 'TOP', 'BOTTOM', 'SHOES'];
+    const authState = useAuthState();
+    const user = authState?.user;
     const translateY = panY.interpolate({
         inputRange: [-1, 0, 1],
         outputRange: [0, 0, 1],
     });
-
+    const showEditDeleteModal = () => {
+        setEditDeleteModalVisibl(!isEditDeleteModalVisible);
+    };
     const resetBottomSheet = Animated.timing(panY, {
         toValue: 0,
         duration: 300,
@@ -85,6 +98,22 @@ const BottomSheet: React.FC<UserProps> = ({ modalVisible, setModalVisible, detai
     let date = new Date(detailPost?.measures[0].date).getUTCDate();
     let days = new Date(detailPost?.measures[0].date).getUTCDay();
     let Day = ['일', '월', '화', '수', '목', '금', '토'];
+    const DeletePost = () => {
+        let params = { userId: user?.id };
+        api.delete(`measure/${detailPost?.measures[0]?.measureId}`, params)
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log('삭제에 실패하였습니다');
+                    return;
+                }
+                console.log(res);
+                setEditDeleteModalVisibl(false);
+                setModalVisible(false);
+            })
+            .catch((err) => {
+                console.log('err', err);
+            });
+    };
     return (
         <Modal visible={modalVisible} animationType={'fade'} transparent statusBarTranslucent>
             <Container>
@@ -100,9 +129,34 @@ const BottomSheet: React.FC<UserProps> = ({ modalVisible, setModalVisible, detai
                     </DateText>
                     <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginBottom: 24 }}>
                         <Area>{detailPost?.measures[0].area}</Area>
-                        <TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                showEditDeleteModal();
+                            }}
+                        >
                             <IsMoreButton source={require('Images/more.png')} resizeMode={'contain'} />
                         </TouchableOpacity>
+                        <Modal transparent={true} visible={isEditDeleteModalVisible} animationType={'fade'}>
+                            <TouchableWithoutFeedback
+                                onPress={() => setEditDeleteModalVisibl(!isEditDeleteModalVisible)}
+                            >
+                                <ModalWrap>
+                                    <ModalBox>
+                                        <TouchableHighlight>
+                                            <Edit>수정하기</Edit>
+                                        </TouchableHighlight>
+                                        <Line />
+                                        <TouchableHighlight
+                                            onPress={() => {
+                                                DeletePost();
+                                            }}
+                                        >
+                                            <Delete>삭제하기</Delete>
+                                        </TouchableHighlight>
+                                    </ModalBox>
+                                </ModalWrap>
+                            </TouchableWithoutFeedback>
+                        </Modal>
                     </View>
                     <TopContainer>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
