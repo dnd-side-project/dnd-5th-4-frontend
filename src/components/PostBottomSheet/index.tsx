@@ -31,7 +31,7 @@ import { MoodColor, MoodDescription, MoodImage } from '../../untils/MoodWeather'
 import { Circle, Clothes, ClothesName, TypeBox } from '../Post/styles';
 import { Delete, Edit, Line } from '../../pages/UploadClothes/styles';
 import api from '../../settings/api';
-import { useAuthState } from '../../context';
+import { useAuthState } from 'context/Auth';
 import DeleteModal from '../DeleteModal';
 // import Modal from 'react-native-modal';
 type UserProps = {

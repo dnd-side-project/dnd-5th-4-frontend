@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Close, Container, AddButton, TextField, AddText, Title } from './style';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../settings/api';
-import { useAuthState } from '../../context';
+import { useAuthState } from 'context/Auth';
 type UserProps = {
     isOpenAddModal: boolean;
     setIsOpenAddModal: any;

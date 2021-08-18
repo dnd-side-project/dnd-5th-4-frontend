@@ -12,7 +12,7 @@ import api from 'settings/api';
 import Environment from 'secret/Environment';
 import UploadLayout from 'layout/Upload';
 
-import { useMeasureDispatch } from 'context/Measure';
+import { useAuthState } from 'context/Auth';
 
 import {
     WeatherEstimateWrap,

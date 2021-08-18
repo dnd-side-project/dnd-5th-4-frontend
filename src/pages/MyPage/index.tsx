@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
-
-import { useState } from 'react';
-import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Button, Platform, Image, TouchableOpacity } from 'react-native';
-import { Container, CalendarRow, DatesContainer, DateContainer, Days, EmojiBox, SelectText, DateNumber } from './style';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import calendarEmoji from '../../components/calendarEmoji';
-import CalendarEmoji from '../../components/calendarEmoji';
-import api from '../../settings/api';
-import { useAuthState } from 'context/Auth';
 import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
+
+import { useAuthState } from 'context/Auth';
+
+import calendarEmoji from 'components/calendarEmoji';
+import CalendarEmoji from 'components/calendarEmoji';
+import api from 'settings/api';
+import { Container, CalendarRow, DatesContainer, DateContainer, Days, EmojiBox, SelectText, DateNumber } from './style';
 
 const MyPage = () => {
     const navigation = useNavigation();
