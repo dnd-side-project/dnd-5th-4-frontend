@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { Close, Container, AddButton, TextField, AddText, Title } from './styles';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../settings/api';
-import { useAuthState } from '../../context';
 type UserProps = {
     isOpenAddModal: boolean;
     clickCategory: any;

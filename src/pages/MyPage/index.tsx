@@ -8,7 +8,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import calendarEmoji from '../../components/calendarEmoji';
 import CalendarEmoji from '../../components/calendarEmoji';
 import api from '../../settings/api';
-import { useAuthState } from '../../context';
+import { useAuthState } from 'context/Auth';
 import { useNavigation } from '@react-navigation/native';
 
 const MyPage = () => {

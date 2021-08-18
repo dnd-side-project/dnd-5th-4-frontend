@@ -10,7 +10,7 @@ import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import { AuthProvider, DressProvider } from './src/context';
 import { setCustomText } from 'react-native-global-props';
-import { LocationProvider } from './src/context/LocationContext';
+import { AuthProvider } from './src/context/Auth';
 
 const useFonts = async () => {
     await Font.loadAsync({
@@ -51,18 +51,14 @@ export default function App() {
     }
     return (
         <NavigationContainer theme={MyTheme}>
-            <LocationProvider>
-                <AuthProvider>
-                    <DressProvider>
-                        <ThemeProvider theme={theme}>
-                            <StatusBar style={'auto'} />
-                            <SafeAreaView style={{ flex: 1, marginTop: Platform.OS ? 24 : 0 }}>
-                                <MyStack />
-                            </SafeAreaView>
-                        </ThemeProvider>
-                    </DressProvider>
-                </AuthProvider>
-            </LocationProvider>
+                    <AuthProvider>
+                            <ThemeProvider theme={theme}>
+                                <StatusBar style={'auto'} />
+                                <SafeAreaView style={{ flex: 1, marginTop: Platform.OS ? 24 : 0 }}>
+                                    <MyStack />
+                                </SafeAreaView>
+                            </ThemeProvider>
+                    </AuthProvider>
         </NavigationContainer>
     );
 }

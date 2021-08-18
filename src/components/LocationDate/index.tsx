@@ -18,7 +18,6 @@ const LocationDate: React.FC<LocationDateProps> = ({ Location, setLocation }) =>
     let day = new Date().getDay(); // 요일
     let week = ['일', '월', '화', '수', '목', '금', '토'];
     const navigation = useNavigation();
-    const locationDispatch = useLocationDispatch();
     const HandleGPS = () => {
         (async () => {
             let { status } = await Locations.requestForegroundPermissionsAsync();

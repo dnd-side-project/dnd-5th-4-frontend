@@ -6,7 +6,6 @@ import { FlatList } from 'react-native-gesture-handler';
 import Post from '../Post';
 import { Dummy } from '../../untils/Dummy';
 import api from '../../settings/api';
-import { useAuthState } from '../../context';
 import EmptyPost from '../EmptyPost';
 
 type ScrollHeightProps = {
@@ -17,7 +16,6 @@ const RecordListBox: React.FC<ScrollHeightProps> = ({ scrollHeight, dailyWeather
     const [isMyPost, setIsMyPost] = useState(true);
     const [lastMeasuerId, setLastMeansureId] = useState(Number.MAX_SAFE_INTEGER);
     const [posts, setPosts] = useState([]);
-    const authState = useAuthState();
     const user = authState?.user;
     //
     //

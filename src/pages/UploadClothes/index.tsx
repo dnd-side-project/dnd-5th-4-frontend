@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-native-modal';
 import { ScrollView, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
+import { useAuthState } from 'context/Auth';
 import {
     ClothesViewBox,
     TotalWrap,

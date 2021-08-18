@@ -9,11 +9,8 @@ import * as Facebook from 'expo-facebook';
 import axios from 'axios';
 import api from '../../settings/api';
 
-import { useAuthDispatch } from '../../context';
-
 const Login = () => {
     const navigation = useNavigation();
-    const authDispatch = useAuthDispatch();
     const IsAlreadySignUp = (userId: any) => {
         let params = {
             userId: userId,
@@ -31,7 +28,6 @@ const Login = () => {
                                 console.log('로그인정보를 얻지못했습니다');
                                 return;
                             }
-                            authDispatch({ type: 'LOGIN', payload: { user: res?.data?.userResponse } });
                             navigation.navigate('Home');
                         })
                         .catch((err) => {
