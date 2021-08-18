@@ -32,9 +32,10 @@ import { Circle, Clothes, ClothesName, TypeBox } from '../Post/styles';
 import { Delete, Edit, Line } from '../../pages/UploadClothes/styles';
 import api from '../../settings/api';
 import { useAuthState } from '../../context';
+import DeleteModal from '../DeleteModal';
 // import Modal from 'react-native-modal';
 type UserProps = {
-    modalVisible: any;
+    modalVisible: boolean;
     setModalVisible: any;
     detailPost: any;
 };
@@ -42,6 +43,7 @@ const BottomSheet: React.FC<UserProps> = ({ modalVisible, setModalVisible, detai
     const screenHeight = Dimensions.get('screen').height;
     const panY = useRef(new Animated.Value(screenHeight)).current;
     const [isEditDeleteModalVisible, setEditDeleteModalVisibl] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const ClothesType = ['겉옷', '상의', '하의', '신발'];
     const ClothesTypeEng = ['OUTER', 'TOP', 'BOTTOM', 'SHOES'];
     const authState = useAuthState();
@@ -98,28 +100,17 @@ const BottomSheet: React.FC<UserProps> = ({ modalVisible, setModalVisible, detai
     let date = new Date(detailPost?.measures[0].date).getUTCDate();
     let days = new Date(detailPost?.measures[0].date).getUTCDay();
     let Day = ['일', '월', '화', '수', '목', '금', '토'];
-    const DeletePost = () => {
-        let params = { userId: user?.id };
-        api.delete(`measure/${detailPost?.measures[0]?.measureId}`, params)
-            .then((res) => {
-                if (res.status !== 200) {
-                    console.log('삭제에 실패하였습니다');
-                    return;
-                }
-                console.log(res);
-                setEditDeleteModalVisibl(false);
-                setModalVisible(false);
-            })
-            .catch((err) => {
-                console.log('err', err);
-            });
-    };
     return (
         <Modal visible={modalVisible} animationType={'fade'} transparent statusBarTranslucent>
             <Container>
                 <TouchableWithoutFeedback onPress={closeModal}>
                     <View style={{ flex: 1 }} />
                 </TouchableWithoutFeedback>
+                <DeleteModal
+                    isOpenAddModal={isModalOpen}
+                    setIsOpenAddModal={setIsModalOpen}
+                    postId={detailPost?.measures[0].measureId}
+                />
                 <Animated.View
                     style={{ ...styles.bottomSheetContainer, transform: [{ translateY: translateY }] }}
                     {...panResponders.panHandlers}
@@ -148,7 +139,8 @@ const BottomSheet: React.FC<UserProps> = ({ modalVisible, setModalVisible, detai
                                         <Line />
                                         <TouchableHighlight
                                             onPress={() => {
-                                                DeletePost();
+                                                setIsModalOpen(!isModalOpen);
+                                                setEditDeleteModalVisibl(false);
                                             }}
                                         >
                                             <Delete>삭제하기</Delete>
