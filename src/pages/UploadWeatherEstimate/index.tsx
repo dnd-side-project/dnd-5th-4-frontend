@@ -27,16 +27,7 @@ import {
     SelectText,
     SelectButton,
 } from './styles';
-import UploadLayout from 'layout/Upload';
-import { AntDesign } from '@expo/vector-icons';
-import { MoodImageGray, MoodImage } from '../../untils/MoodWeather';
-import { Button, Next } from '../RegisterNickName/styles';
-import EstimateBox from '../../components/EstimateBox';
-import api from '../../settings/api';
-import { useNavigation } from '@react-navigation/native';
-import Environment from '../../secret/Environment';
-import axios from 'axios';
-import { useAuthState } from '../../context';
+
 type UploadWeatherEstimateProps = {
     route: any;
 };
@@ -48,8 +39,7 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) 
     const [memo, setMemo] = useState<string>('');
     const [isDaily, setIsDaily] = useState([]);
     const navigation = useNavigation();
-    const authState = useAuthState();
-    const user = authState?.user;
+
     const onMoodHandler = (mood: string) => {
         if (mood === isMainMood) {
             setIsMainMood('');

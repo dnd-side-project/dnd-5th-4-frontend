@@ -14,6 +14,7 @@ import MyStack from './src/navigation';
 import Login from './src/pages/Login';
 import theme from './src/styles/theme';
 
+import { LocationProvider } from './src/context/Location';
 import { AuthProvider } from './src/context/Auth';
 
 const useFonts = async () => {
@@ -55,6 +56,7 @@ export default function App() {
     }
     return (
         <NavigationContainer theme={MyTheme}>
+                <LocationProvider>
                     <AuthProvider>
                             <ThemeProvider theme={theme}>
                                 <StatusBar style={'auto'} />
@@ -63,6 +65,7 @@ export default function App() {
                                 </SafeAreaView>
                             </ThemeProvider>
                     </AuthProvider>
+                </LocationProvider>
         </NavigationContainer>
     );
 }

@@ -79,7 +79,6 @@ const UploadWeather = () => {
     };
 
     const CheckLocation = () => {
-        // console.log('111111111111', isLocation);
         let keys = {
             latitude: Math.abs(isLocation?.lat),
             longitude: Math.abs(isLocation?.lon),

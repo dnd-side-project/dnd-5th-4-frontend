@@ -31,9 +31,7 @@ const LocationDate: React.FC<LocationDateProps> = ({ Location, setLocation }) =>
                 longitude: Math.abs(locationq.coords.longitude),
             };
             // console.log(location);
-            locationDispatch({ type: 'LOCATION', payload: { location: keys } });
         })();
-        // authDispatch({ type: 'LOGIN', payload: { userId } });
     };
     return (
         <Container>

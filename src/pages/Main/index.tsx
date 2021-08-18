@@ -8,7 +8,7 @@ import WeatherDetail from 'components/WeatherDetail';
 import { Dimensions, ScrollView, View, Text, TouchableOpacity, Image } from 'react-native';
 import RecordListBox from 'components/RecordListBox';
 import Character from 'components/Character';
-import { useAuthState, useLocationState } from '../../context';
+import { useLocationState } from '../../context/Location';
 
 import Clean from '../../components/Character/Clean';
 import Cloud from '../../components/Character/Cloud';
@@ -21,7 +21,6 @@ import Snow from '../../components/Character/Snow';
 import Characters from '../../components/Character/Characters';
 
 const Main = () => {
-    const authState = useAuthState();
     const locationState = useLocationState();
     const [lat, setLat] = useState(locationState === undefined ? locationState?.location?.latitude : 37.541);
     const [lon, setLon] = useState(locationState === undefined ? locationState?.location?.longitude : 126.934086);
@@ -34,7 +33,6 @@ const Main = () => {
     const { height } = Dimensions.get('screen');
 
     const [isLoading, setIsLoading] = useState(true);
-    // useEffect(() => console.log('123', authState));
 
     //
     //
