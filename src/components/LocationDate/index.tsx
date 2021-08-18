@@ -3,8 +3,7 @@ import { Image, TouchableOpacity, View } from 'react-native';
 import { AreaName, Today, Container, RightContainer, IconImage } from './styles';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { LocationGps } from '../../untils/GpsFunction';
-import { useLocationDispatch } from '../../context';
+import { LocationGps } from 'untils/GpsFunction';
 import * as Locations from 'expo-location';
 
 type LocationDateProps = {
@@ -18,7 +17,6 @@ const LocationDate: React.FC<LocationDateProps> = ({ Location, setLocation }) =>
     let day = new Date().getDay(); // 요일
     let week = ['일', '월', '화', '수', '목', '금', '토'];
     const navigation = useNavigation();
-    const locationDispatch = useLocationDispatch();
     const HandleGPS = () => {
         (async () => {
             let { status } = await Locations.requestForegroundPermissionsAsync();
@@ -33,9 +31,7 @@ const LocationDate: React.FC<LocationDateProps> = ({ Location, setLocation }) =>
                 longitude: Math.abs(locationq.coords.longitude),
             };
             // console.log(location);
-            locationDispatch({ type: 'LOCATION', payload: { location: keys } });
         })();
-        // authDispatch({ type: 'LOGIN', payload: { userId } });
     };
     return (
         <Container>

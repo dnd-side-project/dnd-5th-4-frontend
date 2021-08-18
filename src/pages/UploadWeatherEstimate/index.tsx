@@ -1,6 +1,20 @@
 import React, { useEffect, useState } from 'react';
 // import Modal from 'react-native-modal';
 import { ScrollView, Text, TextInput, View, TouchableWithoutFeedback, Alert } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+
+import { MoodImageGray, MoodImage } from 'untils/MoodWeather';
+import { Button, Next } from 'pages/RegisterNickName/styles';
+import EstimateBox from 'components/EstimateBox';
+import api from 'settings/api';
+import Environment from 'secret/Environment';
+import UploadLayout from 'layout/Upload';
+
+import { useMeasureDispatch, useMeasureState } from 'context/Measure';
+import { useAuthState } from 'context/Auth';
+
 import {
     WeatherEstimateWrap,
     EmotionSelectWrap,
@@ -16,31 +30,24 @@ import {
     SelectText,
     SelectButton,
 } from './styles';
-import UploadLayout from 'layout/Upload';
-import { AntDesign } from '@expo/vector-icons';
-import { MoodImageGray, MoodImage } from '../../untils/MoodWeather';
-import { Button, Next } from '../RegisterNickName/styles';
-import EstimateBox from '../../components/EstimateBox';
-import api from '../../settings/api';
-import { useNavigation } from '@react-navigation/native';
-import Environment from '../../secret/Environment';
-import axios from 'axios';
-import { useAuthState } from '../../context';
+
 type UploadWeatherEstimateProps = {
     route: any;
+    uploadType: string;
 };
-const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) => {
+const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route, uploadType }) => {
     interface measureItemType {
+        measureId?: number;
         userId: string;
         date: string;
+        tempInfo: string;
         temperatureHigh: number;
         temperatureLow: number;
         humidity: number;
         area: string;
-        tempInfo: string;
-        dresses: object[];
         mood: string;
         comment: string;
+        dresses: object[];
     }
 
     const { selectCategory, types, location } = route.params;
@@ -48,9 +55,12 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) 
     const [isMainMood, setIsMainMood] = useState('');
     const [memo, setMemo] = useState<string>('');
     const [isDaily, setIsDaily] = useState([]);
+    const measureDispatch = useMeasureDispatch();
+    const measureState = useMeasureState();
     const navigation = useNavigation();
     const authState = useAuthState();
     const user = authState?.user;
+
     const onMoodHandler = (mood: string) => {
         if (mood === isMainMood) {
             setIsMainMood('');
@@ -86,31 +96,96 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) 
     };
 
     const onSubmitHandler = () => {
+        console.log('clicked!!');
         let params: measureItemType = {
+            // measureId:
             userId: user?.id,
             date: new Date(+new Date() + 3240 * 10000).toISOString().replace('T', ' ').replace(/\..*/, ''),
+            tempInfo: location.description,
             temperatureHigh: isDaily?.max,
             temperatureLow: isDaily?.min,
             humidity: location.humidity,
             area: location.Area,
-            tempInfo: location.description,
-            dresses: selectCategory,
             mood: isMainMood,
             comment: memo,
+            dresses: selectCategory,
         };
-        console.log(params);
-        api.post('measure/', params)
-            .then((res) => {
-                if (res.status !== 200) {
-                    console.log('게시글 업로드 실패');
-                    return;
-                }
-                Alert.alert('날씨를 업로드했습니다');
-                navigation.navigate('Main');
-            })
-            .catch((err) => {
-                console.log('err', err);
-            });
+        console.log('params: ', params);
+        // ---> for test
+        const uploadType = 'POST';
+        // test <---
+        console.log('measureState', measureState);
+
+        switch (uploadType) {
+            case 'POST': {
+                measureDispatch({
+                    type: 'POST_MEASURE',
+                    payload: params,
+                });
+
+                api.post('measure/', params)
+                    .then((res) => {
+                        if (res.status !== 200) {
+                            console.log('게시글 업로드 실패');
+                            return;
+                        }
+                        Alert.alert('날씨를 업로드했습니다');
+                        navigation.navigate('Main');
+                    })
+                    .catch((err) => {
+                        console.log('err', err);
+                    });
+                break;
+            }
+            case 'PATCH': {
+                // 수정 버튼 눌렀을 때 넘겨받음
+                // const measureId = 14;
+
+                // measureDispatch({
+                //     type: 'PATCH_MEASURE',
+                //     payload: params,
+                // });
+                // console.log('measureState', measureState);
+
+                // api.patch('measure/' + measureId, params)
+                //     .then((res) => {
+                //         if (res.status !== 200) {
+                //             console.log('날씨 평가 수정 실패');
+                //             return;
+                //         }
+                //         Alert.alert('날씨 평가를 수정했습니다');
+                //         navigation.navigate('Main');
+                //     })
+                //     .catch((err) => {
+                //         console.log('err', err);
+                //     });
+
+                break;
+            }
+
+            case 'DELETE': {
+                // measureDispatch({
+                //     type: 'DELETE_MEASURE',
+                //     payload: measureId,
+                // });
+                // console.log('measureState', measureState);
+                // api.patch('measure/' + measureId, params)
+                //     .then((res) => {
+                //         if (res.status !== 200) {
+                //             console.log('날씨 평가 수정 실패');
+                //             return;
+                //         }
+                //         Alert.alert('날씨 평가를 수정했습니다');
+                //         navigation.navigate('Main');
+                //     })
+                //     .catch((err) => {
+                //         console.log('err', err);
+                //     });
+            }
+            default: {
+                break;
+            }
+        }
     };
 
     return (

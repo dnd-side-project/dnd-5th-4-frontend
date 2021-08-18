@@ -1,6 +1,6 @@
 import React from 'react';
-import { locationReducer } from './reducers';
-import { LocationAction } from './locationTypes';
+import { reducer } from './reducers';
+import { LocationAction } from './types';
 
 const LocationContext = React.createContext({});
 const DispatchContext = React.createContext<React.Dispatch<LocationAction>>(() => {
@@ -8,7 +8,7 @@ const DispatchContext = React.createContext<React.Dispatch<LocationAction>>(() =
 });
 
 export const LocationProvider: React.FC = ({ children }) => {
-    const [state, dispatch] = React.useReducer(locationReducer, {});
+    const [state, dispatch] = React.useReducer(reducer, {});
 
     return (
         <LocationContext.Provider value={state}>

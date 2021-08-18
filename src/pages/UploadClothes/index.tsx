@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-native-modal';
 import { ScrollView, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
+import { Feather, Entypo } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+
+import { useAuthState } from 'context/Auth';
+
+import UploadLayout from 'layout/Upload';
+import api from 'settings/api';
+import Category from 'components/Category';
+import { KoreaLocations } from 'untils/Map';
+import TextModal from 'components/TextModal';
+import { Button, Next } from 'pages/RegisterNickName/styles';
 import {
     ClothesViewBox,
     TotalWrap,
@@ -22,15 +33,6 @@ import {
     Line,
     Delete,
 } from './styles';
-import UploadLayout from 'layout/Upload';
-import { Feather, Entypo } from '@expo/vector-icons';
-import api from '../../settings/api';
-import Category from '../../components/Category';
-import { KoreaLocations } from '../../untils/Map';
-import TextModal from '../../components/TextModal';
-import { Button, Next } from '../RegisterNickName/styles';
-import { useNavigation } from '@react-navigation/native';
-import { useAuthState } from '../../context';
 
 type ClothesProps = {
     categoryList: any;
@@ -38,8 +40,9 @@ type ClothesProps = {
 };
 type UserProps = {
     route: any;
+    uploadType: string;
 };
-const UploadClothes: React.FC<UserProps> = ({ route }) => {
+const UploadClothes: React.FC<UserProps> = ({ route, uploadType }) => {
     interface LocationType {
         location: object;
     }
@@ -111,6 +114,7 @@ const UploadClothes: React.FC<UserProps> = ({ route }) => {
     useEffect(() => {
         fetchUserCloth();
     }, [isRe]);
+
     const onNextPage = () => {
         let newSelectType = [];
         if (selectCategory.filter((ele) => ele.type == 'OUTER').length !== 0) {
@@ -131,9 +135,10 @@ const UploadClothes: React.FC<UserProps> = ({ route }) => {
         // clothes type    newSelectType
         // selecct Clothes  selectCategory
         navigation.navigate('UploadWeatherEstimate', {
-            selectCategory: selectCategory,
+            selectCategory,
             types: newSelectType,
-            location: location,
+            location,
+            uploadType,
         });
         console.log(newSelectType);
     };

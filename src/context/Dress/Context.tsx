@@ -1,6 +1,6 @@
-import { DressAction } from 'context';
 import React from 'react';
-import { dressReducer } from './reducers';
+import { reducer } from './reducers';
+import { DressAction } from './types';
 
 const DressContext = React.createContext({});
 const DispatchContext = React.createContext<React.Dispatch<DressAction>>(() => {
@@ -8,7 +8,7 @@ const DispatchContext = React.createContext<React.Dispatch<DressAction>>(() => {
 });
 
 export const DressProvider: React.FC = ({ children }) => {
-    const [state, dispatch] = React.useReducer(dressReducer, {});
+    const [state, dispatch] = React.useReducer(reducer, {});
 
     return (
         <DressContext.Provider value={state}>

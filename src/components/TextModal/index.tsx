@@ -1,11 +1,13 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Text, View, Button, Dimensions, TouchableOpacity } from 'react-native';
 import Modal from 'react-native-modalbox';
-import { useState } from 'react';
-import { Close, Container, AddButton, TextField, AddText, Title } from './styles';
 import { useNavigation } from '@react-navigation/native';
-import api from '../../settings/api';
-import { useAuthState } from '../../context';
+
+import { useAuthState } from 'context/Auth';
+
+import api from 'settings/api';
+import { Close, Container, AddButton, TextField, AddText, Title } from './styles';
+
 type UserProps = {
     isOpenAddModal: boolean;
     clickCategory: any;

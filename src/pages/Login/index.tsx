@@ -1,15 +1,16 @@
 import React from 'react';
-import * as Google from 'expo-google-app-auth';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { BottomContainer, Container, LogoImage, SocialBox, SocialImage, SocialText, TopContainer } from './stlyes';
 import { useFonts } from 'expo-font';
-import Environment from '../../secret/Environment';
-import { useNavigation } from '@react-navigation/native';
-import * as Facebook from 'expo-facebook';
 import axios from 'axios';
-import api from '../../settings/api';
+import { useNavigation } from '@react-navigation/native';
+import * as Google from 'expo-google-app-auth';
+import * as Facebook from 'expo-facebook';
 
-import { useAuthDispatch } from '../../context';
+import { useAuthDispatch } from 'context/Auth';
+
+import Environment from 'secret/Environment';
+import api from 'settings/api';
+import { BottomContainer, Container, LogoImage, SocialBox, SocialImage, SocialText, TopContainer } from './stlyes';
 
 const Login = () => {
     const navigation = useNavigation();
