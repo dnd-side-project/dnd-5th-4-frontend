@@ -21,6 +21,7 @@ const UploadWeather = () => {
     const [isLocation, setIsLocation] = useState<any>([]); // 클릭 한 위치에 정보
     const [borderColor, setBorderColor] = useState('#d6d6d7');
     const [border, setBorder] = useState(1);
+    const [uploadType, setUploadType] = useState('POST'); // POST(추가), PATCH(수정)
     interface SelectLocationType {
         lat: number;
         lon: number;
@@ -107,7 +108,7 @@ const UploadWeather = () => {
             temp: isLocation?.temp,
         };
         // UploadClothes
-        navigation.navigate('UploadClothes', { location: keys });
+        navigation.navigate('UploadClothes', { location: keys, uploadType });
     };
     return (
         <Container>

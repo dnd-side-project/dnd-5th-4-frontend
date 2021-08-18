@@ -40,8 +40,9 @@ type ClothesProps = {
 };
 type UserProps = {
     route: any;
+    uploadType: string;
 };
-const UploadClothes: React.FC<UserProps> = ({ route }) => {
+const UploadClothes: React.FC<UserProps> = ({ route, uploadType }) => {
     interface LocationType {
         location: object;
     }
@@ -113,6 +114,7 @@ const UploadClothes: React.FC<UserProps> = ({ route }) => {
     useEffect(() => {
         fetchUserCloth();
     }, [isRe]);
+
     const onNextPage = () => {
         let newSelectType = [];
         if (selectCategory.filter((ele) => ele.type == 'OUTER').length !== 0) {
@@ -133,9 +135,10 @@ const UploadClothes: React.FC<UserProps> = ({ route }) => {
         // clothes type    newSelectType
         // selecct Clothes  selectCategory
         navigation.navigate('UploadWeatherEstimate', {
-            selectCategory: selectCategory,
+            selectCategory,
             types: newSelectType,
-            location: location,
+            location,
+            uploadType,
         });
         console.log(newSelectType);
     };

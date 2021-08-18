@@ -17,10 +17,10 @@ export type MeasureAction =
       };
 
 export type measureItem = {
-    measureId: number;
+    measureId?: number;
     userId: string;
-    userName: string;
-    userConstitution: string;
+    userName?: string;
+    userConstitution?: string;
     date: string;
     tempInfo: string;
     temperatureHigh: number;
@@ -29,7 +29,7 @@ export type measureItem = {
     area: string;
     mood: string;
     comment: string;
-    dressResponses: object[];
+    dresses: object[];
 };
 
 export type measureState = {
