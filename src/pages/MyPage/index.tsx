@@ -128,7 +128,7 @@ const MyPage = () => {
         setShow(Platform.OS === 'ios');
         setSelectDate(currentDate);
         setShow(!show);
-        console.log(currentDate);
+        // console.log(currentDate);
     };
     return (
         <Container>

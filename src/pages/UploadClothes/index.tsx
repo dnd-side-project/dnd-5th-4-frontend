@@ -43,11 +43,14 @@ type UserProps = {
     route: any;
 };
 const UploadClothes: React.FC<UserProps> = ({ route }) => {
-    const { location } = route.params;
+    interface LocationType {
+        location: object;
+    }
+    const { location }: LocationType = route.params;
     const navigation = useNavigation();
     const [isEditDeleteModalVisible, setEditDeleteModalVisibl] = useState(false);
     const [category, setCategory] = useState([]);
-    const [selectCategory, setSelectCategory] = useState([]);
+    const [selectCategory, setSelectCategory] = useState<object[]>([]);
     const [totalNumber, setTotalNumber] = useState(0);
     const [isRe, setIsRe] = useState(false);
     //

@@ -16,11 +16,29 @@ const UploadWeather = () => {
     const navigation = useNavigation();
     const [Locations, setLocations] = useState<any>([]);
     const [keyword, setKeyWord] = useState<string>('');
-    const [locationWeather, setLocationWeather] = useState<any>([]);
+    const [locationWeather, setLocationWeather] = useState<Array<SelectLocationType>>([]);
     const [isClicked, setIsClicked] = useState('');
-    const [isLocation, setIsLocation] = useState([]); // 클릭 한 위치에 정보
+    const [isLocation, setIsLocation] = useState<any>([]); // 클릭 한 위치에 정보
     const [borderColor, setBorderColor] = useState('#d6d6d7');
     const [border, setBorder] = useState(1);
+    interface SelectLocationType {
+        lat: number;
+        lon: number;
+        Area: string;
+        temp: number;
+        description: string;
+        icon: string;
+        humidity: number;
+    }
+    //navigation을통해 params로 넘겨주는 type
+    interface LocationType {
+        latitude: number;
+        longitude: number;
+        Area: string;
+        humidity: number;
+        description: string;
+        temp: number;
+    }
 
     const onFucus = () => {
         setBorderColor('#000000');
@@ -36,7 +54,7 @@ const UploadWeather = () => {
             setLocations([]);
             return;
         }
-        let newLocationWeather: { Area: any; temp: any; description: any; icon: any }[] = [];
+        let newLocationWeather: SelectLocationType[] = [];
         let NewLocations = KoreaLocations.filter((element) => element.name.includes(TEXT));
         await setLocations(NewLocations);
         NewLocations.map((location: any) => {
@@ -58,6 +76,7 @@ const UploadWeather = () => {
                     }
                     //
                     // console.log(res?.data?.list[0].main.temp);
+
                     let Array = {
                         lat: location.location[0],
                         lon: location.location[1],
@@ -79,7 +98,7 @@ const UploadWeather = () => {
     };
 
     const CheckLocation = () => {
-        let keys = {
+        let keys: LocationType = {
             latitude: Math.abs(isLocation?.lat),
             longitude: Math.abs(isLocation?.lon),
             Area: isLocation?.Area,

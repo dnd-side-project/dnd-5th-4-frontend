@@ -34,8 +34,20 @@ type UploadWeatherEstimateProps = {
     route: any;
 };
 const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) => {
-    const { selectCategory, types, location } = route.params;
+    interface measureItemType {
+        userId: string;
+        date: string;
+        temperatureHigh: number;
+        temperatureLow: number;
+        humidity: number;
+        area: string;
+        tempInfo: string;
+        dresses: object[];
+        mood: string;
+        comment: string;
+    }
 
+    const { selectCategory, types, location } = route.params;
     const [isShowEstimateList, setIsShowEstimateList] = useState(false);
     const [isMainMood, setIsMainMood] = useState('');
     const [memo, setMemo] = useState<string>('');
@@ -77,7 +89,7 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) 
     };
     const measureDispatch = useMeasureDispatch();
     const onSubmitHandler = () => {
-        let params = {
+        let params: measureItemType = {
             userId: user?.id,
             userName: 'testUser',
             userConstitution: 'HOT',
