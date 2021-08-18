@@ -12,6 +12,8 @@ import api from 'settings/api';
 import Environment from 'secret/Environment';
 import UploadLayout from 'layout/Upload';
 
+import { useMeasureDispatch } from 'context/Measure';
+
 import {
     WeatherEstimateWrap,
     EmotionSelectWrap,
@@ -73,20 +75,28 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) 
                 console.log('err', err);
             });
     };
-
+    const measureDispatch = useMeasureDispatch();
     const onSubmitHandler = () => {
         let params = {
             userId: user?.id,
+            userName: 'testUser',
+            userConstitution: 'HOT',
             date: new Date(+new Date() + 3240 * 10000).toISOString().replace('T', ' ').replace(/\..*/, ''),
+            tempInfo: location.description,
             temperatureHigh: isDaily?.max,
             temperatureLow: isDaily?.min,
             humidity: location.humidity,
             area: location.Area,
-            tempInfo: location.description,
-            dresses: selectCategory,
             mood: isMainMood,
             comment: memo,
+            dressResponses: selectCategory,
         };
+
+        measureDispatch({
+            type: 'POST_MEASURE',
+            payload: params,
+        });
+
         console.log(params);
         api.post('measure/', params)
             .then((res) => {
