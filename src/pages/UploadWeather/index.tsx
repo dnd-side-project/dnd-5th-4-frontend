@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-
 import { FlatList, Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { KoreaLocations } from '../../untils/Map';
-import { Close, CloseTouch, Container, SubTitle, TextFiled, Title, Touch } from './styles';
-import Environment from '../../secret/Environment';
-import axios from 'axios';
-import { Button, Next } from '../RegisterNickName/styles';
-import LocationPost from 'components/LocationPost';
 import { useNavigation } from '@react-navigation/native';
-import { useLocationDispatch } from '../../context';
+import axios from 'axios';
+
+import { KoreaLocations } from 'untils/Map';
+import Environment from 'secret/Environment';
+import LocationPost from 'components/LocationPost';
+
+import { Button, Next } from 'pages/RegisterNickName/styles';
+import { Close, CloseTouch, Container, SubTitle, TextFiled, Title, Touch } from './styles';
+
 let LocationWeatherArray: any = [];
+
 const UploadWeather = () => {
     const navigation = useNavigation();
-    const locationDispatch = useLocationDispatch();
     const [Locations, setLocations] = useState<any>([]);
     const [keyword, setKeyWord] = useState<string>('');
     const [locationWeather, setLocationWeather] = useState<any>([]);

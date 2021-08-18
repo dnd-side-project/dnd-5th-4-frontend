@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Modal from 'react-native-modal';
 import { ScrollView, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
+import { Feather, Entypo } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+
+import UploadLayout from 'layout/Upload';
+import api from 'settings/api';
+import Category from 'components/Category';
+import { KoreaLocations } from 'untils/Map';
+import TextModal from 'components/TextModal';
+import { Button, Next } from 'pages/RegisterNickName/styles';
+
 import { useAuthState } from 'context/Auth';
+
 import {
     ClothesViewBox,
     TotalWrap,
@@ -23,15 +34,6 @@ import {
     Line,
     Delete,
 } from './styles';
-import UploadLayout from 'layout/Upload';
-import { Feather, Entypo } from '@expo/vector-icons';
-import api from '../../settings/api';
-import Category from '../../components/Category';
-import { KoreaLocations } from '../../untils/Map';
-import TextModal from '../../components/TextModal';
-import { Button, Next } from '../RegisterNickName/styles';
-import { useNavigation } from '@react-navigation/native';
-import { useAuthState } from '../../context';
 
 type ClothesProps = {
     categoryList: any;

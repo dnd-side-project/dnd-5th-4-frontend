@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react';
 // import Modal from 'react-native-modal';
 import { ScrollView, Text, TextInput, View, TouchableWithoutFeedback, Alert } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+
+import { MoodImageGray, MoodImage } from 'untils/MoodWeather';
+import { Button, Next } from 'pages/RegisterNickName/styles';
+import EstimateBox from 'components/EstimateBox';
+import api from 'settings/api';
+import Environment from 'secret/Environment';
+import UploadLayout from 'layout/Upload';
+
 import {
     WeatherEstimateWrap,
     EmotionSelectWrap,

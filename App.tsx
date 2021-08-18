@@ -8,8 +8,12 @@ import { ThemeProvider } from 'styled-components';
 import theme from './src/styles/theme';
 import * as Font from 'expo-font';
 import AppLoading from 'expo-app-loading';
-import { AuthProvider, DressProvider } from './src/context';
 import { setCustomText } from 'react-native-global-props';
+
+import MyStack from './src/navigation';
+import Login from './src/pages/Login';
+import theme from './src/styles/theme';
+
 import { AuthProvider } from './src/context/Auth';
 
 const useFonts = async () => {

@@ -3,8 +3,7 @@ import { Image, TouchableOpacity, View } from 'react-native';
 import { AreaName, Today, Container, RightContainer, IconImage } from './styles';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { LocationGps } from '../../untils/GpsFunction';
-import { useLocationDispatch } from '../../context';
+import { LocationGps } from 'untils/GpsFunction';
 import * as Locations from 'expo-location';
 
 type LocationDateProps = {
