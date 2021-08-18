@@ -50,6 +50,8 @@ export const Button = styled.TouchableOpacity<{ color?: boolean }>`
     justify-content: center;
     background: ${(props) => (props.color ? '#CACCD6' : '#000000')};
     width: 100%;
+    position: absolute;
+    bottom: 0px;
 `;
 export const Next = styled.Text`
     font-size: 16px;

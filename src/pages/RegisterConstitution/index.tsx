@@ -71,11 +71,11 @@ const RegisterConstitution: React.FC<UserProps> = ({ route }) => {
                     }}
                 >
                     <Box clicked={hotConstitution} onPress={() => onMaleClick()}>
-                        <Image style={styles.Logo} resizeMode="contain" source={require('Images/smile-blue.jpg')} />
+                        <Image style={styles.Logo} resizeMode="contain" source={require('Images/RegisterHot.png')} />
                         <Text>더위 많이 타는 편</Text>
                     </Box>
                     <Box clicked={coldConstitution} onPress={() => onFemaleClick()}>
-                        <Image style={styles.Logo} resizeMode="contain" source={require('Images/smile-blue.jpg')} />
+                        <Image style={styles.Logo} resizeMode="contain" source={require('Images/RegisterCold.png')} />
                         <Text>추위 많이 타는 편</Text>
                     </Box>
                 </View>
@@ -85,7 +85,7 @@ const RegisterConstitution: React.FC<UserProps> = ({ route }) => {
                     disabled={!hotConstitution && !coldConstitution}
                 >
                     <TouchableOpacity onPress={() => CheckConstitution()}>
-                        <Next>다음</Next>
+                        <Next>시작하기</Next>
                     </TouchableOpacity>
                 </Button>
             </RegisterLayout>
@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     Logo: {
         marginBottom: 16,
         width: 94,
+        height: 94,
     },
 });
 
