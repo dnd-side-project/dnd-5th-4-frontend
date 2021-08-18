@@ -4,15 +4,14 @@ import { ScrollView, TouchableHighlight, TouchableWithoutFeedback, View } from '
 import { Feather, Entypo } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
+import { useAuthState } from 'context/Auth';
+
 import UploadLayout from 'layout/Upload';
 import api from 'settings/api';
 import Category from 'components/Category';
 import { KoreaLocations } from 'untils/Map';
 import TextModal from 'components/TextModal';
 import { Button, Next } from 'pages/RegisterNickName/styles';
-
-import { useAuthState } from 'context/Auth';
-
 import {
     ClothesViewBox,
     TotalWrap,

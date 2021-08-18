@@ -32,6 +32,7 @@ const Login = () => {
                                 console.log('로그인정보를 얻지못했습니다');
                                 return;
                             }
+                            authDispatch({ type: 'LOGIN', payload: { user: res?.data?.userResponse } });
                             navigation.navigate('Home');
                         })
                         .catch((err) => {
