@@ -5,7 +5,10 @@ const activeStyle = css`
     border: 2px solid #000000;
     box-shadow: none;
 `;
-
+const noneActiveStyle = css`
+    border: 2px solid #d6d6d7;
+    box-shadow: none;
+`;
 export const Box = styled.TouchableOpacity<{ clicked: boolean; onClick?: () => void }>`
     border-color: ${theme.mainColor.unactiveButton};
     justify-content: center;
@@ -21,7 +24,7 @@ export const Box = styled.TouchableOpacity<{ clicked: boolean; onClick?: () => v
         box-shadow: none;
     }
 
-    ${(props) => (props.clicked ? activeStyle : '')}
+    ${(props) => (props.clicked ? activeStyle : noneActiveStyle)}
 `;
 
 export const Text = styled.Text`

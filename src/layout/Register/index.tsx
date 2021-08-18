@@ -1,6 +1,6 @@
 import Button from 'components/Button';
 import React from 'react';
-import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, View, StyleSheet, Image } from 'react-native';
 import { ThemeProvider } from 'styled-components';
 import theme from 'styles/theme';
 import { AntDesign } from '@expo/vector-icons';
@@ -59,7 +59,11 @@ const RegisterLayout = ({
                             // this.props.navigation.goBack();
                         }}
                     >
-                        <AntDesign name="left" size={24} color="black" iconStyle={{ left: 0 }} />
+                        <Image
+                            source={require('Images/Back.png')}
+                            resizeMode={'contain'}
+                            style={{ width: 24, height: 24 }}
+                        />
                     </TouchableOpacity>
                     <TouchableOpacity
                         onPress={() => {

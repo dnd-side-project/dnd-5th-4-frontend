@@ -23,7 +23,7 @@ const RegisterGender: React.FC<UserProps> = ({ route }) => {
         setFemaleClicked(!femaleClicked);
     };
 
-    // navigation.navigate('RegisterGender', { userId: userId, name: nickName });
+    navigation.navigate('RegisterGender', { userId: userId, name: nickName });
     const CheckNickGender = () => {
         let gender = '';
         if (maleClicked) {
@@ -43,11 +43,11 @@ const RegisterGender: React.FC<UserProps> = ({ route }) => {
                 }}
             >
                 <Box clicked={maleClicked} onPress={() => onMaleClick()}>
-                    <Image style={styles.Logo} resizeMode="contain" source={require('Images/smile-blue.jpg')} />
+                    <Image style={styles.Logo} resizeMode="contain" source={require('Images/RegisterMan.png')} />
                     <Text>남자</Text>
                 </Box>
                 <Box clicked={femaleClicked} onPress={() => onFemaleClick()}>
-                    <Image style={styles.Logo} resizeMode="contain" source={require('Images/smile-blue.jpg')} />
+                    <Image style={styles.Logo} resizeMode="contain" source={require('Images/RegisterWoman.png')} />
                     <Text>여자</Text>
                 </Box>
             </View>
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     Logo: {
         marginBottom: 16,
         width: 94,
+        height: 94,
     },
 });
 

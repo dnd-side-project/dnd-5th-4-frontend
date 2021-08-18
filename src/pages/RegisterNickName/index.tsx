@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { StepBar, SubTitleText, Container, Next, TopContainer, TitleText, Button } from './styles';
 import api from '../../settings/api';
@@ -46,7 +46,11 @@ const RegisterNickName: React.FC<UserProps> = ({ route }) => {
                             navigation.goBack();
                         }}
                     >
-                        <AntDesign name="left" size={24} color="black" />
+                        <Image
+                            source={require('Images/Back.png')}
+                            resizeMode={'contain'}
+                            style={{ width: 24, height: 24 }}
+                        />
                     </TouchableOpacity>
                 </TopContainer>
                 <TitleText>닉네임을 입력해주세요</TitleText>

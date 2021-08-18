@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import Modal from 'react-native-modal';
-import { ScrollView, Text, TextInput, View, TouchableWithoutFeedback, Alert } from 'react-native';
+import { ScrollView, Text, TextInput, View, TouchableWithoutFeedback, Alert, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -51,7 +51,7 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route, up
     }
 
     const { selectCategory, types, location } = route.params;
-    const [isShowEstimateList, setIsShowEstimateList] = useState(false);
+    const [isShowEstimateList, setIsShowEstimateList] = useState(true);
     const [isMainMood, setIsMainMood] = useState('');
     const [memo, setMemo] = useState<string>('');
     const [isDaily, setIsDaily] = useState([]);
@@ -255,7 +255,15 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route, up
                 </EmotionSelectWrap>
                 <TouchableWithoutFeedback onPress={() => setIsShowEstimateList(!isShowEstimateList)}>
                     <EstimateButton>
-                        <AntDesign name="down" size={24} color="black" iconStyle={{}} />
+                        <Image
+                            source={require('Images/isMore.png')}
+                            resizeMode={'contain'}
+                            style={{
+                                width: 24,
+                                height: 24,
+                                transform: [{ rotate: isShowEstimateList ? '0deg' : '180deg' }],
+                            }}
+                        />
                         <Text style={{ marginLeft: 5, marginRight: 9 }}>개별 평가하기</Text>
                         <SelectButton>
                             <SelectText>선택</SelectText>
