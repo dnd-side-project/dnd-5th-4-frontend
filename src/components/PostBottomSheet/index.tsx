@@ -35,11 +35,13 @@ import {
     TopContainer,
     EditButton,
 } from './style';
+
 type UserProps = {
     modalVisible: boolean;
     setModalVisible: any;
     detailPost: any;
 };
+
 const BottomSheet: React.FC<UserProps> = ({ modalVisible, setModalVisible, detailPost }) => {
     const [isEditDeleteModalVisible, setEditDeleteModalVisible] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // 삭제 모달
@@ -114,7 +116,7 @@ const BottomSheet: React.FC<UserProps> = ({ modalVisible, setModalVisible, detai
                 <DeleteModal
                     isOpenAddModal={isModalOpen}
                     setIsOpenAddModal={setIsModalOpen}
-                    postId={detailPost?.measures[0].measureId}
+                    measureId={detailPost?.measures[0].measureId}
                 />
                 <EditModal
                     isOpenAddModal={isEditModalOpen}

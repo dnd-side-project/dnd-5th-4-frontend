@@ -1,27 +1,54 @@
-import React, { useEffect, useRef } from 'react';
-import { Text, View, Button, Dimensions, TouchableOpacity } from 'react-native';
-import Modal from 'react-native-modalbox';
-import { useState } from 'react';
-import { Close, Container, AddButton, TextField, AddText, Title } from './style';
+import React, { useRef } from 'react';
+import { View, Dimensions, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import api from '../../settings/api';
+import Modal from 'react-native-modalbox';
+
 import { useAuthState } from 'context/Auth';
+import { useMeasureDispatch, useMeasureState } from 'context/Measure';
+
+import api from 'settings/api';
+import { Close, Container, AddButton, AddText, Title } from './style';
+
 type UserProps = {
     isOpenAddModal: boolean;
     setIsOpenAddModal: any;
-    postId: number;
+    measureId: number;
 };
-const DeleteModal: React.FC<UserProps> = ({ isOpenAddModal, setIsOpenAddModal, postId }) => {
+
+const DeleteModal: React.FC<UserProps> = ({ isOpenAddModal, setIsOpenAddModal, measureId }) => {
+    const navigation = useNavigation();
     const authState = useAuthState();
+    const measureDispatch = useMeasureDispatch();
+    const measureState = useMeasureState();
     const user = authState?.user;
+
     let screen = Dimensions.get('window');
     const show = useRef();
-    const navigation = useNavigation();
+
     const onDeleteHandler = () => {
-        //    삭제하기 버튼 눌렀을 경우
-        //    postId
-        // console.log(postId);
+        measureDelete();
     };
+
+    const measureDelete = () => {
+        const params = { userId: user?.id };
+        api.delete(`measure/${measureId}`, { data: params })
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log('평가 삭제 실패');
+                    return;
+                }
+                Alert.alert('평가 삭제 완료');
+                navigation.navigate('Main');
+            })
+            .catch((err) => {
+                console.log('err', err);
+            });
+        measureDispatch({
+            type: 'DELETE_MEASURE',
+            payload: measureId,
+        });
+    };
+
     return (
         <Modal
             style={{
