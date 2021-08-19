@@ -12,7 +12,11 @@ import { Close, CloseTouch, Container, SubTitle, TextFiled, Title, Touch } from 
 
 let LocationWeatherArray: any = [];
 
-const UploadWeather = () => {
+type EditProps = {
+    route: any;
+};
+
+const UploadWeather = ({ route }: EditProps) => {
     const navigation = useNavigation();
     const [Locations, setLocations] = useState<any>([]);
     const [keyword, setKeyWord] = useState<string>('');
@@ -22,6 +26,7 @@ const UploadWeather = () => {
     const [borderColor, setBorderColor] = useState('#d6d6d7');
     const [border, setBorder] = useState(1);
     const [uploadType, setUploadType] = useState('POST'); // POST(추가), PATCH(수정)
+    const [measureId, setMeasureId] = useState<number>();
     interface SelectLocationType {
         lat: number;
         lon: number;
@@ -98,6 +103,14 @@ const UploadWeather = () => {
         // await setLocationWeather((locationWeather: any) => locationWeather.concat(LocationWeatherArray));
     };
 
+    useEffect(() => {
+        console.log(route);
+        if (route.params?.uploadType === 'PATCH') {
+            setUploadType('PATCH');
+            setMeasureId(route?.params.measureId);
+        }
+    }, [uploadType]);
+
     const CheckLocation = () => {
         let keys: LocationType = {
             latitude: Math.abs(isLocation?.lat),
@@ -108,7 +121,7 @@ const UploadWeather = () => {
             temp: isLocation?.temp,
         };
         // UploadClothes
-        navigation.navigate('UploadClothes', { location: keys, uploadType });
+        navigation.navigate('UploadClothes', { location: keys, uploadType, measureId });
     };
     return (
         <Container>
@@ -122,7 +135,7 @@ const UploadWeather = () => {
                     <Close source={require('Images/Close.png')} resizeMode={'contain'} />
                 </CloseTouch>
                 <Title>오늘의 날씨를{'\n'}기록해볼까요?</Title>
-                <SubTitle>현재 날씨와 위치정보를 확인해주세요.?</SubTitle>
+                <SubTitle>현재 날씨와 위치정보를 확인해주세요.</SubTitle>
                 <TextFiled
                     // onChangeText={setKeyWord}
                     value={keyword}

@@ -103,3 +103,5 @@ export const ModalBox = styled.View`
     bottom: 40%;
     right: 8%;
 `;
+
+export const EditButton = styled.TouchableHighlight``;

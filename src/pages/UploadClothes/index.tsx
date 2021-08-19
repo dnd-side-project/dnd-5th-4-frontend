@@ -40,15 +40,16 @@ type ClothesProps = {
 };
 type UserProps = {
     route: any;
-    uploadType: string;
 };
-const UploadClothes: React.FC<UserProps> = ({ route, uploadType }) => {
+const UploadClothes: React.FC<UserProps> = ({ route }) => {
     interface LocationType {
         location: object;
+        uploadType: string;
+        measureId: number;
     }
-    const { location }: LocationType = route.params;
+    const { location, uploadType, measureId }: LocationType = route.params;
     const navigation = useNavigation();
-    const [isEditDeleteModalVisible, setEditDeleteModalVisibl] = useState(false);
+    const [isEditDeleteModalVisible, setEditDeleteModalVisible] = useState(false);
     const [category, setCategory] = useState([]);
     const [selectCategory, setSelectCategory] = useState<object[]>([]);
     const [totalNumber, setTotalNumber] = useState(0);
@@ -61,7 +62,7 @@ const UploadClothes: React.FC<UserProps> = ({ route, uploadType }) => {
     const authState = useAuthState();
     const user = authState?.user;
     const showEditDeleteModal = () => {
-        setEditDeleteModalVisibl(!isEditDeleteModalVisible);
+        setEditDeleteModalVisible(!isEditDeleteModalVisible);
     };
 
     const Category: React.FC<ClothesProps> = ({ categoryList, name }) => (
@@ -139,6 +140,7 @@ const UploadClothes: React.FC<UserProps> = ({ route, uploadType }) => {
             types: newSelectType,
             location,
             uploadType,
+            measureId,
         });
         console.log(newSelectType);
     };

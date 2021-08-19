@@ -13,6 +13,13 @@ import {
     TouchableHighlight,
     Alert,
 } from 'react-native';
+
+import { MoodColor, MoodDescription, MoodImage } from 'untils/MoodWeather';
+import { useAuthState } from 'context/Auth';
+import DeleteModal from 'components/DeleteModal';
+import EditModal from 'components/EditModal';
+import { Circle, Clothes, ClothesName, TypeBox } from 'components/Post/styles';
+import { Delete, Edit, Line } from 'pages/UploadClothes/styles';
 import {
     Area,
     CommentContainer,
@@ -26,47 +33,63 @@ import {
     ModalWrap,
     ModalBox,
     TopContainer,
+    EditButton,
 } from './style';
-import { MoodColor, MoodDescription, MoodImage } from '../../untils/MoodWeather';
-import { Circle, Clothes, ClothesName, TypeBox } from '../Post/styles';
-import { Delete, Edit, Line } from '../../pages/UploadClothes/styles';
-import api from '../../settings/api';
-import { useAuthState } from 'context/Auth';
-import DeleteModal from '../DeleteModal';
-// import Modal from 'react-native-modal';
+
 type UserProps = {
     modalVisible: boolean;
     setModalVisible: any;
     detailPost: any;
 };
+
 const BottomSheet: React.FC<UserProps> = ({ modalVisible, setModalVisible, detailPost }) => {
-    const screenHeight = Dimensions.get('screen').height;
-    const panY = useRef(new Animated.Value(screenHeight)).current;
-    const [isEditDeleteModalVisible, setEditDeleteModalVisibl] = useState(false);
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const ClothesType = ['겉옷', '상의', '하의', '신발'];
-    const ClothesTypeEng = ['OUTER', 'TOP', 'BOTTOM', 'SHOES'];
+    const [isEditDeleteModalVisible, setEditDeleteModalVisible] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // 삭제 모달
+    const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
     const authState = useAuthState();
     const user = authState?.user;
+
+    const ClothesType = ['겉옷', '상의', '하의', '신발'];
+    const ClothesTypeEng = ['OUTER', 'TOP', 'BOTTOM', 'SHOES'];
+
+    let month = new Date(detailPost?.measures[0].date).getUTCMonth();
+    let date = new Date(detailPost?.measures[0].date).getUTCDate();
+    let days = new Date(detailPost?.measures[0].date).getUTCDay();
+    let Day = ['일', '월', '화', '수', '목', '금', '토'];
+
+    // NOTE: 수정 삭제 모달창
+    const showEditDeleteModal = () => {
+        setEditDeleteModalVisible(!isEditDeleteModalVisible);
+    };
+    useEffect(() => {
+        if (modalVisible) {
+            resetBottomSheet.start();
+        }
+    }, [modalVisible]);
+
+    const closeModal = () => {
+        closeBottomSheet.start(() => {
+            setModalVisible(false);
+        });
+    };
+
+    // NOTE: BottomSheet
+    const screenHeight = Dimensions.get('screen').height;
+    const panY = useRef(new Animated.Value(screenHeight)).current;
     const translateY = panY.interpolate({
         inputRange: [-1, 0, 1],
         outputRange: [0, 0, 1],
     });
-    const showEditDeleteModal = () => {
-        setEditDeleteModalVisibl(!isEditDeleteModalVisible);
-    };
     const resetBottomSheet = Animated.timing(panY, {
         toValue: 0,
         duration: 300,
         useNativeDriver: true,
     });
-
     const closeBottomSheet = Animated.timing(panY, {
         toValue: screenHeight,
         duration: 300,
         useNativeDriver: true,
     });
-
     const panResponders = useRef(
         PanResponder.create({
             onStartShouldSetPanResponder: () => true,
@@ -84,22 +107,6 @@ const BottomSheet: React.FC<UserProps> = ({ modalVisible, setModalVisible, detai
         })
     ).current;
 
-    useEffect(() => {
-        if (modalVisible) {
-            resetBottomSheet.start();
-        }
-    }, [modalVisible]);
-
-    const closeModal = () => {
-        closeBottomSheet.start(() => {
-            setModalVisible(false);
-        });
-    };
-
-    let month = new Date(detailPost?.measures[0].date).getUTCMonth();
-    let date = new Date(detailPost?.measures[0].date).getUTCDate();
-    let days = new Date(detailPost?.measures[0].date).getUTCDay();
-    let Day = ['일', '월', '화', '수', '목', '금', '토'];
     return (
         <Modal visible={modalVisible} animationType={'fade'} transparent statusBarTranslucent>
             <Container>
@@ -109,7 +116,12 @@ const BottomSheet: React.FC<UserProps> = ({ modalVisible, setModalVisible, detai
                 <DeleteModal
                     isOpenAddModal={isModalOpen}
                     setIsOpenAddModal={setIsModalOpen}
-                    postId={detailPost?.measures[0].measureId}
+                    measureId={detailPost?.measures[0].measureId}
+                />
+                <EditModal
+                    isOpenAddModal={isEditModalOpen}
+                    setIsOpenAddModal={setIsEditModalOpen}
+                    measureId={detailPost?.measures[0].measureId}
                 />
                 <Animated.View
                     style={{ ...styles.bottomSheetContainer, transform: [{ translateY: translateY }] }}
@@ -129,18 +141,23 @@ const BottomSheet: React.FC<UserProps> = ({ modalVisible, setModalVisible, detai
                         </TouchableOpacity>
                         <Modal transparent={true} visible={isEditDeleteModalVisible} animationType={'fade'}>
                             <TouchableWithoutFeedback
-                                onPress={() => setEditDeleteModalVisibl(!isEditDeleteModalVisible)}
+                                onPress={() => setEditDeleteModalVisible(!isEditDeleteModalVisible)}
                             >
                                 <ModalWrap>
                                     <ModalBox>
-                                        <TouchableHighlight>
+                                        <EditButton
+                                            onPress={() => {
+                                                setIsEditModalOpen(!isEditModalOpen);
+                                                setEditDeleteModalVisible(false);
+                                            }}
+                                        >
                                             <Edit>수정하기</Edit>
-                                        </TouchableHighlight>
+                                        </EditButton>
                                         <Line />
                                         <TouchableHighlight
                                             onPress={() => {
                                                 setIsModalOpen(!isModalOpen);
-                                                setEditDeleteModalVisibl(false);
+                                                setEditDeleteModalVisible(false);
                                             }}
                                         >
                                             <Delete>삭제하기</Delete>
