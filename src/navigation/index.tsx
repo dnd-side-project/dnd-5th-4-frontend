@@ -12,6 +12,7 @@ import UploadWeatherEstimate from 'pages/UploadWeatherEstimate';
 import UploadClothes from 'pages/UploadClothes';
 import MyPage from '../pages/MyPage';
 import SettingsPage from 'pages/SettingsPage';
+import NicknameChangePage from 'pages/NicknameChangePage';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ const MyStack = () => {
             })}
             initialRouteName="Login"
         >
+            <Stack.Screen name="Question" component={Question} />
             <Stack.Screen name="Settings" component={SettingsPage} />
             <Stack.Screen name="UploadWeatherEstimate" component={UploadWeatherEstimate} />
             <Stack.Screen name="UploadClothes" component={UploadClothes} />
