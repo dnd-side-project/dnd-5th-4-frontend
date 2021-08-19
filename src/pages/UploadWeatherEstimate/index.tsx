@@ -138,10 +138,30 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) 
         });
     };
 
+    const measureDelete = (measureId: number) => {
+        console.log('measureDelete called!');
+        let params = { userId: user?.id };
+
+        api.delete(`measure/${measureId}?`, { data: params })
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log('평가 삭제 실패');
+                    return;
+                }
+                Alert.alert('평가 삭제 완료');
+                navigation.navigate('Main');
+            })
+            .catch((err) => {
+                console.log('err', err);
+            });
+        measureDispatch({
+            type: 'DELETE_MEASURE',
+            payload: measureId,
+        });
+    };
+
     const onSubmitHandler = () => {
-        console.log('clicked!!');
         let params: measureItemType = {
-            // measureId:
             userId: user?.id,
             date: new Date(+new Date() + 3240 * 10000).toISOString().replace('T', ' ').replace(/\..*/, ''),
             tempInfo: location.description,
@@ -166,23 +186,7 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) 
             }
 
             case 'DELETE': {
-                // measureDispatch({
-                //     type: 'DELETE_MEASURE',
-                //     payload: measureId,
-                // });
-                // console.log('measureState', measureState);
-                // api.patch('measure/' + measureId, params)
-                //     .then((res) => {
-                //         if (res.status !== 200) {
-                //             console.log('날씨 평가 수정 실패');
-                //             return;
-                //         }
-                //         Alert.alert('날씨 평가를 수정했습니다');
-                //         navigation.navigate('Main');
-                //     })
-                //     .catch((err) => {
-                //         console.log('err', err);
-                //     });
+                measureDelete(measureId);
             }
             default: {
                 break;
