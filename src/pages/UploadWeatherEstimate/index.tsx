@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import Modal from 'react-native-modal';
 import { ScrollView, Text, TextInput, View, TouchableWithoutFeedback, Alert, Image } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
@@ -33,9 +32,8 @@ import {
 
 type UploadWeatherEstimateProps = {
     route: any;
-    uploadType: string;
 };
-const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route, uploadType }) => {
+const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) => {
     interface measureItemType {
         measureId?: number;
         userId: string;
@@ -50,7 +48,7 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route, up
         dresses: object[];
     }
 
-    const { selectCategory, types, location } = route.params;
+    const { selectCategory, types, location, uploadType, measureId } = route.params;
     const [isShowEstimateList, setIsShowEstimateList] = useState(true);
     const [isMainMood, setIsMainMood] = useState('');
     const [memo, setMemo] = useState<string>('');
@@ -68,6 +66,7 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route, up
             setIsMainMood(mood);
         }
     };
+
     useEffect(() => {
         WeatherSearch();
     }, []);
@@ -95,6 +94,27 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route, up
             });
     };
 
+    const measurePost = (params: measureItemType) => {
+        console.log('measurePost called');
+        console.log('params: ', params);
+        api.post('measure/', params)
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log('날씨 평가 업로드 실패');
+                    return;
+                }
+                Alert.alert('날씨 평가를 업로드했습니다');
+                navigation.navigate('Main');
+            })
+            .catch((err) => {
+                console.log('err', err);
+            });
+        measureDispatch({
+            type: 'POST_MEASURE',
+            payload: params,
+        });
+    };
+
     const onSubmitHandler = () => {
         console.log('clicked!!');
         let params: measureItemType = {
@@ -110,31 +130,11 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route, up
             comment: memo,
             dresses: selectCategory,
         };
-        console.log('params: ', params);
-        // ---> for test
-        const uploadType = 'POST';
-        // test <---
-        console.log('measureState', measureState);
+        console.log('uploadType: ', uploadType);
 
         switch (uploadType) {
             case 'POST': {
-                measureDispatch({
-                    type: 'POST_MEASURE',
-                    payload: params,
-                });
-
-                api.post('measure/', params)
-                    .then((res) => {
-                        if (res.status !== 200) {
-                            console.log('게시글 업로드 실패');
-                            return;
-                        }
-                        Alert.alert('날씨를 업로드했습니다');
-                        navigation.navigate('Main');
-                    })
-                    .catch((err) => {
-                        console.log('err', err);
-                    });
+                measurePost(params);
                 break;
             }
             case 'PATCH': {
