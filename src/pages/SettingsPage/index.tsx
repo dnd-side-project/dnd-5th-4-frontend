@@ -17,14 +17,23 @@ import {
     Question,
     LogOut,
 } from './styles';
+import { useAuthDispatch, useAuthState } from '../../context/Auth';
+import { Alert } from 'react-native';
+import { useLocationDispatch } from '../../context/Location';
 
 const SettingsPage = () => {
+    const authDispatch = useAuthDispatch();
+    const locationDispatch = useLocationDispatch();
     const navigation = useNavigation();
     const OnPressListElement = (pageName: string) => {
         navigation.navigate(pageName);
     };
     const Logout = () => {
         // 로그아웃
+        authDispatch({ type: 'LOGIN', payload: { user: null } });
+        locationDispatch({ type: 'LOCATION', payload: { location: null } });
+        Alert.alert('로그아웃 성공');
+        navigation.navigate('Login');
     };
 
     return (
@@ -63,7 +72,7 @@ const SettingsPage = () => {
                 <ListElement onPress={() => OnPressListElement('Question')}>
                     <Question>문의하기</Question>
                 </ListElement>
-                <ListElement onPress={() => Logout}>
+                <ListElement onPress={() => Logout()}>
                     <LogOut>로그아웃</LogOut>
                 </ListElement>
             </ListBox>
