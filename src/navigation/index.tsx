@@ -11,6 +11,7 @@ import LocationSearch from '../pages/LocationSearch';
 import UploadWeatherEstimate from 'pages/UploadWeatherEstimate';
 import UploadClothes from 'pages/UploadClothes';
 import MyPage from '../pages/MyPage';
+import SettingsPage from 'pages/SettingsPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ const MyStack = () => {
             })}
             initialRouteName="Login"
         >
+            <Stack.Screen name="Settings" component={SettingsPage} />
             <Stack.Screen name="UploadWeatherEstimate" component={UploadWeatherEstimate} />
             <Stack.Screen name="UploadClothes" component={UploadClothes} />
             <Stack.Screen name="UploadWeather" component={UploadWeather} />
