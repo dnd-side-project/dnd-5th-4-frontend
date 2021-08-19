@@ -46,7 +46,7 @@ const Question = () => {
                 <Title>문의하기</Title>
                 <CloseButton
                     onPress={() => {
-                        navigation.goBack();
+                        navigation.navigate('Home');
                     }}
                 >
                     <Close source={require('Images/Close.png')} resizeMode={'contain'} />

@@ -40,7 +40,7 @@ const AlertSettingPage = () => {
                 <Title>알림설정</Title>
                 <CloseButton
                     onPress={() => {
-                        navigation.goBack();
+                        navigation.navigate('Home');
                     }}
                 >
                     <Close source={require('Images/Close.png')} resizeMode={'contain'} />

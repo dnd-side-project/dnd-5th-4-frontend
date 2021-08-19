@@ -41,7 +41,7 @@ const NicknameChangePage = () => {
                 <Title>닉네임변경</Title>
                 <CloseButton
                     onPress={() => {
-                        navigation.goBack();
+                        navigation.navigate('Home');
                     }}
                 >
                     <Close source={require('Images/Close.png')} resizeMode={'contain'} />
