@@ -11,6 +11,10 @@ import LocationSearch from '../pages/LocationSearch';
 import UploadWeatherEstimate from 'pages/UploadWeatherEstimate';
 import UploadClothes from 'pages/UploadClothes';
 import MyPage from '../pages/MyPage';
+import SettingsPage from 'pages/SettingsPage';
+import NicknameChangePage from 'pages/NicknameChangePage';
+import Question from 'pages/Question';
+import AlertSettingPage from 'pages/AlertSettingPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +26,10 @@ const MyStack = () => {
             })}
             initialRouteName="Login"
         >
+            <Stack.Screen name="AlertSettingPage" component={AlertSettingPage} />
+            <Stack.Screen name="NicknameChangePage" component={NicknameChangePage} />
+            <Stack.Screen name="Question" component={Question} />
+            <Stack.Screen name="Settings" component={SettingsPage} />
             <Stack.Screen name="UploadWeatherEstimate" component={UploadWeatherEstimate} />
             <Stack.Screen name="UploadClothes" component={UploadClothes} />
             <Stack.Screen name="UploadWeather" component={UploadWeather} />

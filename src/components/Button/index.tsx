@@ -1,26 +1,23 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
 
 type ButtonProps = {
     children: string;
     onPress: () => void;
+    color: boolean;
+    disabled: boolean;
 };
 
 const Button = ({ children, ...props }: ButtonProps) => {
     return (
-        <TouchableOpacity style={styles.button} onPress={props.onPress}>
+        <ButtonWrap onPress={props.onPress} disabled={props.disabled} color={props.color}>
             <Text style={styles.text}>{children}</Text>
-        </TouchableOpacity>
+        </ButtonWrap>
     );
 };
 
 const styles = StyleSheet.create({
-    button: {
-        alignItems: 'center',
-        backgroundColor: '#000',
-        height: 44,
-        justifyContent: 'center',
-    },
     text: {
         fontSize: 16,
         lineHeight: 23,
@@ -29,5 +26,13 @@ const styles = StyleSheet.create({
         color: '#fff',
     },
 });
+
+const ButtonWrap = styled.TouchableOpacity<{ color?: boolean }>`
+    align-items: center;
+    background: ${(props) => (props.color ? '#CACCD6' : '#000000')};
+    height: 44;
+    justify-content: center;
+    border-radius: 4px;
+`;
 
 export default Button;
