@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { LocationGps } from 'untils/GpsFunction';
 import * as Locations from 'expo-location';
+import { useLocationDispatch } from '../../context/Location';
 
 type LocationDateProps = {
     Location: Array<string>;
@@ -17,6 +18,7 @@ const LocationDate: React.FC<LocationDateProps> = ({ Location, setLocation }) =>
     let day = new Date().getDay(); // 요일
     let week = ['일', '월', '화', '수', '목', '금', '토'];
     const navigation = useNavigation();
+    const locationDispatch = useLocationDispatch();
     const HandleGPS = () => {
         (async () => {
             let { status } = await Locations.requestForegroundPermissionsAsync();
@@ -30,6 +32,7 @@ const LocationDate: React.FC<LocationDateProps> = ({ Location, setLocation }) =>
                 latitude: Math.abs(locationq.coords.latitude),
                 longitude: Math.abs(locationq.coords.longitude),
             };
+            locationDispatch({ type: 'LOCATION', payload: { location: keys } });
             // console.log(location);
         })();
     };

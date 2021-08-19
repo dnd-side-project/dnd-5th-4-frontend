@@ -9,9 +9,11 @@ import { Button, Next } from '../RegisterNickName/styles';
 import Post from '../../components/Post';
 import LocationPost from 'components/LocationPost';
 import { useNavigation } from '@react-navigation/native';
+import { useLocationDispatch } from '../../context/Location';
 let LocationWeatherArray: any = [];
 const LocationSearch = () => {
     const navigation = useNavigation();
+    const locationDispatch = useLocationDispatch();
     const [Locations, setLocations] = useState<any>([]);
     const [keyword, setKeyWord] = useState<string>('');
     const [locationWeather, setLocationWeather] = useState<any>([]);
@@ -111,7 +113,7 @@ const LocationSearch = () => {
             latitude: Math.abs(isLocation?.lat),
             longitude: Math.abs(isLocation?.lon),
         };
-
+        locationDispatch({ type: 'LOCATION', payload: { location: keys } });
         navigation.goBack();
     };
     return (

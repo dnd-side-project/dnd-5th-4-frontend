@@ -46,7 +46,7 @@ const TextModal: React.FC<UserProps> = ({ isOpenAddModal, clickCategory, setIsOp
             dressName: keyword,
             dressType: CategoryArray[clickCategory],
         };
-        console.log(params);
+        // console.log(params);
         api.post('dress/', params)
             .then((res) => {
                 if (res.status !== 200) {
