@@ -72,7 +72,7 @@ const Main = () => {
                 setAirPollution(res?.data?.list[0].main.aqi);
             })
             .catch((err) => {
-                console.log(err);
+                console.log('미세먼지', err);
             });
     };
     const CurrentWeatherSearch = (lat: number, lng: number) => {
@@ -94,7 +94,7 @@ const Main = () => {
                 setCurrentWeather(res?.data?.list[0]);
             })
             .catch((err) => {
-                console.log('err', err);
+                console.log('현재날씨err', err);
             });
     };
     const KakaoLocation = (lat: number, lng: number) => {
@@ -114,7 +114,7 @@ const Main = () => {
                 setLocation(LocationName);
             })
             .catch((err) => {
-                console.log(err);
+                console.log('카카오지역', err);
             });
     };
 
@@ -138,10 +138,10 @@ const Main = () => {
                 setDailyWeather(res.data?.daily.slice(0, 7));
             })
             .catch((err) => {
-                console.log('err', err);
+                console.log('날씨정보 err', err);
             });
     };
-    const fetchPost = () => {
+    const fetchPost = async () => {
         let humid = dailyWeather[0]?.humidity;
         let maxTemp = dailyWeather[0]?.temp.max;
         let minTemp = dailyWeather[0]?.temp.min;
@@ -158,13 +158,14 @@ const Main = () => {
             measureType: measureType,
         };
 
-        api.get('measure?', { params })
+        await api
+            .get('measure?', { params })
             .then((res) => {
                 if (res.status !== 200) {
                     console.log('포스트 정보를 받아오지 못했습니다');
                     return;
                 }
-                setPosts(res?.data.measures);
+                setPosts(res?.data?.measures);
             })
             .catch((err) => {
                 console.log('나의게시글', err);
@@ -241,21 +242,4 @@ const test = (currentWeather: any) => {
         else if (currentWeather?.weather[0]?.icon.includes('13')) return <Smog />;
         else if (currentWeather?.weather[0]?.icon.includes('50')) return <Snow />;
     }
-    // if (currentWeather?.weather[0]?.icon.includes('01')) return <Clean currentWeather={currentWeather?.main?.temp} />;
-    // else if (currentWeather?.weather[0]?.icon.includes('02'))
-    //     return <LittleCloud currentWeather={currentWeather?.main?.temp} />;
-    // else if (currentWeather?.weather[0]?.icon.includes('03'))
-    //     return <Cloud currentWeather={currentWeather?.main?.temp} />;
-    // else if (currentWeather?.weather[0]?.icon.includes('04'))
-    //     return <ManyCloud currentWeather={currentWeather?.main?.temp} />;
-    // else if (currentWeather?.weather[0]?.icon.includes('09'))
-    //     return <Rain currentWeather={currentWeather?.main?.temp} />;
-    // else if (currentWeather?.weather[0]?.icon.includes('10'))
-    //     return <Rain currentWeather={currentWeather?.main?.temp} />;
-    // else if (currentWeather?.weather[0]?.icon.includes('11'))
-    //     return <Lightning currentWeather={currentWeather?.main?.temp} />;
-    // else if (currentWeather?.weather[0]?.icon.includes('13'))
-    //     return <Smog currentWeather={currentWeather?.main?.temp} />;
-    // else if (currentWeather?.weather[0]?.icon.includes('50'))
-    //     return <Snow currentWeather={currentWeather?.main?.temp} />;
 };
