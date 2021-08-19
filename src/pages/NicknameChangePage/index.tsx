@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, Text } from 'react-native';
+import { Alert, Image, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import Button from 'components/Button';
@@ -18,11 +18,39 @@ import {
     NicknameDescribe,
     BottomContainer,
 } from './styles';
+import api from '../../settings/api';
+import { useAuthDispatch, useAuthState } from '../../context/Auth';
 
 const NicknameChangePage = () => {
+    const authState = useAuthState();
+    const user = authState?.user;
     const [nickname, setNickname] = useState('');
     const navigation = useNavigation();
-    const OnPressButton = () => {};
+    const authDispatch = useAuthDispatch();
+    console.log(user);
+    const OnPressButton = () => {
+        api.patch(`user/${user?.id}`, { name: nickname })
+            .then((res) => {
+                if (res.status !== 200 && res.status !== 400) {
+                    console.log('로그인변경에 실패하였습니다');
+                    return;
+                }
+                if (res.status === 400) {
+                    Alert.alert('해당 닉네임이 이미 존재합니다.');
+                    return;
+                }
+                authDispatch({ type: 'LOGIN', payload: { user: res?.data?.userResponse } });
+                Alert.alert('닉네임을 성공적으로 변경하였습니다');
+                navigation.goBack();
+            })
+            .catch((err) => {
+                if (err.response.status === 400) {
+                    Alert.alert('해당 닉네임이 이미 존재합니다.');
+                    return;
+                }
+                console.log('로그인 변경 에러', err.response);
+            });
+    };
 
     return (
         <Container>

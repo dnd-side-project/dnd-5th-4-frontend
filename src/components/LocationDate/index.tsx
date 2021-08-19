@@ -68,7 +68,7 @@ const LocationDate: React.FC<LocationDateProps> = ({ Location, setLocation }) =>
                         resizeMode={'contain'}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
                     <IconImage source={require('Images/setting.png')} resizeMode={'contain'} />
                 </TouchableOpacity>
             </RightContainer>
