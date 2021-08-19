@@ -7,7 +7,7 @@ export const Container = styled.View`
 
 // NOTE: Header
 export const TopContainer = styled.View`
-    height: 24px;
+    height: 28px;
     margin-bottom: 26px;
     /* background: gray; */
     flex-direction: row;
