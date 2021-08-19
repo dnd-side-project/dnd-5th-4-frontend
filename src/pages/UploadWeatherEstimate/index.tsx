@@ -115,6 +115,29 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) 
         });
     };
 
+    const measurePatch = (data: measureItemType, measureId: number) => {
+        console.log('measurePatch data: ', data);
+        console.log('measureId: ', measureId);
+
+        api.patch(`measure/${measureId}`, data)
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log('평가 수정 완료');
+                    return;
+                }
+                Alert.alert('평가 드레스 수정 완료');
+                navigation.navigate('Main');
+            })
+            .catch((err) => {
+                console.log('err', err);
+            });
+
+        measureDispatch({
+            type: 'PATCH_MEASURE',
+            payload: data,
+        });
+    };
+
     const onSubmitHandler = () => {
         console.log('clicked!!');
         let params: measureItemType = {
@@ -138,28 +161,7 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) 
                 break;
             }
             case 'PATCH': {
-                // 수정 버튼 눌렀을 때 넘겨받음
-                // const measureId = 14;
-
-                // measureDispatch({
-                //     type: 'PATCH_MEASURE',
-                //     payload: params,
-                // });
-                // console.log('measureState', measureState);
-
-                // api.patch('measure/' + measureId, params)
-                //     .then((res) => {
-                //         if (res.status !== 200) {
-                //             console.log('날씨 평가 수정 실패');
-                //             return;
-                //         }
-                //         Alert.alert('날씨 평가를 수정했습니다');
-                //         navigation.navigate('Main');
-                //     })
-                //     .catch((err) => {
-                //         console.log('err', err);
-                //     });
-
+                measurePatch(params, measureId);
                 break;
             }
 
