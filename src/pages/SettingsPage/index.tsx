@@ -20,7 +20,12 @@ import {
 
 const SettingsPage = () => {
     const navigation = useNavigation();
-    const OnPressButton = () => {};
+    const OnPressListElement = (pageName: string) => {
+        navigation.navigate(pageName);
+    };
+    const Logout = () => {
+        // 로그아웃
+    };
 
     return (
         <Container>
@@ -46,19 +51,19 @@ const SettingsPage = () => {
                 </CloseButton>
             </TopContainer>
             <ListBox>
-                <ListElement>
+                <ListElement onPress={() => OnPressListElement('NicknameChangePage')}>
                     <NicknameChange>닉네임 변경</NicknameChange>
                 </ListElement>
-                <ListElement>
+                <ListElement onPress={() => OnPressListElement('AlertSettingPage')}>
                     <AlertSetting>알림 설정</AlertSetting>
                 </ListElement>
-                <ListElement>
+                <ListElement onPress={() => OnPressListElement('PrivacyStatement')}>
                     <PrivacyStatement>개인정보 취급방침</PrivacyStatement>
                 </ListElement>
-                <ListElement>
+                <ListElement onPress={() => OnPressListElement('Question')}>
                     <Question>문의하기</Question>
                 </ListElement>
-                <ListElement>
+                <ListElement onPress={() => Logout}>
                     <LogOut>로그아웃</LogOut>
                 </ListElement>
             </ListBox>
