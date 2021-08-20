@@ -1,22 +1,28 @@
 import React, { useState } from 'react';
-import theme from 'styles/theme';
-import { StyleSheet, TouchableOpacity, View, FlatList, Image, Alert } from 'react-native';
-import RegisterLayout from 'layout/Register';
-import { Box, Text, Button, Jump } from './styles';
-import { Next } from '../RegisterNickName/styles';
+import { StyleSheet, TouchableOpacity, View, Image, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import api from '../../settings/api';
-import { useAuthDispatch } from '../../context/Auth';
+
+import RegisterLayout from 'layout/Register';
+import { Next } from 'pages/RegisterNickName/styles';
+import theme from 'styles/theme';
+import api from 'settings/api';
+
+import { useAuthDispatch, useAuthState } from 'context/Auth';
+
+import { Box, Text, Button, Jump } from './styles';
+
 type UserProps = {
     route: any;
 };
+
 const RegisterConstitution: React.FC<UserProps> = ({ route }) => {
+    const { userId, nickName, gender } = route.params;
     const [hotConstitution, setHotConstitution] = useState(false);
     const [coldConstitution, setColdConstitution] = useState(false);
     const navigation = useNavigation();
     const authDispatch = useAuthDispatch();
-    const { userId, nickName, gender } = route.params;
-    //
+    const authState = useAuthState();
+
     const onMaleClick = () => {
         setHotConstitution(!hotConstitution);
         setColdConstitution(false);
@@ -25,8 +31,9 @@ const RegisterConstitution: React.FC<UserProps> = ({ route }) => {
         setHotConstitution(false);
         setColdConstitution(!coldConstitution);
     };
+
     const CheckConstitution = () => {
-        let constitution: string;
+        let constitution;
         if (!hotConstitution && !coldConstitution) {
             //    건너뛰기
             constitution = '';
@@ -42,7 +49,7 @@ const RegisterConstitution: React.FC<UserProps> = ({ route }) => {
             gender: gender,
             constitution: constitution,
         };
-        // console.log(params);
+
         api.post('user/', params)
             .then((res) => {
                 if (res.status !== 200) {
@@ -53,7 +60,7 @@ const RegisterConstitution: React.FC<UserProps> = ({ route }) => {
                 //리덕스 넣으시면됩니다
                 authDispatch({
                     type: 'LOGIN',
-                    payload: { constitution: constitution, gender: gender, id: userId, name: nickName },
+                    payload: params,
                 });
                 navigation.navigate('FirstAppGuide');
             })
