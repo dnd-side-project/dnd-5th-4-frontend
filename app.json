@@ -7,7 +7,7 @@
         "icon": "./assets/tests.png",
         "splash": {
             "image": "./assets/splash.png",
-            "resizeMode": "contain",
+            "resizeMode": "cover",
             "backgroundColor": "#fff"
         },
         "updates": {
@@ -18,8 +18,8 @@
             "supportsTablet": true
         },
         "android": {
-          "package": "com.Clother.Clother",
-          "adaptiveIcon": {
+            "package": "com.Clother.Clother",
+            "adaptiveIcon": {
                 "foregroundImage": "./assets/adaptive-icon.png",
                 "backgroundColor": "#FFF"
             }
