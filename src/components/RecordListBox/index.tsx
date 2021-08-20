@@ -9,6 +9,7 @@ import api from '../../settings/api';
 import EmptyPost from '../EmptyPost';
 
 import { useAuthState } from 'context/Auth';
+import { useIsFocused } from '@react-navigation/native';
 
 type ScrollHeightProps = {
     scrollHeight: number;
@@ -16,6 +17,7 @@ type ScrollHeightProps = {
 };
 const RecordListBox: React.FC<ScrollHeightProps> = ({ scrollHeight, dailyWeather }) => {
     const [isMyPost, setIsMyPost] = useState(true);
+    const isFocused = useIsFocused();
     const [lastMeasuerId, setLastMeansureId] = useState(Number.MAX_SAFE_INTEGER);
     const [posts, setPosts] = useState([]);
     const authState = useAuthState();
@@ -23,7 +25,7 @@ const RecordListBox: React.FC<ScrollHeightProps> = ({ scrollHeight, dailyWeather
 
     useEffect(() => {
         fetchPost(isMyPost);
-    }, [dailyWeather, isMyPost]);
+    }, [dailyWeather, isMyPost, isFocused]);
     const renderPost = (item: any) => {
         return <Post post={item} isMyPost={isMyPost} />;
     };

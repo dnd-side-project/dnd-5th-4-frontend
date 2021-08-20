@@ -76,15 +76,23 @@ const MyPage = () => {
                                             {/*        <CalendarEmoji post={post} key={index} />*/}
                                             {/*    ) : null*/}
                                             {/*)}*/}
-                                            {posts
-                                                .filter(
-                                                    (el: any) =>
-                                                        moment(el.dateTime).format('YYYYMMDD') ===
-                                                        days.format('YYYYMMDD')
-                                                )
-                                                .map((post: any, index: number) =>
-                                                    index === 0 ? <CalendarEmoji post={post} key={index} /> : null
-                                                )}
+                                            {posts.filter(
+                                                (el: any) =>
+                                                    moment(el.dateTime).format('YYYYMMDD') === days.format('YYYYMMDD')
+                                            ).length === 0 ? null : (
+                                                <CalendarEmoji
+                                                    post={
+                                                        posts[
+                                                            posts.filter(
+                                                                (el: any) =>
+                                                                    moment(el.dateTime).format('YYYYMMDD') ===
+                                                                    days.format('YYYYMMDD')
+                                                            ).length
+                                                        ]
+                                                    }
+                                                    key={index}
+                                                />
+                                            )}
                                         </EmojiBox>
                                     </DatesContainer>
                                 );
