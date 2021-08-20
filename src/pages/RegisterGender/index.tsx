@@ -26,7 +26,6 @@ const RegisterGender: React.FC<UserProps> = ({ route }) => {
         let gender = '';
         if (maleClicked) {
             gender = 'M';
-            console.log('M');
         } else {
             gender = 'W';
         }
