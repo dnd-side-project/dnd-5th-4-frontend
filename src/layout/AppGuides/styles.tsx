@@ -7,9 +7,9 @@ export const Container = styled.View`
 `;
 export const TopContainer = styled.View`
     flex: 1;
-    background-color: red;
     justify-content: center;
     align-items: center;
+    padding-horizontal: 5px;
 `;
 
 export const TitleContainer = styled.View`
