@@ -92,6 +92,7 @@ export const Title = styled.Text<{ color?: boolean }>`
 `;
 export const ModalWrap = styled.SafeAreaView`
     flex: 1;
+    background-color: rgba(0, 0, 0, 0.4);
 `;
 
 export const ModalBox = styled.View`
