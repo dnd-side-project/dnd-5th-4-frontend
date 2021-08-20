@@ -15,6 +15,7 @@ import SettingsPage from 'pages/SettingsPage';
 import NicknameChangePage from 'pages/NicknameChangePage';
 import Question from 'pages/Question';
 import AlertSettingPage from 'pages/AlertSettingPage';
+import AppGuide from '../pages/AppGuide';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,8 +25,9 @@ const MyStack = () => {
             screenOptions={({ route, navigation }) => ({
                 headerShown: false,
             })}
-            initialRouteName="Login"
+            initialRouteName="AppGuide"
         >
+            <Stack.Screen name="AppGuide" component={AppGuide} />
             <Stack.Screen name="AlertSettingPage" component={AlertSettingPage} />
             <Stack.Screen name="NicknameChangePage" component={NicknameChangePage} />
             <Stack.Screen name="Question" component={Question} />
