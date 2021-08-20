@@ -35,7 +35,7 @@ import {
 } from './styles';
 
 type ClothesProps = {
-    categoryList: any;
+    categoryList: object[];
     name: string;
 };
 type UserProps = {
@@ -47,6 +47,13 @@ const UploadClothes: React.FC<UserProps> = ({ route }) => {
         uploadType: string;
         measureId: number;
     }
+    type CategoryType = {
+        id: number;
+        userId: string;
+        name: string;
+        type: string;
+    };
+
     const { location, uploadType, measureId }: LocationType = route.params;
     const navigation = useNavigation();
     const [isEditDeleteModalVisible, setEditDeleteModalVisible] = useState(false);
@@ -61,56 +68,62 @@ const UploadClothes: React.FC<UserProps> = ({ route }) => {
     //
     const authState = useAuthState();
     const user = authState?.user;
+
     const showEditDeleteModal = () => {
         setEditDeleteModalVisible(!isEditDeleteModalVisible);
     };
 
-    const Category: React.FC<ClothesProps> = ({ categoryList, name }) => (
-        <CategoryWrap>
-            <CategoryName>{name}</CategoryName>
-            <ClothesListWrap>
-                <PlusButton
-                    key={name}
-                    onPress={() => {
-                        setClickCategory(name);
-                        setIsOpenAddModal(true);
-                    }}
-                    underlayColor="#DDDDDD"
-                    activeOpacity={0.6}
-                >
-                    <Entypo name="plus" size={9} color="black" iconStyle={{ left: 0 }} />
-                </PlusButton>
-                <ScrollView
-                    horizontal={true}
-                    showsVerticalScrollIndicator={false}
-                    showsHorizontalScrollIndicator={false}
-                >
-                    {categoryList &&
-                        categoryList.map((category: any, index: any) => (
-                            <ClothWrap
-                                style={{
-                                    borderColor: selectCategory.includes(category) ? '#000000' : '#D6D6D7',
-                                }}
-                                key={index}
-                                onPress={() => {
-                                    if (!selectCategory.includes(category)) {
-                                        setSelectCategory([...selectCategory, category]);
-                                    } else {
-                                        selectCategory.filter((element) => {
-                                            setSelectCategory(selectCategory.filter((element) => element !== category));
-                                        });
-                                    }
-                                }}
-                            >
-                                <Cloth style={{ color: selectCategory.includes(category) ? '#000000' : '#D6D6D7' }}>
-                                    {category?.name}
-                                </Cloth>
-                            </ClothWrap>
-                        ))}
-                </ScrollView>
-            </ClothesListWrap>
-        </CategoryWrap>
-    );
+    const Category: React.FC<ClothesProps> = ({ categoryList, name }) => {
+        //[{id: 1102, userId: "105228574872134291092", name: "상의2", type: "TOP"}, {}, {}, ... ]
+        return (
+            <CategoryWrap>
+                <CategoryName>{name}</CategoryName>
+                <ClothesListWrap>
+                    <PlusButton
+                        key={name}
+                        onPress={() => {
+                            setClickCategory(name);
+                            setIsOpenAddModal(true);
+                        }}
+                        underlayColor="#DDDDDD"
+                        activeOpacity={0.6}
+                    >
+                        <Entypo name="plus" size={9} color="black" iconStyle={{ left: 0 }} />
+                    </PlusButton>
+                    <ScrollView
+                        horizontal={true}
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                    >
+                        {categoryList &&
+                            categoryList.map((category, index) => (
+                                <ClothWrap
+                                    style={{
+                                        borderColor: selectCategory.includes(category) ? '#000000' : '#D6D6D7',
+                                    }}
+                                    key={index}
+                                    onPress={() => {
+                                        if (!selectCategory.includes(category)) {
+                                            setSelectCategory([...selectCategory, category]);
+                                        } else {
+                                            selectCategory.filter((element) => {
+                                                setSelectCategory(
+                                                    selectCategory.filter((element) => element !== category)
+                                                );
+                                            });
+                                        }
+                                    }}
+                                >
+                                    <Cloth style={{ color: selectCategory.includes(category) ? '#000000' : '#D6D6D7' }}>
+                                        {category?.name}
+                                    </Cloth>
+                                </ClothWrap>
+                            ))}
+                    </ScrollView>
+                </ClothesListWrap>
+            </CategoryWrap>
+        );
+    };
 
     useEffect(() => {
         fetchUserCloth();
@@ -118,19 +131,19 @@ const UploadClothes: React.FC<UserProps> = ({ route }) => {
 
     const onNextPage = () => {
         let newSelectType = [];
-        if (selectCategory.filter((ele) => ele.type == 'OUTER').length !== 0) {
+        if (selectCategory.filter((category) => category.type == 'OUTER').length !== 0) {
             newSelectType.push('OUTER');
         }
-        if (selectCategory.filter((ele) => ele.type == 'TOP').length !== 0) {
+        if (selectCategory.filter((category) => category.type == 'TOP').length !== 0) {
             newSelectType.push('TOP');
         }
-        if (selectCategory.filter((ele) => ele.type == 'BOTTOM').length !== 0) {
+        if (selectCategory.filter((category) => category.type == 'BOTTOM').length !== 0) {
             newSelectType.push('BOTTOM');
         }
-        if (selectCategory.filter((ele) => ele.type == 'SHOES').length !== 0) {
+        if (selectCategory.filter((category) => category.type == 'SHOES').length !== 0) {
             newSelectType.push('SHOES');
         }
-        if (selectCategory.filter((ele) => ele.type == 'OTHERS').length !== 0) {
+        if (selectCategory.filter((category) => category.type == 'OTHERS').length !== 0) {
             newSelectType.push('OTHERS');
         }
         // clothes type    newSelectType
@@ -145,31 +158,13 @@ const UploadClothes: React.FC<UserProps> = ({ route }) => {
         console.log(newSelectType);
     };
     const fetchUserCloth = () => {
-        let testuser1 = 'testuser1';
         api.get(`user/dresses?userId=${user.id}`)
             .then((res) => {
                 if (res.status !== 200) {
                     console.log('유저의 드레스를 가져오지못했습니다');
                     return;
                 }
-
-                //
-                //
-                //
-                // let data = res?.data?.dresses;
-                // let newCategorys = Object.assign({}, category);
-                // data.forEach((recycleInfo: any) => {
-                //     let category = recycleInfo.type;
-                //     if (!newCategorys.hasOwnProperty(category)) {
-                //         newCategorys[category] = [];
-                //     }
-                //     newCategorys[category].push(recycleInfo);
-                // });
                 setCategory(res?.data?.dresses);
-                //
-                //
-                //
-
                 setTotalNumber(res?.data.dresses.length);
             })
             .catch((err) => {

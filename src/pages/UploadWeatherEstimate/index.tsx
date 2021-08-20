@@ -35,7 +35,7 @@ type UploadWeatherEstimateProps = {
 };
 const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) => {
     interface measureItemType {
-        measureId?: number;
+        id?: number; // 여기서 id 가 measureId를 의미 (back-end)
         userId: string;
         date: string;
         tempInfo: string;
