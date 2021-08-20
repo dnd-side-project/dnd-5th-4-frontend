@@ -22,8 +22,6 @@ const RegisterGender: React.FC<UserProps> = ({ route }) => {
         setMaleClicked(false);
         setFemaleClicked(!femaleClicked);
     };
-
-    navigation.navigate('RegisterGender', { userId: userId, name: nickName });
     const CheckNickGender = () => {
         let gender = '';
         if (maleClicked) {

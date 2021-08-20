@@ -214,7 +214,7 @@ const Main = () => {
                             {/*{test(currentWeather?.weather[0]?.icon, currentWeather?.main?.temp)}*/}
                             {/*{test(currentWeather)}*/}
                             {/*{test('01d')}*/}
-                            {test(currentWeather)}
+                            {WeatherAnimation(currentWeather)}
                             {posts.length === 0 ? (
                                 <Characters currentWeather={currentWeather?.main?.temp} />
                             ) : (
@@ -230,7 +230,7 @@ const Main = () => {
     );
 };
 export default Main;
-const test = (currentWeather: any) => {
+const WeatherAnimation = (currentWeather: any) => {
     if (currentWeather?.weather && currentWeather?.weather[0]) {
         if (currentWeather?.weather[0]?.icon.includes('01')) return <Clean />;
         else if (currentWeather?.weather[0]?.icon.includes('02')) return <LittleCloud />;
