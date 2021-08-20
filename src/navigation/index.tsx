@@ -15,7 +15,9 @@ import SettingsPage from 'pages/SettingsPage';
 import NicknameChangePage from 'pages/NicknameChangePage';
 import Question from 'pages/Question';
 import AlertSettingPage from 'pages/AlertSettingPage';
-import AppGuide from '../pages/AppGuide';
+import FirstAppGuide from '../pages/FirstAppGuide';
+import SecondAppGuide from '../pages/SecondAppGuide';
+import ThirdAppGuide from '../pages/ThirdAppGuide';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,9 +27,11 @@ const MyStack = () => {
             screenOptions={({ route, navigation }) => ({
                 headerShown: false,
             })}
-            initialRouteName="AppGuide"
+            initialRouteName="FirstAppGuide"
         >
-            <Stack.Screen name="AppGuide" component={AppGuide} />
+            <Stack.Screen name={'ThirdAppGuide'} component={ThirdAppGuide} />
+            <Stack.Screen name={'SecondAppGuide'} component={SecondAppGuide} />
+            <Stack.Screen name="FirstAppGuide" component={FirstAppGuide} />
             <Stack.Screen name="AlertSettingPage" component={AlertSettingPage} />
             <Stack.Screen name="NicknameChangePage" component={NicknameChangePage} />
             <Stack.Screen name="Question" component={Question} />

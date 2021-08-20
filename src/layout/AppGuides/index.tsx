@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Image, Text, View } from 'react-native';
 import { StepBar, SubTitleText, SubTitleWraper, TitleText, TitleWraper, Container, TopContainer } from './styles';
 import { ThemeProvider } from 'styled-components';
@@ -6,11 +6,13 @@ import theme from '../../styles/theme';
 import Button from '../../components/Button';
 import { MoodImage } from '../../untils/MoodWeather';
 interface AppGuidesLayoutProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     topContents?: string | React.ReactNode;
     titleContents: string;
     subTitleContents: string;
     Images: string;
+    PushNextPage: any;
+    TopcontainerFunction: any;
 }
 const Title: React.FC = ({ children }) => {
     return <TitleWraper>{children}</TitleWraper>;
@@ -18,26 +20,18 @@ const Title: React.FC = ({ children }) => {
 const SubTitle: React.FC = ({ children }) => {
     return <SubTitleWraper>{children}</SubTitleWraper>;
 };
-const AppGuidesLayout = ({ children, titleContents, subTitleContents, Images }: AppGuidesLayoutProps) => {
+const AppGuidesLayout = ({
+    children,
+    titleContents,
+    subTitleContents,
+    Images,
+    PushNextPage,
+    TopcontainerFunction,
+}: AppGuidesLayoutProps) => {
     return (
         <Container>
             <ThemeProvider theme={theme}>
-                <TopContainer>
-                    {MoodImageArray.map((Moods, index) => (
-                        <Image
-                            key={index}
-                            source={MoodImage[Moods]}
-                            style={{
-                                position: 'absolute',
-                                width: 100,
-                                height: 100,
-                                top: EmojiLocaion[index][0],
-                                left: EmojiLocaion[index][1],
-                                transform: [{ rotate: rotateArray[index] }],
-                            }}
-                        />
-                    ))}
-                </TopContainer>
+                {TopcontainerFunction()}
                 <View style={{ marginTop: 37 }}>
                     <Title>
                         <TitleText>{titleContents}</TitleText>
@@ -46,7 +40,7 @@ const AppGuidesLayout = ({ children, titleContents, subTitleContents, Images }: 
                         <SubTitleText>{subTitleContents}</SubTitleText>
                     </SubTitle>
                     <StepBar source={StempArray[Images]} resizeMode={'contain'} />
-                    <Button onPress={on} color={false} disabled={false}>
+                    <Button onPress={PushNextPage} color={false} disabled={false}>
                         시작하기
                     </Button>
                 </View>
