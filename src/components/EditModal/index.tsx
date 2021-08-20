@@ -21,6 +21,7 @@ const EditModal: React.FC<UserProps> = ({ isOpenAddModal, setIsOpenAddModal, mea
         // 수정 버튼 눌렀을 때
         console.log('수정버튼 clicked!');
         console.log('measureId', measureId);
+        setIsOpenAddModal(false);
         navigation.navigate('UploadWeather', { measureId, uploadType: 'PATCH' });
     };
     return (

@@ -27,6 +27,7 @@ const DeleteModal: React.FC<UserProps> = ({ isOpenAddModal, setIsOpenAddModal, m
 
     const onDeleteHandler = () => {
         measureDelete();
+        setIsOpenAddModal(false);
     };
 
     const measureDelete = () => {

@@ -105,3 +105,4 @@ export const ModalBox = styled.View`
 `;
 
 export const EditButton = styled.TouchableHighlight``;
+export const DeleteButton = styled.TouchableHighlight``;

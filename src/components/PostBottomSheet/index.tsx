@@ -33,6 +33,7 @@ import {
     ModalWrap,
     ModalBox,
     TopContainer,
+    DeleteButton,
     EditButton,
 } from './style';
 
@@ -154,14 +155,14 @@ const BottomSheet: React.FC<UserProps> = ({ modalVisible, setModalVisible, detai
                                             <Edit>수정하기</Edit>
                                         </EditButton>
                                         <Line />
-                                        <TouchableHighlight
+                                        <DeleteButton
                                             onPress={() => {
                                                 setIsModalOpen(!isModalOpen);
                                                 setEditDeleteModalVisible(false);
                                             }}
                                         >
                                             <Delete>삭제하기</Delete>
-                                        </TouchableHighlight>
+                                        </DeleteButton>
                                     </ModalBox>
                                 </ModalWrap>
                             </TouchableWithoutFeedback>
