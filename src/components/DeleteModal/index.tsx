@@ -13,9 +13,10 @@ type UserProps = {
     isOpenAddModal: boolean;
     setIsOpenAddModal: any;
     measureId: number;
+    setModalVisible: any;
 };
 
-const DeleteModal: React.FC<UserProps> = ({ isOpenAddModal, setIsOpenAddModal, measureId }) => {
+const DeleteModal: React.FC<UserProps> = ({ isOpenAddModal, setIsOpenAddModal, measureId, setModalVisible }) => {
     const navigation = useNavigation();
     const authState = useAuthState();
     const measureDispatch = useMeasureDispatch();
@@ -26,6 +27,7 @@ const DeleteModal: React.FC<UserProps> = ({ isOpenAddModal, setIsOpenAddModal, m
     const show = useRef();
 
     const onDeleteHandler = () => {
+        setModalVisible(false);
         measureDelete();
         setIsOpenAddModal(false);
     };
