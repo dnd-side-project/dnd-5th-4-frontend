@@ -53,7 +53,7 @@ const RegisterConstitution: React.FC<UserProps> = ({ route }) => {
                 //리덕스 넣으시면됩니다
                 authDispatch({
                     type: 'LOGIN',
-                    payload: { user: { constitution: constitution, gender: gender, id: userId, name: nickName } },
+                    payload: { constitution: constitution, gender: gender, id: userId, name: nickName },
                 });
                 navigation.navigate('FirstAppGuide');
             })
