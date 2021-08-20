@@ -27,7 +27,7 @@ const MyStack = () => {
             screenOptions={({ route, navigation }) => ({
                 headerShown: false,
             })}
-            initialRouteName="FirstAppGuide"
+            initialRouteName="Login"
         >
             <Stack.Screen name={'ThirdAppGuide'} component={ThirdAppGuide} />
             <Stack.Screen name={'SecondAppGuide'} component={SecondAppGuide} />

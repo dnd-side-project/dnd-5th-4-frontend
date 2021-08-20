@@ -6,6 +6,7 @@ import { Box, Text, Button, Jump } from './styles';
 import { Next } from '../RegisterNickName/styles';
 import { useNavigation } from '@react-navigation/native';
 import api from '../../settings/api';
+import { useAuthDispatch } from '../../context/Auth';
 type UserProps = {
     route: any;
 };
@@ -13,6 +14,7 @@ const RegisterConstitution: React.FC<UserProps> = ({ route }) => {
     const [hotConstitution, setHotConstitution] = useState(false);
     const [coldConstitution, setColdConstitution] = useState(false);
     const navigation = useNavigation();
+    const authDispatch = useAuthDispatch();
     const { userId, nickName, gender } = route.params;
     //
     const onMaleClick = () => {
@@ -24,7 +26,7 @@ const RegisterConstitution: React.FC<UserProps> = ({ route }) => {
         setColdConstitution(!coldConstitution);
     };
     const CheckConstitution = () => {
-        let constitution;
+        let constitution: string;
         if (!hotConstitution && !coldConstitution) {
             //    건너뛰기
             constitution = '';
@@ -40,7 +42,7 @@ const RegisterConstitution: React.FC<UserProps> = ({ route }) => {
             gender: gender,
             constitution: constitution,
         };
-        console.log(params);
+        // console.log(params);
         api.post('user/', params)
             .then((res) => {
                 if (res.status !== 200) {
@@ -49,7 +51,11 @@ const RegisterConstitution: React.FC<UserProps> = ({ route }) => {
                 }
                 Alert.alert('회원가입 성공');
                 //리덕스 넣으시면됩니다
-                navigation.navigate('Home');
+                authDispatch({
+                    type: 'LOGIN',
+                    payload: { user: { constitution: constitution, gender: gender, id: userId, name: nickName } },
+                });
+                navigation.navigate('FirstAppGuide');
             })
             .catch((err) => {
                 console.log('err', err);
