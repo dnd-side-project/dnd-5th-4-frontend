@@ -32,6 +32,10 @@ const SettingsPage = () => {
     const openPrivacyStatementSite = () => {
         Linking.openURL('https://www.termsfeed.com/live/6d9cde38-abd2-4d97-90dc-31734ba700a5');
     };
+
+    const mailTo = () => {
+        Linking.openURL(`mailto:jeonghye9808@naver.com`);
+    };
     const Logout = () => {
         // 로그아웃
         authDispatch({ type: 'LOGIN', payload: { user: null } });
@@ -73,7 +77,7 @@ const SettingsPage = () => {
                 <ListElement onPress={() => openPrivacyStatementSite()}>
                     <PrivacyStatement>개인정보 취급방침</PrivacyStatement>
                 </ListElement>
-                <ListElement onPress={() => OnPressListElement('Question')}>
+                <ListElement onPress={() => mailTo()}>
                     <Question>문의하기</Question>
                 </ListElement>
                 <ListElement onPress={() => Logout()}>
