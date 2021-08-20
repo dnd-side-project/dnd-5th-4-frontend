@@ -56,7 +56,10 @@ const MainPageModal: React.FC<MainPageModalProps> = ({ isOpenAddModal, setIsOpen
                             (item: any, count: any) =>
                                 cloth === item.dressType && (
                                     <View key={count} style={{ flexDirection: 'row' }}>
-                                        <Circle MoodColor={MoodColor[item?.partialMood]} />
+                                        {/*<Circle MoodColor={MoodColor[item?.partialMood]} />*/}
+                                        {item?.partialMood === 'null' ? null : (
+                                            <Circle MoodColor={MoodColor[item?.partialMood]} />
+                                        )}
                                         <ClothesName>{item?.dressName ? item?.dressName : '-'}</ClothesName>
                                     </View>
                                 )

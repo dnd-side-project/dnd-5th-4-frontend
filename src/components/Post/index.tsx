@@ -18,6 +18,7 @@ import {
 import { Image, Text, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { MoodColor, MoodDescription, MoodImage } from '../../untils/MoodWeather';
+import moment from 'moment';
 
 type WeatherDetailProps = {
     post: any;
@@ -29,19 +30,13 @@ const Post: React.FC<WeatherDetailProps> = ({ post, isMyPost }) => {
     const ClothesTypeEng = ['OUTER', 'TOP', 'BOTTOM', 'SHOES'];
     const [showMore, setShowMore] = useState(false);
     let Day = ['일', '월', '화', '수', '목', '금', '토'];
-    const Dates = Date.parse(post?.item.date) / 1000;
-    const utc = Dates * 1000;
-    const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
-    const kr_curr = new Date(utc + KR_TIME_DIFF);
-
     const userConstitution =
         post?.item.userConstitution === 'HOT'
             ? '더위를 타는 편'
             : post?.item.userConstitution === 'COLD'
             ? '추위를 타는 편'
             : '';
-
-    const PostDate = kr_curr.getMonth() + 1 + '월 ' + kr_curr.getDate() + '일 ' + Day[kr_curr.getUTCDay()] + '요일';
+    const PostDate = moment(post?.item.date)?.format('MM월 DD일 ') + Day[moment(post?.item.date).days()] + '요일';
     return (
         <Container showMore={showMore}>
             <TopContainer>
@@ -62,7 +57,7 @@ const Post: React.FC<WeatherDetailProps> = ({ post, isMyPost }) => {
                         size={24}
                         color="#828282"
                         onPress={() => {
-                            console.log(post);
+                            // console.log(post);
                             setShowMore(!showMore);
                         }}
                         style={{
@@ -94,7 +89,9 @@ const Post: React.FC<WeatherDetailProps> = ({ post, isMyPost }) => {
                                 (item: any, count: any) =>
                                     cloth === item.dressType && (
                                         <View key={count} style={{ flexDirection: 'row' }}>
-                                            <Circle MoodColor={MoodColor[item?.partialMood]} />
+                                            {item?.partialMood === 'null' ? null : (
+                                                <Circle MoodColor={MoodColor[item?.partialMood]} />
+                                            )}
                                             <ClothesName>{item?.dressName ? item?.dressName : '-'}</ClothesName>
                                         </View>
                                     )
