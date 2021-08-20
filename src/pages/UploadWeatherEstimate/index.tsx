@@ -35,7 +35,7 @@ type UploadWeatherEstimateProps = {
 };
 const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) => {
     interface measureItemType {
-        measureId?: number;
+        id?: number; // 여기서 id 가 measureId를 의미 (back-end)
         userId: string;
         date: string;
         tempInfo: string;
@@ -116,10 +116,9 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) 
     };
 
     const measurePatch = (data: measureItemType, measureId: number) => {
-        console.log('measurePatch data: ', data);
-        console.log('measureId: ', measureId);
+        var { date, ...UpdateData } = data;
 
-        api.patch(`measure/${measureId}`, data)
+        api.patch(`measure/${measureId}`, UpdateData)
             .then((res) => {
                 if (res.status !== 200) {
                     console.log('평가 수정 완료');
