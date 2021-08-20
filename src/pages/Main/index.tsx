@@ -42,7 +42,6 @@ const Main = () => {
     const snapToOffsets = [0, height - 30];
     const [scrollHeight, setScrollHeight] = useState(0);
     const [posts, setPosts] = useState([]);
-
     useEffect(() => {
         setLat(locationState?.location?.latitude);
         setLon(locationState?.location?.longitude);
