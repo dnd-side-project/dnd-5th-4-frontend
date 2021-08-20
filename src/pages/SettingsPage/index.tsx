@@ -1,4 +1,5 @@
 import React from 'react';
+import { Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import {
@@ -27,6 +28,9 @@ const SettingsPage = () => {
     const navigation = useNavigation();
     const OnPressListElement = (pageName: string) => {
         navigation.navigate(pageName);
+    };
+    const openPrivacyStatementSite = () => {
+        Linking.openURL('https://www.termsfeed.com/live/6d9cde38-abd2-4d97-90dc-31734ba700a5');
     };
     const Logout = () => {
         // 로그아웃
@@ -66,7 +70,7 @@ const SettingsPage = () => {
                 <ListElement onPress={() => OnPressListElement('AlertSettingPage')}>
                     <AlertSetting>알림 설정</AlertSetting>
                 </ListElement>
-                <ListElement onPress={() => OnPressListElement('PrivacyStatement')}>
+                <ListElement onPress={() => openPrivacyStatementSite()}>
                     <PrivacyStatement>개인정보 취급방침</PrivacyStatement>
                 </ListElement>
                 <ListElement onPress={() => OnPressListElement('Question')}>
