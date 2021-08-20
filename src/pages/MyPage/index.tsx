@@ -76,23 +76,23 @@ const MyPage = () => {
                                             {/*        <CalendarEmoji post={post} key={index} />*/}
                                             {/*    ) : null*/}
                                             {/*)}*/}
-                                            {posts.filter(
-                                                (el: any) =>
-                                                    moment(el.dateTime).format('YYYYMMDD') === days.format('YYYYMMDD')
-                                            ).length === 0 ? null : (
-                                                <CalendarEmoji
-                                                    post={
-                                                        posts[
-                                                            posts.filter(
-                                                                (el: any) =>
-                                                                    moment(el.dateTime).format('YYYYMMDD') ===
-                                                                    days.format('YYYYMMDD')
-                                                            ).length
-                                                        ]
-                                                    }
-                                                    key={index}
-                                                />
-                                            )}
+                                            {posts
+                                                .filter(
+                                                    (el: any) =>
+                                                        moment(el.dateTime).format('YYYYMMDD') ===
+                                                        days.format('YYYYMMDD')
+                                                )
+                                                .map((post: any, index: number) =>
+                                                    index ===
+                                                    posts.filter(
+                                                        (el: any) =>
+                                                            moment(el.dateTime).format('YYYYMMDD') ===
+                                                            days.format('YYYYMMDD')
+                                                    ).length -
+                                                        1 ? (
+                                                        <CalendarEmoji post={post} key={index} />
+                                                    ) : null
+                                                )}
                                         </EmojiBox>
                                     </DatesContainer>
                                 );
@@ -108,11 +108,6 @@ const MyPage = () => {
                                     <DatesContainer key={index}>
                                         <DateNumber color={'#000000'}>{days.format('D')}</DateNumber>
                                         <EmojiBox>
-                                            {/*{posts.map((post, index) =>*/}
-                                            {/*    moment(post.dateTime).format('YYYYMMDD') === days.format('YYYYMMDD') ? (*/}
-                                            {/*        <CalendarEmoji post={post} key={index} />*/}
-                                            {/*    ) : null*/}
-                                            {/*)}*/}
                                             {posts
                                                 .filter(
                                                     (el: any) =>
@@ -120,7 +115,15 @@ const MyPage = () => {
                                                         days.format('YYYYMMDD')
                                                 )
                                                 .map((post: any, index: number) =>
-                                                    index === 0 ? <CalendarEmoji post={post} key={index} /> : null
+                                                    index ===
+                                                    posts.filter(
+                                                        (el: any) =>
+                                                            moment(el.dateTime).format('YYYYMMDD') ===
+                                                            days.format('YYYYMMDD')
+                                                    ).length -
+                                                        1 ? (
+                                                        <CalendarEmoji post={post} key={index} />
+                                                    ) : null
                                                 )}
                                         </EmojiBox>
                                     </DatesContainer>
@@ -142,6 +145,10 @@ const MyPage = () => {
     };
     return (
         <Container>
+            {/*{console.log(*/}
+            {/*    '11',*/}
+            {/*    posts.filter((el: any) => moment(el.dateTime).format('20210820') === moment().format('20210820')).length*/}
+            {/*)}*/}
             <View style={{ marginBottom: 12, flexDirection: 'row' }}>
                 <SelectText>
                     {selectDate.getUTCFullYear() + '월 ' + parseInt(String(selectDate.getMonth() + 1)) + '월'}
