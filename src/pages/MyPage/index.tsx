@@ -23,6 +23,7 @@ const MyPage = () => {
     const user = authState?.user;
     useEffect(() => {
         fetchUserPosts();
+        console.log('1');
     }, [selectDate, navigation]);
     const fetchUserPosts = () => {
         let params = {
