@@ -116,10 +116,9 @@ const UploadWeatherEstimate: React.FC<UploadWeatherEstimateProps> = ({ route }) 
     };
 
     const measurePatch = (data: measureItemType, measureId: number) => {
-        console.log('measurePatch data: ', data);
-        console.log('measureId: ', measureId);
+        var { date, ...UpdateData } = data;
 
-        api.patch(`measure/${measureId}`, data)
+        api.patch(`measure/${measureId}`, UpdateData)
             .then((res) => {
                 if (res.status !== 200) {
                     console.log('평가 수정 완료');
