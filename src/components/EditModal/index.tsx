@@ -11,14 +11,16 @@ type UserProps = {
     isOpenAddModal: boolean;
     setIsOpenAddModal: any;
     measureId: number;
+    setModalVisible: any;
 };
-const EditModal: React.FC<UserProps> = ({ isOpenAddModal, setIsOpenAddModal, measureId }) => {
+const EditModal: React.FC<UserProps> = ({ isOpenAddModal, setIsOpenAddModal, measureId, setModalVisible }) => {
     const authState = useAuthState();
     let screen = Dimensions.get('window');
     const show = useRef();
     const navigation = useNavigation();
     const onEditHandler = () => {
         // 수정 버튼 눌렀을 때
+        setModalVisible(false);
         console.log('수정버튼 clicked!');
         console.log('measureId', measureId);
         setIsOpenAddModal(false);

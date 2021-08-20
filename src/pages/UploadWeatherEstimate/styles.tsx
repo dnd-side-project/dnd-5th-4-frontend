@@ -30,11 +30,26 @@ export const Mood = styled.TouchableWithoutFeedback`
     /* background: #666; */
 `;
 
-export const VeryHot = styled.Image``;
-export const Hot = styled.Image``;
-export const Good = styled.Image``;
-export const Cold = styled.Image``;
-export const VeryCold = styled.Image``;
+export const VeryHot = styled.Image`
+    width: 54px;
+    height: 54px;
+`;
+export const Hot = styled.Image`
+    width: 54px;
+    height: 54px;
+`;
+export const Good = styled.Image`
+    width: 54px;
+    height: 54px;
+`;
+export const Cold = styled.Image`
+    width: 54px;
+    height: 54px;
+`;
+export const VeryCold = styled.Image`
+    width: 54px;
+    height: 54px;
+`;
 
 export const EstimateButton = styled.View`
     background: #fff;

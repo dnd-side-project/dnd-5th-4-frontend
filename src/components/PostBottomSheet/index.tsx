@@ -118,18 +118,20 @@ const BottomSheet: React.FC<UserProps> = ({ modalVisible, setModalVisible, detai
                     isOpenAddModal={isModalOpen}
                     setIsOpenAddModal={setIsModalOpen}
                     measureId={detailPost?.measures[0].measureId}
+                    setModalVisible={setModalVisible}
                 />
                 <EditModal
                     isOpenAddModal={isEditModalOpen}
                     setIsOpenAddModal={setIsEditModalOpen}
                     measureId={detailPost?.measures[0].measureId}
+                    setModalVisible={setModalVisible}
                 />
                 <Animated.View
                     style={{ ...styles.bottomSheetContainer, transform: [{ translateY: translateY }] }}
                     {...panResponders.panHandlers}
                 >
                     <DateText>
-                        {month + 1}월 {date} {Day[days]}
+                        {month + 1}월 {date}일 {Day[days]}
                     </DateText>
                     <View style={{ justifyContent: 'space-between', flexDirection: 'row', marginBottom: 24 }}>
                         <Area>{detailPost?.measures[0].area}</Area>
