@@ -22,8 +22,10 @@ import Characters from '../../components/Character/Characters';
 import TopMainPageEmoji from '../../components/TopMainPageEmoji';
 import api from '../../settings/api';
 import { useAuthState } from '../../context/Auth';
+import { useIsFocused } from '@react-navigation/native';
 
 const Main = () => {
+    const isFocused = useIsFocused();
     const locationState = useLocationState();
     const [lat, setLat] = useState(locationState === undefined ? locationState?.location?.latitude : 37.541);
     const [lon, setLon] = useState(locationState === undefined ? locationState?.location?.longitude : 126.934086);
@@ -54,7 +56,7 @@ const Main = () => {
         if (currentWeather && currentWeather?.weather?.length > 1) {
             setIsLoading(false);
         }
-    }, [lat, lon]);
+    }, [lat, lon, isFocused]);
 
     const airPollutionSearch = (lat: number, lng: number) => {
         let params = {
@@ -215,7 +217,7 @@ const Main = () => {
                             {/*{test(currentWeather)}*/}
                             {/*{test('01d')}*/}
                             {WeatherAnimation(currentWeather)}
-                            {posts.length === 0 ? (
+                            {posts?.length === 0 ? (
                                 <Characters currentWeather={currentWeather?.main?.temp} />
                             ) : (
                                 <TopMainPageEmoji posts={posts} />

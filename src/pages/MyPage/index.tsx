@@ -10,8 +10,9 @@ import calendarEmoji from 'components/calendarEmoji';
 import CalendarEmoji from 'components/calendarEmoji';
 import api from 'settings/api';
 import { Container, CalendarRow, DatesContainer, DateContainer, Days, EmojiBox, SelectText, DateNumber } from './style';
-
+import { useIsFocused } from '@react-navigation/native';
 const MyPage = () => {
+    const isFocused = useIsFocused();
     const navigation = useNavigation();
     const [show, setShow] = useState(false);
     const [selectDate, setSelectDate] = useState(new Date());
@@ -24,7 +25,7 @@ const MyPage = () => {
     useEffect(() => {
         fetchUserPosts();
         console.log('1');
-    }, [selectDate, navigation]);
+    }, [selectDate, navigation, isFocused]);
     const fetchUserPosts = () => {
         let params = {
             userId: user?.id,
